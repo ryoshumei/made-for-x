@@ -3,9 +3,7 @@ import Image from 'next/image'
 import ExportInvoiceForm from "@/components/ExportInvoiceForm";
 
 export default function Home() {
-    const handleSubmit = () => {
-        console.log('handleSubmit');
-    }
+
     return (
         <div className="min-h-screen flex flex-col bg-gray-50">
             {/* Header */}
