@@ -1,20 +1,44 @@
 'use client'
 
-import React, {useState, FormEvent} from 'react';
+import React, { useState, FormEvent } from 'react';
 
 export default function ExportInvoiceForm() {
     const [productName, setProductName] = useState('');
+    const [customsCode, setCustomsCode] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // 这里添加表单提交逻辑
-        console.log('Form submitted with product name:', productName);
-        // TODO: 发送数据到服务器或执行其他操作
+        setLoading(true);
+        setError('');
+        setCustomsCode('');
+
+        try {
+            const response = await fetch('/api/generate-customs-code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ productName }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to generate customs code');
+            }
+
+            const data = await response.json();
+            setCustomsCode(data.customsCode);
+        } catch (err) {
+            setError('An error occurred while generating the customs code');
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <main className="flex-grow container mx-auto py-8">
-
             <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
                 <div className="mb-4">
                     <label htmlFor="productName" className="block text-gray-700 text-sm font-bold mb-2">
@@ -33,9 +57,20 @@ export default function ExportInvoiceForm() {
                 <button
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    disabled={loading}
                 >
-                    Generate Invoice
+                    {loading ? 'Generating...' : 'Generate Invoice Code'}
                 </button>
+                {customsCode && (
+                    <div className="mt-4 p-3 bg-green-100 text-green-700 rounded">
+                        Customs Code: {customsCode}
+                    </div>
+                )}
+                {error && (
+                    <div className="mt-4 p-3 bg-red-100 text-red-700 rounded">
+                        {error}
+                    </div>
+                )}
             </form>
         </main>
     );
