@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 import Papa from 'papaparse';
-import _ from 'lodash';
 import { Transaction, ProfitResult } from './types';
 
 // Add validation functions
