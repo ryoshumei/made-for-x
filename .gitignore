@@ -39,3 +39,4 @@ next-env.d.ts
 .gitconfig
 /.cursor/*
 /.cursor/rules/*
+.cursor/rules/madeforx.mdc
