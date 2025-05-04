@@ -3,7 +3,7 @@ import { Transaction } from './types';
 import { validateFileCount, validateFileNames } from './index';
 
 describe('MercoinCalculator Profit Calculation', () => {
-  // BTC测试用例
+  // BTC test cases
   describe('BTC Calculations', () => {
     it('should calculate BTC profit correctly with JPY transactions', () => {
       const transactions: Transaction[] = [
@@ -89,7 +89,7 @@ describe('MercoinCalculator Profit Calculation', () => {
       expect(result.profit).toBe(100000);
     });
 
-    // 添加实际数据测试
+    // Add real data test cases
     it('should calculate BTC profit correctly with real data', () => {
       const transactions: Transaction[] = [
         {
@@ -135,7 +135,7 @@ describe('MercoinCalculator Profit Calculation', () => {
     });
   });
 
-  // ETH测试用例
+  // ETH test cases
   describe('ETH Calculations', () => {
     it('should calculate ETH profit correctly with real data', () => {
       const transactions: Transaction[] = [
@@ -182,7 +182,7 @@ describe('MercoinCalculator Profit Calculation', () => {
     });
   });
 
-  // 边界情况测试
+  // Edge cases test
   describe('Edge Cases', () => {
     it('should handle empty transaction list', () => {
       const result = calculateProfit([], 'BTC');
