@@ -1,10 +1,6 @@
 'use client';
-import ExportInvoiceForm from '@/components/ExportInvoiceForm';
+import HomePage from '@/components/Home/HomePage';
 
 export default function Home() {
-  return (
-    <div className="flex flex-col bg-gray-50">
-      <ExportInvoiceForm />
-    </div>
-  );
+  return <HomePage />;
 }

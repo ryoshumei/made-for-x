@@ -1,0 +1,59 @@
+import Link from 'next/link';
+import { FaMailBulk, FaTrash } from 'react-icons/fa';
+
+export default function NavigationGrid() {
+  const navItems = [
+    {
+      title: 'Japan Post',
+      icon: <FaMailBulk size={40} className="text-blue-600" />,
+      href: '/japanpost',
+      available: true,
+    },
+    {
+      title: 'Garbage Sorting',
+      icon: <FaTrash size={40} className="text-green-600" />,
+      href: '/garbage_jp',
+      available: true,
+    },
+    // Future navigation items (currently unavailable)
+    ...Array(7).fill({
+      title: 'Coming Soon',
+      icon: null,
+      href: '#',
+      available: false,
+    }),
+  ];
+
+  return (
+    <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto w-full">
+      {navItems.map((item, index) => (
+        <Link
+          key={index}
+          href={item.href}
+          className={`
+            aspect-square flex flex-col items-center justify-center
+            rounded-xl p-6 transition-all duration-300
+            ${
+              item.available
+                ? 'bg-white hover:shadow-xl hover:scale-105 border border-gray-100 cursor-pointer'
+                : 'bg-gray-100 border border-gray-200 cursor-not-allowed'
+            }
+          `}
+        >
+          <div className="mb-4 bg-gray-50 p-4 rounded-full">
+            {item.icon || (
+              <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-400 text-xl">?</span>
+              </div>
+            )}
+          </div>
+          <span
+            className={`text-center font-medium ${item.available ? 'text-gray-800' : 'text-gray-400'}`}
+          >
+            {item.title}
+          </span>
+        </Link>
+      ))}
+    </div>
+  );
+}
