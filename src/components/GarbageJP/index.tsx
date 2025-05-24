@@ -5,7 +5,7 @@ import { Calendar } from 'lucide-react';
 
 const GarbageCollectionForm = () => {
   // State for form handling
-  const [selectedRegion, setSelectedRegion] = useState('');
+  const [zipcode, setZipcode] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [garbageData, setGarbageData] = useState<
@@ -16,16 +16,31 @@ const GarbageCollectionForm = () => {
     }>
   >([]);
 
-  // Mock regions data - will be replaced with actual data
-  const regions = [
-    { id: 'tokyo', name: 'Tokyo' },
-    { id: 'osaka', name: 'Osaka' },
-    { id: 'kyoto', name: 'Kyoto' },
-  ];
+  // Remove hyphen from zipcode if exists
+  const normalizeZipcode = (input: string) => {
+    // Remove any non-digit characters
+    return input.replace(/\D/g, '');
+  };
+
+  // Handle input change with formatting
+  const handleZipcodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setZipcode(input);
+  };
 
   // Handle form submission
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Normalize zipcode to remove hyphen
+    const normalizedZipcode = normalizeZipcode(zipcode);
+
+    // Validate that we have 7 digits
+    if (normalizedZipcode.length !== 7) {
+      setError('正しい郵便番号を入力してください（7桁の数字）');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
@@ -36,7 +51,7 @@ const GarbageCollectionForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ region: selectedRegion }),
+        body: JSON.stringify({ zipcode: normalizedZipcode }),
       });
 
       if (!response.ok) {
@@ -63,32 +78,32 @@ const GarbageCollectionForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="bg-gray-50 py-8">
       <div className="max-w-2xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-          Japan Garbage Collection Calendar
-        </h1>
+        {/* Notice */}
+        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 rounded">
+          <p className="font-medium">注意：現在は船橋市のみ対応しています</p>
+          <p className="text-sm">We currently only support Funabashi City area</p>
+        </div>
 
         {/* Search Form */}
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md mb-6">
           <div className="mb-4">
-            <label htmlFor="region" className="block text-gray-700 text-sm font-bold mb-2">
-              Select Region:
+            <label htmlFor="zipcode" className="block text-gray-700 text-sm font-bold mb-2">
+              郵便番号を入力:
             </label>
-            <select
-              id="region"
-              value={selectedRegion}
-              onChange={(e) => setSelectedRegion(e.target.value)}
-              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <input
+              id="zipcode"
+              type="text"
+              value={zipcode}
+              onChange={handleZipcodeChange}
+              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+              placeholder="例: 273-0001 または 2730001"
+              pattern="[0-9]{3}-?[0-9]{4}"
+              title="正しい日本の郵便番号形式で入力してください（例: 273-0001 または 2730001）"
               required
-            >
-              <option value="">Please select a region</option>
-              {regions.map((region) => (
-                <option key={region.id} value={region.id}>
-                  {region.name}
-                </option>
-              ))}
-            </select>
+            />
+            <p className="mt-1 text-xs text-gray-500">船橋市の郵便番号は273から始まります</p>
           </div>
 
           <button
@@ -96,7 +111,7 @@ const GarbageCollectionForm = () => {
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors disabled:bg-blue-300"
             disabled={loading}
           >
-            {loading ? 'Loading...' : 'Check Collection Times'}
+            {loading ? '読み込み中...' : '収集日程を確認'}
           </button>
         </form>
 
@@ -107,7 +122,7 @@ const GarbageCollectionForm = () => {
         {garbageData.length > 0 && (
           <div className="bg-white rounded-lg shadow-md">
             <div className="p-4 border-b">
-              <h2 className="text-xl font-semibold text-gray-800">Collection Schedule</h2>
+              <h2 className="text-xl font-semibold text-gray-800">収集スケジュール</h2>
             </div>
             <div className="divide-y">
               {garbageData.map((item, index) => (
@@ -123,7 +138,7 @@ const GarbageCollectionForm = () => {
                     className="flex items-center space-x-2 text-blue-500 hover:text-blue-600"
                   >
                     <Calendar className="w-5 h-5" />
-                    <span>Add to Calendar</span>
+                    <span>カレンダーに追加</span>
                   </button>
                 </div>
               ))}
