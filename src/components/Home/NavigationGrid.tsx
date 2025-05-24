@@ -4,13 +4,13 @@ import { FaMailBulk, FaTrash } from 'react-icons/fa';
 export default function NavigationGrid() {
   const navItems = [
     {
-      title: 'Japan Post',
+      title: 'Export invoice (Japan Post)',
       icon: <FaMailBulk size={40} className="text-blue-600" />,
       href: '/japanpost',
       available: true,
     },
     {
-      title: 'Garbage Sorting',
+      title: 'Garbage Collection (Funabashi)',
       icon: <FaTrash size={40} className="text-green-600" />,
       href: '/garbage_jp',
       available: true,
