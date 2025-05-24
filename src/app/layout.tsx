@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import Image from 'next/image';
+import DynamicTitle from '../components/DynamicTitle';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -35,7 +36,7 @@ export default function RootLayout({
         <header className="bg-gray-800 text-white p-4">
           <div className="container mx-auto flex items-center">
             <Image src="/logo.svg" alt="Logo" width={50} height={50} />
-            <h1 className="ml-4 text-2xl font-bold">Export invoice generator for Japan Post</h1>
+            <DynamicTitle />
           </div>
         </header>
 
