@@ -10,21 +10,25 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model GarbageArea {
-  id            Int     @id @default(autoincrement())
-  areaName      String  // Area name (e.g., "旭町 2丁目")
-  burnableDays  String  // Burnable garbage collection days (e.g., "月木", "火金")
-  burnableTime  String  // Collection time ("昼" for day, "夜" for night)
-  nonBurnableWeek String // Non-burnable garbage collection week (e.g., "1月", "2火")
-  recyclableDay String  // Recyclable garbage collection day (e.g., "水", "金")
-  valuableDay   String  // Valuable garbage collection day (e.g., "火", "木")
-  addressDetail String? // Address details (optional)
-  zipcode       String  // Postal code
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+model WasteCollectionSchedule {
+  id                    Int     @id @default(autoincrement())
+  areaName              String  // Area name (e.g., "旭町 2丁目")
+  zipcode               String  // Postal code
+  addressDetail         String? // Address detail (optional)
+  burnableDay1          Int     // First burnable garbage day (1=Mon, 2=Tue, ..., 7=Sun)
+  burnableDay2          Int     // Second burnable garbage day (1=Mon, 2=Tue, ..., 7=Sun)
+  burnableTime          String  // Collection time ("昼" for day, "夜" for night)
+  nonBurnableWeekNumber Int?    // Non-burnable garbage week number (1-4), nullable for special cases
+  nonBurnableDayOfWeek  Int?    // Non-burnable garbage day of week (1=Mon, ..., 7=Sun), nullable for special cases
+  recyclableDay         Int     // Recyclable garbage day (1=Mon, 2=Tue, ..., 7=Sun)
+  valuableDay           Int?    // Valuable garbage day (1=Mon, 2=Tue, ..., 7=Sun), nullable
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 
-  // Indexes for query optimization
+  // Indexes for query performance optimization
   @@index([areaName])
   @@index([zipcode])
   @@index([areaName, zipcode])
+  @@index([burnableDay1, burnableDay2])
+  @@index([recyclableDay])
 } 
