@@ -10,17 +10,26 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "parse-data": "tsx scripts/parse-garbage-data.ts",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:seed": "tsx scripts/seed-database.ts",
+    "db:reset": "prisma migrate reset --force"
   },
   "dependencies": {
+    "@prisma/client": "^6.8.2",
+    "cheerio": "^1.0.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.468.0",
     "next": "15.2.4",
     "openai": "^4.67.3",
     "papaparse": "^5.5.1",
+    "prisma": "^6.8.2",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "tsx": "^4.19.4"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
