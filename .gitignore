@@ -41,3 +41,7 @@ next-env.d.ts
 /.cursor/rules/*
 .cursor/rules/madeforx.mdc
 /private/*
+
+# Prisma
+/prisma/dev.db
+/prisma/*.db

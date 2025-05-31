@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model GarbageArea {
+  id            Int     @id @default(autoincrement())
+  areaName      String  // Area name (e.g., "旭町 2丁目")
+  burnableDays  String  // Burnable garbage collection days (e.g., "月木", "火金")
+  burnableTime  String  // Collection time ("昼" for day, "夜" for night)
+  nonBurnableWeek String // Non-burnable garbage collection week (e.g., "1月", "2火")
+  recyclableDay String  // Recyclable garbage collection day (e.g., "水", "金")
+  valuableDay   String  // Valuable garbage collection day (e.g., "火", "木")
+  addressDetail String? // Address details (optional)
+  zipcode       String  // Postal code
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Indexes for query optimization
+  @@index([areaName])
+  @@index([zipcode])
+  @@index([areaName, zipcode])
+} 
