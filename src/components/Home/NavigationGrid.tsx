@@ -5,19 +5,22 @@ export default function NavigationGrid() {
   const navItems = [
     {
       title: 'Export invoice (Japan Post)',
+      subtitle: '日本郵便用の輸出インボイス',
       icon: <FaMailBulk size={40} className="text-blue-600" />,
       href: '/japanpost',
       available: true,
     },
     {
-      title: 'Garbage Collection (Funabashi)',
+      title: 'Waste Collection (Funabashi)',
+      subtitle: '船橋市ごみ収集スケジュール',
       icon: <FaTrash size={40} className="text-green-600" />,
-      href: '/garbage_jp',
+      href: '/waste-collection',
       available: true,
     },
     // Future navigation items (currently unavailable)
     ...Array(7).fill({
       title: 'Coming Soon',
+      subtitle: undefined,
       icon: null,
       href: '#',
       available: false,
@@ -47,11 +50,20 @@ export default function NavigationGrid() {
               </div>
             )}
           </div>
-          <span
-            className={`text-center font-medium ${item.available ? 'text-gray-800' : 'text-gray-400'}`}
-          >
-            {item.title}
-          </span>
+          <div className="text-center">
+            <span
+              className={`font-medium block ${item.available ? 'text-gray-800' : 'text-gray-400'}`}
+            >
+              {item.title}
+            </span>
+            {item.subtitle && (
+              <span
+                className={`text-sm mt-1 block ${item.available ? 'text-gray-600' : 'text-gray-400'}`}
+              >
+                {item.subtitle}
+              </span>
+            )}
+          </div>
         </Link>
       ))}
     </div>
