@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "WasteCollectionSchedule" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" SERIAL NOT NULL,
     "areaName" TEXT NOT NULL,
     "zipcode" TEXT NOT NULL,
     "addressDetail" TEXT,
@@ -11,8 +11,10 @@ CREATE TABLE "WasteCollectionSchedule" (
     "nonBurnableDayOfWeek" INTEGER,
     "recyclableDay" INTEGER NOT NULL,
     "valuableDay" INTEGER,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "WasteCollectionSchedule_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
