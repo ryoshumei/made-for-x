@@ -15,7 +15,9 @@
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
     "db:seed": "tsx scripts/seed-database.ts",
-    "db:reset": "prisma migrate reset --force"
+    "db:reset": "prisma migrate reset --force",
+    "dev:local": "node scripts/switch-to-local.js && prisma generate",
+    "dev:production": "node scripts/switch-to-production.js && prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",
