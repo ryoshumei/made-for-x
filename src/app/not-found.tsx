@@ -27,8 +27,8 @@ export default function NotFound() {
       {/* Error message */}
       <h2 className="text-3xl font-bold text-gray-800 mb-4">Page Not Found</h2>
       <p className="text-gray-600 mb-8 max-w-md">
-        The page you are looking for doesn&apos;t exist or has been removed. 
-        Please check the URL or use the button below to return to the homepage.
+        The page you are looking for doesn&apos;t exist or has been removed. Please check the URL or
+        use the button below to return to the homepage.
       </p>
 
       {/* Back to home button */}

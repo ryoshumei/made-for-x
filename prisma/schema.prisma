@@ -5,23 +5,28 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// for local dev
+// datasource db {
+//   provider = "sqlite"
+//   url      = "file:./dev.db"
+// }
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model WasteCollectionSchedule {
-  id                    Int     @id @default(autoincrement())
-  areaName              String  // Area name (e.g., "旭町 2丁目")
-  zipcode               String  // Postal code
+  id                    Int      @id @default(autoincrement())
+  areaName              String // Area name (e.g., "旭町 2丁目")
+  zipcode               String // Postal code
   addressDetail         String? // Address detail (optional)
-  burnableDay1          Int     // First burnable garbage day (1=Mon, 2=Tue, ..., 7=Sun)
-  burnableDay2          Int     // Second burnable garbage day (1=Mon, 2=Tue, ..., 7=Sun)
-  burnableTime          String  // Collection time ("昼" for day, "夜" for night)
-  nonBurnableWeekNumber Int?    // Non-burnable garbage week number (1-4), nullable for special cases
-  nonBurnableDayOfWeek  Int?    // Non-burnable garbage day of week (1=Mon, ..., 7=Sun), nullable for special cases
-  recyclableDay         Int     // Recyclable garbage day (1=Mon, 2=Tue, ..., 7=Sun)
-  valuableDay           Int?    // Valuable garbage day (1=Mon, 2=Tue, ..., 7=Sun), nullable
+  burnableDay1          Int // First burnable garbage day (1=Mon, 2=Tue, ..., 7=Sun)
+  burnableDay2          Int // Second burnable garbage day (1=Mon, 2=Tue, ..., 7=Sun)
+  burnableTime          String // Collection time ("昼" for day, "夜" for night)
+  nonBurnableWeekNumber Int? // Non-burnable garbage week number (1-4), nullable for special cases
+  nonBurnableDayOfWeek  Int? // Non-burnable garbage day of week (1=Mon, ..., 7=Sun), nullable for special cases
+  recyclableDay         Int // Recyclable garbage day (1=Mon, 2=Tue, ..., 7=Sun)
+  valuableDay           Int? // Valuable garbage day (1=Mon, 2=Tue, ..., 7=Sun), nullable
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 
@@ -31,4 +36,4 @@ model WasteCollectionSchedule {
   @@index([areaName, zipcode])
   @@index([burnableDay1, burnableDay2])
   @@index([recyclableDay])
-} 
+}

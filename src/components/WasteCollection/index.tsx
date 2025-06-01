@@ -60,12 +60,12 @@ const WasteCollectionForm = () => {
     const today = new Date();
     const currentDay = today.getDay();
     const targetDay = dayOfWeek === 7 ? 0 : dayOfWeek; // Convert 7 (Sunday) to 0
-    
+
     let daysUntilTarget = targetDay - currentDay;
     if (daysUntilTarget <= 0) {
       daysUntilTarget += 7; // Get next week's occurrence
     }
-    
+
     const targetDate = new Date(today);
     targetDate.setDate(today.getDate() + daysUntilTarget);
     return targetDate;
@@ -76,30 +76,35 @@ const WasteCollectionForm = () => {
     const today = new Date();
     let year = today.getFullYear();
     let month = today.getMonth();
-    
+
     // Helper function to find the nth occurrence of a day in a given month
-    const findNthOccurrence = (year: number, month: number, weekNum: number, dayNum: number): Date | null => {
+    const findNthOccurrence = (
+      year: number,
+      month: number,
+      weekNum: number,
+      dayNum: number
+    ): Date | null => {
       const targetDay = dayNum === 7 ? 0 : dayNum; // Convert 7 (Sunday) to 0
       const firstDay = new Date(year, month, 1);
       const firstDayOfWeek = firstDay.getDay();
-      
+
       // Find the first occurrence of the target day
       const firstOccurrence = 1 + ((targetDay - firstDayOfWeek + 7) % 7);
-      
+
       // Calculate the nth occurrence
       const targetDate = new Date(year, month, firstOccurrence + (weekNum - 1) * 7);
-      
+
       // Check if this date actually exists in the given month
       if (targetDate.getMonth() !== month) {
         return null; // Date doesn't exist in this month
       }
-      
+
       return targetDate;
     };
-    
+
     // Try current month first
     let targetDate = findNthOccurrence(year, month, weekNumber, dayOfWeek);
-    
+
     // If date doesn't exist in current month or is in the past, try next months
     if (!targetDate || targetDate <= today) {
       let monthsChecked = 0;
@@ -113,12 +118,12 @@ const WasteCollectionForm = () => {
         monthsChecked++;
       } while ((!targetDate || targetDate <= today) && monthsChecked < 12);
     }
-    
+
     // Fallback: if we still don't have a valid date, return next occurrence of the day
     if (!targetDate) {
       return getNextDateForDayOfWeek(dayOfWeek);
     }
-    
+
     return targetDate;
   };
 
@@ -147,11 +152,11 @@ const WasteCollectionForm = () => {
     recurrenceType: 'weekly' | 'monthly' = 'weekly'
   ): string => {
     const baseUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
-    
+
     // Format as all-day event
     const startDateStr = formatDateForCalendar(startDate);
     const endDateStr = formatDateForCalendar(getNextDay(startDate));
-    
+
     const params = new URLSearchParams({
       text: title,
       dates: `${startDateStr}/${endDateStr}`,
@@ -167,7 +172,7 @@ const WasteCollectionForm = () => {
         const weekOfMonth = Math.ceil(dayOfMonth / 7);
         const dayOfWeek = startDate.getDay();
         const dayNames = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
-        
+
         // RRULE for "every nth weekday of the month"
         params.append('recur', `RRULE:FREQ=MONTHLY;BYDAY=${weekOfMonth}${dayNames[dayOfWeek]}`);
       } else {
@@ -224,7 +229,14 @@ const WasteCollectionForm = () => {
     }
 
     const recurrenceType = wasteType === 'nonBurnable' ? 'monthly' : 'weekly';
-    const calendarUrl = generateCalendarUrl(title, startDate, description, location, isRecurring, recurrenceType);
+    const calendarUrl = generateCalendarUrl(
+      title,
+      startDate,
+      description,
+      location,
+      isRecurring,
+      recurrenceType
+    );
     window.open(calendarUrl, '_blank');
   };
 
@@ -345,9 +357,7 @@ const WasteCollectionForm = () => {
               {scheduleData.areas.map((area) => (
                 <div key={area.id} className="p-6">
                   <div className="mb-4">
-                    <h3 className="text-lg font-medium text-gray-900">
-                      {area.areaName}
-                    </h3>
+                    <h3 className="text-lg font-medium text-gray-900">{area.areaName}</h3>
                     {area.addressDetail && (
                       <p className="text-sm text-gray-600">{area.addressDetail}</p>
                     )}
@@ -355,31 +365,37 @@ const WasteCollectionForm = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
                     {/* Burnable Waste */}
-                    <div className={`p-4 rounded-lg border ${getWasteTypeColor('burnable')} flex flex-col h-full`}>
+                    <div
+                      className={`p-4 rounded-lg border ${getWasteTypeColor('burnable')} flex flex-col h-full`}
+                    >
                       <h4 className="font-semibold mb-2">可燃ごみ</h4>
                       <div className="flex items-center space-x-1 mb-1">
                         <Clock className="w-4 h-4" />
                         <span className="text-sm">{area.burnable.days}</span>
                       </div>
-                                              <p className="text-xs mb-3">{area.burnable.time}</p>
-                        <div className="mt-auto">
-                          <button
+                      <p className="text-xs mb-3">{area.burnable.time}</p>
+                      <div className="mt-auto">
+                        <button
                           onClick={() => handleExportToCalendar(area, 'burnable')}
                           className="w-full bg-red-50 hover:bg-red-100 text-red-700 text-xs py-2 px-2 rounded border border-red-200 transition-colors flex items-center justify-center space-x-1"
                         >
                           <Calendar className="w-3 h-3" />
                           <span>Googleカレンダーに追加</span>
                         </button>
-                        </div>
                       </div>
+                    </div>
 
                     {/* Non-burnable Waste */}
                     {area.nonBurnable && (
-                      <div className={`p-4 rounded-lg border ${getWasteTypeColor('nonBurnable')} flex flex-col h-full`}>
+                      <div
+                        className={`p-4 rounded-lg border ${getWasteTypeColor('nonBurnable')} flex flex-col h-full`}
+                      >
                         <h4 className="font-semibold mb-2">不燃ごみ</h4>
                         <div className="flex items-center space-x-1 mb-1">
                           <Clock className="w-4 h-4" />
-                          <span className="text-sm">第{area.nonBurnable.week}週 {area.nonBurnable.day}</span>
+                          <span className="text-sm">
+                            第{area.nonBurnable.week}週 {area.nonBurnable.day}
+                          </span>
                         </div>
                         <div className="flex-grow"></div>
                         <button
@@ -393,7 +409,9 @@ const WasteCollectionForm = () => {
                     )}
 
                     {/* Recyclable Waste */}
-                    <div className={`p-4 rounded-lg border ${getWasteTypeColor('recyclable')} flex flex-col h-full`}>
+                    <div
+                      className={`p-4 rounded-lg border ${getWasteTypeColor('recyclable')} flex flex-col h-full`}
+                    >
                       <h4 className="font-semibold mb-2">資源ごみ</h4>
                       <div className="flex items-center space-x-1 mb-1">
                         <Clock className="w-4 h-4" />
@@ -411,7 +429,9 @@ const WasteCollectionForm = () => {
 
                     {/* Valuable Waste */}
                     {area.valuable && (
-                      <div className={`p-4 rounded-lg border ${getWasteTypeColor('valuable')} flex flex-col h-full`}>
+                      <div
+                        className={`p-4 rounded-lg border ${getWasteTypeColor('valuable')} flex flex-col h-full`}
+                      >
                         <h4 className="font-semibold mb-2">有価物</h4>
                         <div className="flex items-center space-x-1 mb-1">
                           <Clock className="w-4 h-4" />
@@ -438,4 +458,4 @@ const WasteCollectionForm = () => {
   );
 };
 
-export default WasteCollectionForm; 
+export default WasteCollectionForm;
