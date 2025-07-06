@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaMailBulk, FaTrash } from 'react-icons/fa';
+import { FaMailBulk, FaTrash, FaEnvelope } from 'react-icons/fa';
 
 export default function NavigationGrid() {
   const navItems = [
@@ -17,8 +17,15 @@ export default function NavigationGrid() {
       href: '/waste-collection',
       available: true,
     },
+    {
+      title: 'Japanese Email Generator',
+      subtitle: '日本語メール作成 AI',
+      icon: <FaEnvelope size={40} className="text-purple-600" />,
+      href: '/mail-generator',
+      available: true,
+    },
     // Future navigation items (currently unavailable)
-    ...Array(7).fill({
+    ...Array(6).fill({
       title: 'Coming Soon',
       subtitle: undefined,
       icon: null,

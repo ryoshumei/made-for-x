@@ -1,0 +1,61 @@
+import { NextResponse } from 'next/server';
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+// Language mapping function
+function getLangString(val: number): string {
+  switch (val) {
+    case 1:
+      return "日本語";
+    case 2:
+      return "English";
+    case 3:
+      return "简体中文";
+    case 4:
+      return "繁體中文";
+    default:
+      return "日本語";
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const { text, lang } = await request.json();
+    
+    // Validate required fields
+    if (!text) {
+      return NextResponse.json({ error: 'Text is required' }, { status: 400 });
+    }
+
+    const langString = getLangString(lang || 1);
+    
+    // System content based on Django implementation
+    const systemContent = `Add emojis to the following contents. Please use ${langString}.`;
+    
+    const userContent = text;
+
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o-2024-08-06',
+      messages: [
+        {
+          role: 'system',
+          content: systemContent,
+        },
+        {
+          role: 'user',
+          content: userContent,
+        },
+      ],
+    });
+
+    const result = completion.choices[0].message.content;
+
+    return NextResponse.json({ result });
+  } catch (error) {
+    console.error('Error adding emojis:', error);
+    return NextResponse.json({ error: 'Failed to add emojis' }, { status: 500 });
+  }
+} 

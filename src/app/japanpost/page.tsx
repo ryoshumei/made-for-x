@@ -11,7 +11,7 @@ export default function Home() {
       {/* Footer - Updated styles */}
       <footer className="bg-gray-800 text-white p-4 text-center">
         <p className="text-sm">
-          © 2024 madeforx.com All Rights Reserved. Powered by OpenAI GPT-4o
+          © 2025 madeforx.com All Rights Reserved. Powered by OpenAI GPT-4o
         </p>
       </footer>
     </div>
