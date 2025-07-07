@@ -9,32 +9,32 @@ const openai = new OpenAI({
 function getLangString(val: number): string {
   switch (val) {
     case 1:
-      return "日本語";
+      return '日本語';
     case 2:
-      return "English";
+      return 'English';
     case 3:
-      return "简体中文";
+      return '简体中文';
     case 4:
-      return "繁體中文";
+      return '繁體中文';
     default:
-      return "日本語";
+      return '日本語';
   }
 }
 
 export async function POST(request: Request) {
   try {
     const { recipient, signature, text, lang } = await request.json();
-    
+
     // Validate required fields
     if (!text) {
       return NextResponse.json({ error: 'Text is required' }, { status: 400 });
     }
 
     const langString = getLangString(lang || 1);
-    
+
     // System content based on Django implementation
     const systemContent = `Please create the body of the ${langString} business email based on the following details. Use professional and appropriate business email format. Include proper greetings and closing statements suitable for business correspondence.`;
-    
+
     const userContent = `宛名: ${recipient || ''}\n署名: ${signature || ''}\n要件: ${text}`;
 
     const completion = await openai.chat.completions.create({
@@ -58,4 +58,4 @@ export async function POST(request: Request) {
     console.error('Error generating email:', error);
     return NextResponse.json({ error: 'Failed to generate email' }, { status: 500 });
   }
-} 
+}

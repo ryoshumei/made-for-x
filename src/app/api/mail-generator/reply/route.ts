@@ -8,15 +8,16 @@ const openai = new OpenAI({
 export async function POST(request: Request) {
   try {
     const { receivedMail, text } = await request.json();
-    
+
     // Validate required fields
     if (!text) {
       return NextResponse.json({ error: 'Reply requirements are required' }, { status: 400 });
     }
 
     // System content based on Django implementation
-    const systemContent = 'メールを受信しました、返信要件に基づいて、メールの返信文を作成してください。メールは日本語で作成してください。';
-    
+    const systemContent =
+      'メールを受信しました、返信要件に基づいて、メールの返信文を作成してください。メールは日本語で作成してください。';
+
     const userContent = `受信したメール: ${receivedMail || ''}\n返信要件: ${text}`;
 
     const completion = await openai.chat.completions.create({
@@ -40,4 +41,4 @@ export async function POST(request: Request) {
     console.error('Error generating reply:', error);
     return NextResponse.json({ error: 'Failed to generate reply' }, { status: 500 });
   }
-} 
+}

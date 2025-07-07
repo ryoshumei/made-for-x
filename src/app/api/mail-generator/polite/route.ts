@@ -9,32 +9,32 @@ const openai = new OpenAI({
 function getLangString(val: number): string {
   switch (val) {
     case 1:
-      return "日本語";
+      return '日本語';
     case 2:
-      return "English";
+      return 'English';
     case 3:
-      return "简体中文";
+      return '简体中文';
     case 4:
-      return "繁體中文";
+      return '繁體中文';
     default:
-      return "日本語";
+      return '日本語';
   }
 }
 
 export async function POST(request: Request) {
   try {
     const { text, lang } = await request.json();
-    
+
     // Validate required fields
     if (!text) {
       return NextResponse.json({ error: 'Text is required' }, { status: 400 });
     }
 
     const langString = getLangString(lang || 1);
-    
+
     // System content based on Django implementation
     const systemContent = `Please make the following content more polite. Please use ${langString}.`;
-    
+
     const userContent = text;
 
     const completion = await openai.chat.completions.create({
@@ -58,4 +58,4 @@ export async function POST(request: Request) {
     console.error('Error making text more polite:', error);
     return NextResponse.json({ error: 'Failed to make text more polite' }, { status: 500 });
   }
-} 
+}

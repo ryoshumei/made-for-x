@@ -10,7 +10,7 @@ interface FormData {
 export default function ReplyForm() {
   const [formData, setFormData] = useState<FormData>({
     receivedMail: '',
-    text: ''
+    text: '',
   });
   const [result, setResult] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +26,7 @@ export default function ReplyForm() {
     if (value.length > maxLength) {
       value = value.substring(0, maxLength);
     }
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   // Generate reply
@@ -78,10 +78,16 @@ export default function ReplyForm() {
     }
   };
 
-    return (
+  return (
     <div className="bg-white rounded-lg shadow-md p-6">
       {/* Input Form */}
-      <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); handleGenerateReply(); }}>
+      <form
+        className="space-y-6"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleGenerateReply();
+        }}
+      >
         {/* Received Mail */}
         <div>
           <label htmlFor="receivedMail" className="block text-sm font-medium text-gray-700 mb-2">
@@ -100,7 +106,13 @@ export default function ReplyForm() {
               <div className="text-red-600 text-sm font-medium">文字数が多すぎます</div>
             )}
             <div className="text-sm text-gray-500 ml-auto">
-              <span className={receivedMailCharCount > maxLength * 0.9 ? 'text-red-600 font-medium' : ''}>{receivedMailCharCount} 文字</span>
+              <span
+                className={
+                  receivedMailCharCount > maxLength * 0.9 ? 'text-red-600 font-medium' : ''
+                }
+              >
+                {receivedMailCharCount} 文字
+              </span>
               <span>/{maxLength} 文字まで</span>
             </div>
           </div>
@@ -124,7 +136,9 @@ export default function ReplyForm() {
               <div className="text-red-600 text-sm font-medium">文字数が多すぎます</div>
             )}
             <div className="text-sm text-gray-500 ml-auto">
-              <span className={textCharCount > maxLength * 0.9 ? 'text-red-600 font-medium' : ''}>{textCharCount} 文字</span>
+              <span className={textCharCount > maxLength * 0.9 ? 'text-red-600 font-medium' : ''}>
+                {textCharCount} 文字
+              </span>
               <span>/{maxLength} 文字まで</span>
             </div>
           </div>
@@ -133,7 +147,7 @@ export default function ReplyForm() {
               プライバシーポリシー
             </a>
           </div>
-           
+
           <button
             type="submit"
             disabled={isLoading}
@@ -156,11 +170,11 @@ export default function ReplyForm() {
                 onClick={handleCopy}
                 disabled={!result || result === 'Processing please wait...'}
                 className={`px-4 py-2 text-sm rounded-lg text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                  copyButtonText === 'Copied!' 
-                    ? 'bg-green-600 hover:bg-green-700' 
+                  copyButtonText === 'Copied!'
+                    ? 'bg-green-600 hover:bg-green-700'
                     : copyButtonText === 'Error'
-                    ? 'bg-red-600 hover:bg-red-700'
-                    : 'bg-gray-600 hover:bg-gray-700'
+                      ? 'bg-red-600 hover:bg-red-700'
+                      : 'bg-gray-600 hover:bg-gray-700'
                 }`}
               >
                 {copyButtonText}
@@ -178,4 +192,4 @@ export default function ReplyForm() {
       )}
     </div>
   );
-} 
+}

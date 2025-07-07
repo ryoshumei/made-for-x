@@ -14,7 +14,7 @@ export default function MailGeneratorForm() {
     recipient: '',
     signature: '',
     text: '',
-    lang: 1
+    lang: 1,
   });
   const [result, setResult] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +29,7 @@ export default function MailGeneratorForm() {
     if (field === 'text' && typeof value === 'string' && value.length > maxLength) {
       value = value.substring(0, maxLength);
     }
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   // Generate email
@@ -144,7 +144,13 @@ export default function MailGeneratorForm() {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       {/* Input Form */}
-      <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); handleGenerate(); }}>
+      <form
+        className="space-y-6"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleGenerate();
+        }}
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Recipient */}
           <div>
@@ -177,7 +183,7 @@ export default function MailGeneratorForm() {
           </div>
         </div>
 
-                {/* Requirements */}
+        {/* Requirements */}
         <div>
           <label htmlFor="requirements" className="block text-sm font-medium text-gray-700 mb-2">
             要件
@@ -195,7 +201,9 @@ export default function MailGeneratorForm() {
               <div className="text-red-600 text-sm font-medium">文字数が多すぎます</div>
             )}
             <div className="text-sm text-gray-500 ml-auto">
-              <span className={charCount > maxLength * 0.9 ? 'text-red-600 font-medium' : ''}>{charCount} 文字</span>
+              <span className={charCount > maxLength * 0.9 ? 'text-red-600 font-medium' : ''}>
+                {charCount} 文字
+              </span>
               <span>/{maxLength} 文字まで</span>
             </div>
           </div>
@@ -204,7 +212,7 @@ export default function MailGeneratorForm() {
               プライバシーポリシー
             </a>
           </div>
-          
+
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-6">
             <button
               type="submit"
@@ -260,11 +268,11 @@ export default function MailGeneratorForm() {
                   onClick={handleCopy}
                   disabled={!result || result === 'Processing please wait...'}
                   className={`px-4 py-2 text-sm rounded-lg text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                    copyButtonText === 'Copied!' 
-                      ? 'bg-green-600 hover:bg-green-700' 
+                    copyButtonText === 'Copied!'
+                      ? 'bg-green-600 hover:bg-green-700'
                       : copyButtonText === 'Error'
-                      ? 'bg-red-600 hover:bg-red-700'
-                      : 'bg-gray-600 hover:bg-gray-700'
+                        ? 'bg-red-600 hover:bg-red-700'
+                        : 'bg-gray-600 hover:bg-gray-700'
                   }`}
                 >
                   {copyButtonText}
@@ -283,4 +291,4 @@ export default function MailGeneratorForm() {
       )}
     </div>
   );
-} 
+}
