@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       customsCode: parsedResponse.customsCode,
-      articleDescription: parsedResponse.articleDescription
+      articleDescription: parsedResponse.articleDescription,
     });
   } catch (error) {
     console.error('Error generating customs code:', error);
