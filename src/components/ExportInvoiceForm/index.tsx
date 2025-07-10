@@ -5,6 +5,7 @@ import React, { useState, FormEvent } from 'react';
 export default function ExportInvoiceForm() {
   const [productName, setProductName] = useState('');
   const [customsCode, setCustomsCode] = useState('');
+  const [articleDescription, setArticleDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -13,6 +14,7 @@ export default function ExportInvoiceForm() {
     setLoading(true);
     setError('');
     setCustomsCode('');
+    setArticleDescription('');
 
     try {
       const response = await fetch('/api/generate-customs-code', {
@@ -29,6 +31,7 @@ export default function ExportInvoiceForm() {
 
       const data = await response.json();
       setCustomsCode(data.customsCode);
+      setArticleDescription(data.articleDescription);
     } catch (err) {
       setError('An error occurred while generating the customs code');
       console.error(err);
@@ -62,8 +65,19 @@ export default function ExportInvoiceForm() {
           {loading ? 'Generating...' : 'Generate Invoice Code'}
         </button>
         {customsCode && (
-          <div className="mt-4 p-3 bg-green-100 text-green-700 rounded">
-            Customs Code: {customsCode}
+          <div className="mt-4 p-4 bg-green-100 text-green-700 rounded-lg border border-green-200">
+            <div className="space-y-2">
+              <div className="flex items-center">
+                <span className="font-semibold text-sm text-green-600 mr-2">Customs Code:</span>
+                <span className="font-mono text-lg font-bold">{customsCode}</span>
+              </div>
+              {articleDescription && (
+                <div className="flex items-start">
+                  <span className="font-semibold text-sm text-green-600 mr-2 mt-0.5">Article:</span>
+                  <span className="text-sm">{articleDescription}</span>
+                </div>
+              )}
+            </div>
           </div>
         )}
         {error && <div className="mt-4 p-3 bg-red-100 text-red-700 rounded">{error}</div>}

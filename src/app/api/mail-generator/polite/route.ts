@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     const userContent = text;
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-2024-08-06',
+      model: 'o4-mini',
       messages: [
         {
           role: 'system',

@@ -20,7 +20,7 @@ export default function ReplyPage() {
 
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">日本語メール返信 AI</h1>
-          <p className="text-gray-600">powered by OpenAI GPT-4o</p>
+          <p className="text-gray-600">powered by OpenAI o4-mini</p>
         </div>
 
         <ReplyForm />
