@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { AI_MODELS } from '@/config/models';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -38,7 +39,7 @@ export async function POST(request: Request) {
     const userContent = `宛名: ${recipient || ''}\n署名: ${signature || ''}\n要件: ${text}`;
 
     const completion = await openai.chat.completions.create({
-      model: 'o4-mini',
+      model: AI_MODELS.MAIL_GENERATOR,
       messages: [
         {
           role: 'system',
