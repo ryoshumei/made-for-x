@@ -3,17 +3,8 @@ import ExportInvoiceForm from '@/components/ExportInvoiceForm';
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      {/* Header */}
-
+    <div className="bg-gray-50">
       <ExportInvoiceForm />
-
-      {/* Footer - Updated styles */}
-      <footer className="bg-gray-800 text-white p-4 text-center">
-        <p className="text-sm">
-          © 2025 madeforx.com All Rights Reserved. Powered by OpenAI o4-mini
-        </p>
-      </footer>
     </div>
   );
 }
