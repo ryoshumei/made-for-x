@@ -4,6 +4,8 @@ import './globals.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import DynamicTitle from '../components/DynamicTitle';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -101,6 +103,10 @@ export default function RootLayout({
             © 2025 madeforx.com All Rights Reserved. Powered by OpenAI o4-mini
           </p>
         </footer>
+
+        {/* Vercel Analytics & Speed Insights */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
