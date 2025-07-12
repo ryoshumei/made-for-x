@@ -4,7 +4,7 @@ import OpenAI from 'openai';
 import { AI_MODELS } from '@/config/models';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY_HS_CODE,
 });
 
 export async function POST(request: Request) {
