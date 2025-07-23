@@ -10,7 +10,11 @@ interface FormData {
   lang: number;
 }
 
-export default function MailGeneratorForm() {
+interface MailGeneratorFormProps {
+  mode?: 'email' | 'chat';
+}
+
+export default function MailGeneratorForm({ mode = 'email' }: MailGeneratorFormProps) {
   const [formData, setFormData] = useState<FormData>({
     recipient: '',
     signature: '',
@@ -22,6 +26,7 @@ export default function MailGeneratorForm() {
   const [showResult, setShowResult] = useState(false);
   const [copyButtonText, setCopyButtonText] = useState('Copy');
   const [progressMessage, setProgressMessage] = useState('AI生成中...');
+  const [includeEmoji, setIncludeEmoji] = useState(false);
 
   const maxLength = 500;
   const charCount = formData.text.length;
@@ -34,7 +39,7 @@ export default function MailGeneratorForm() {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  // Generate email
+  // Generate email or chat
   const handleGenerate = async () => {
     if (!formData.text.trim()) {
       setResult('Please enter a text');
@@ -43,29 +48,35 @@ export default function MailGeneratorForm() {
     }
 
     setIsLoading(true);
-    setProgressMessage('メール生成中...');
+    const messageType = mode === 'chat' ? 'チャット' : 'メール';
+    setProgressMessage(`${messageType}生成中...`);
     setResult('Processing please wait...');
     setShowResult(true);
     setCopyButtonText('Copy');
 
     try {
-      const response = await fetch('/api/mail-generator/generate', {
+      const endpoint =
+        mode === 'chat' ? '/api/mail-generator/chat' : '/api/mail-generator/generate';
+      const requestBody =
+        mode === 'chat' ? { text: formData.text, lang: formData.lang, includeEmoji } : formData;
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(requestBody),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to generate email');
+        throw new Error(`Failed to generate ${messageType}`);
       }
 
       const data = await response.json();
       setResult(data.result);
     } catch (error) {
       console.error('Error:', error);
-      setResult('Error: Failed to generate email');
+      setResult(`Error: Failed to generate ${messageType}`);
     } finally {
       setIsLoading(false);
     }
@@ -159,39 +170,41 @@ export default function MailGeneratorForm() {
             handleGenerate();
           }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Recipient */}
-            <div>
-              <label htmlFor="recipient" className="block text-sm font-medium text-gray-700 mb-2">
-                宛先
-              </label>
-              <input
-                type="text"
-                id="recipient"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
-                placeholder="オプション"
-                value={formData.recipient}
-                onChange={(e) => handleInputChange('recipient', e.target.value)}
-                disabled={isLoading}
-              />
-            </div>
+          {mode === 'email' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Recipient */}
+              <div>
+                <label htmlFor="recipient" className="block text-sm font-medium text-gray-700 mb-2">
+                  宛先
+                </label>
+                <input
+                  type="text"
+                  id="recipient"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
+                  placeholder="オプション"
+                  value={formData.recipient}
+                  onChange={(e) => handleInputChange('recipient', e.target.value)}
+                  disabled={isLoading}
+                />
+              </div>
 
-            {/* Signature */}
-            <div>
-              <label htmlFor="signature" className="block text-sm font-medium text-gray-700 mb-2">
-                署名
-              </label>
-              <input
-                type="text"
-                id="signature"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
-                placeholder="オプション"
-                value={formData.signature}
-                onChange={(e) => handleInputChange('signature', e.target.value)}
-                disabled={isLoading}
-              />
+              {/* Signature */}
+              <div>
+                <label htmlFor="signature" className="block text-sm font-medium text-gray-700 mb-2">
+                  署名
+                </label>
+                <input
+                  type="text"
+                  id="signature"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
+                  placeholder="オプション"
+                  value={formData.signature}
+                  onChange={(e) => handleInputChange('signature', e.target.value)}
+                  disabled={isLoading}
+                />
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Requirements */}
           <div>
@@ -202,7 +215,11 @@ export default function MailGeneratorForm() {
               id="requirements"
               rows={6}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-gray-900 placeholder-gray-500"
-              placeholder="こちらに要件を入力してください"
+              placeholder={
+                mode === 'chat'
+                  ? 'チャットメッセージの要件を入力してください'
+                  : 'こちらに要件を入力してください'
+              }
               value={formData.text}
               onChange={(e) => handleInputChange('text', e.target.value)}
               disabled={isLoading}
@@ -218,9 +235,31 @@ export default function MailGeneratorForm() {
                 <span>/{maxLength} 文字まで</span>
               </div>
             </div>
+
+            {/* Chat mode: Emoji option */}
+            {mode === 'chat' && (
+              <div className="mt-4">
+                <label className="flex items-center space-x-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={includeEmoji}
+                    onChange={(e) => setIncludeEmoji(e.target.checked)}
+                    disabled={isLoading}
+                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <span>絵文字を含める</span>
+                </label>
+              </div>
+            )}
             <div className="flex justify-end mt-2">
-              <a href="/mail-generator/privacy" className="text-blue-600 text-sm hover:underline">
+              <a
+                href="/mail-generator/privacy"
+                className="text-blue-600 text-sm hover:underline relative"
+              >
                 プライバシーポリシー
+                <span className="ml-1 px-1.5 py-0.5 text-xs font-bold text-white bg-yellow-500 rounded-full">
+                  更新
+                </span>
               </a>
             </div>
 
@@ -296,7 +335,8 @@ export default function MailGeneratorForm() {
                 rows={12}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-white text-gray-900"
                 value={result}
-                readOnly
+                onChange={(e) => setResult(e.target.value)}
+                placeholder="生成された結果がここに表示されます。直接編集も可能です。"
               />
             </div>
           </div>

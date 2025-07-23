@@ -1,7 +1,7 @@
-import ReplyForm from '../components/ReplyForm';
+import MailGeneratorForm from '../components/MailGeneratorForm';
 import Link from 'next/link';
 
-export default function ReplyPage() {
+export default function ChatGeneratorPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
@@ -10,15 +10,12 @@ export default function ReplyPage() {
           <Link href="/mail-generator" className="text-gray-600 hover:text-blue-600 pb-2">
             メール作成
           </Link>
-          <Link
-            href="/mail-generator/reply"
-            className="text-blue-600 border-b-2 border-blue-600 pb-2 font-medium"
-          >
+          <Link href="/mail-generator/reply" className="text-gray-600 hover:text-blue-600 pb-2">
             返信作成
           </Link>
           <Link
             href="/mail-generator/chat"
-            className="text-gray-600 hover:text-blue-600 pb-2 relative"
+            className="text-blue-600 border-b-2 border-blue-600 pb-2 font-medium relative"
           >
             チャット作成
             <span className="ml-1 px-1.5 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full">
@@ -28,11 +25,11 @@ export default function ReplyPage() {
         </nav>
 
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">日本語メール返信 AI</h1>
-          <p className="text-gray-600">powered by OpenAI o4-mini</p>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">ビジネスチャット作成 AI</h1>
+          <p className="text-gray-600">powered by OpenAI o4-mini - Slack、Teams向け</p>
         </div>
 
-        <ReplyForm />
+        <MailGeneratorForm mode="chat" />
       </div>
     </div>
   );

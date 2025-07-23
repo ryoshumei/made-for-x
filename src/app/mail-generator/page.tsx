@@ -16,6 +16,15 @@ export default function MailGeneratorPage() {
           <Link href="/mail-generator/reply" className="text-gray-600 hover:text-blue-600 pb-2">
             返信作成
           </Link>
+          <Link
+            href="/mail-generator/chat"
+            className="text-gray-600 hover:text-blue-600 pb-2 relative"
+          >
+            チャット作成
+            <span className="ml-1 px-1.5 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full">
+              NEW
+            </span>
+          </Link>
         </nav>
 
         <div className="text-center mb-8">

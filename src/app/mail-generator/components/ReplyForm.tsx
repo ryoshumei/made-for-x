@@ -149,8 +149,14 @@ export default function ReplyForm() {
               </div>
             </div>
             <div className="flex justify-end mt-2">
-              <a href="/mail-generator/privacy" className="text-blue-600 text-sm hover:underline">
+              <a
+                href="/mail-generator/privacy"
+                className="text-blue-600 text-sm hover:underline relative"
+              >
                 プライバシーポリシー
+                <span className="ml-1 px-1.5 py-0.5 text-xs font-bold text-white bg-yellow-500 rounded-full">
+                  更新
+                </span>
               </a>
             </div>
 
@@ -191,7 +197,8 @@ export default function ReplyForm() {
                 rows={12}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-white text-gray-900"
                 value={result}
-                readOnly
+                onChange={(e) => setResult(e.target.value)}
+                placeholder="生成された返信結果がここに表示されます。直接編集も可能です。"
               />
             </div>
           </div>
