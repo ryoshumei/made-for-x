@@ -1,6 +1,15 @@
 import Link from 'next/link';
+import {
+  shouldShowUpdateNotification,
+  getFormattedUpdateDate,
+  shouldShowNewTag,
+} from '@/utils/feature-notifications';
 
 export default function PrivacyPolicyPage() {
+  const showUpdateNotification = shouldShowUpdateNotification();
+  const formattedUpdateDate = getFormattedUpdateDate();
+  const showNewTag = shouldShowNewTag();
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
@@ -17,39 +26,44 @@ export default function PrivacyPolicyPage() {
             className="text-gray-600 hover:text-blue-600 pb-2 relative"
           >
             チャット作成
-            <span className="ml-1 px-1.5 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full">
-              NEW
-            </span>
+            {showNewTag && (
+              <span className="ml-1 px-1.5 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full">
+                NEW
+              </span>
+            )}
           </Link>
         </nav>
 
         {/* Content */}
         <div className="bg-white rounded-lg shadow-md p-8">
-          {/* Update notification banner */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-            <div className="flex items-start">
-              <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    fillRule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <div className="ml-3">
-                <h3 className="text-sm font-medium text-blue-800">
-                  プライバシーポリシーを更新しました
-                </h3>
-                <div className="mt-1 text-sm text-blue-700">
-                  <p>
-                    新機能「ビジネスチャット作成
-                    AI」の追加に伴い、プライバシーポリシーを更新いたしました。（2025年07月23日）
-                  </p>
+          {/* Update notification banner - only show within 60 days */}
+          {showUpdateNotification && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fillRule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <h3 className="text-sm font-medium text-blue-800">
+                    プライバシーポリシーを更新しました
+                  </h3>
+                  <div className="mt-1 text-sm text-blue-700">
+                    <p>
+                      新機能「ビジネスチャット作成
+                      AI」の追加に伴い、プライバシーポリシーを更新いたしました。（
+                      {formattedUpdateDate}）
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-800 mb-2">プライバシーポリシー</h1>
@@ -134,7 +148,7 @@ export default function PrivacyPolicyPage() {
                 >
                   ← メール作成に戻る
                 </Link>
-                <div className="text-sm text-gray-500">最終更新日: 2025年07月23日</div>
+                <div className="text-sm text-gray-500">最終更新日: {formattedUpdateDate}</div>
               </div>
             </div>
           </div>

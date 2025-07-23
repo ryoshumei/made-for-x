@@ -1,7 +1,10 @@
 import MailGeneratorForm from '../components/MailGeneratorForm';
 import Link from 'next/link';
+import { shouldShowNewTag } from '@/utils/feature-notifications';
 
 export default function ChatGeneratorPage() {
+  const showNewTag = shouldShowNewTag();
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
@@ -18,9 +21,11 @@ export default function ChatGeneratorPage() {
             className="text-blue-600 border-b-2 border-blue-600 pb-2 font-medium relative"
           >
             チャット作成
-            <span className="ml-1 px-1.5 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full">
-              NEW
-            </span>
+            {showNewTag && (
+              <span className="ml-1 px-1.5 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full">
+                NEW
+              </span>
+            )}
           </Link>
         </nav>
 

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import ProgressBar from '@/components/ProgressBar';
+import { shouldShowUpdateNotification } from '@/utils/feature-notifications';
 
 interface FormData {
   recipient: string;
@@ -257,9 +258,11 @@ export default function MailGeneratorForm({ mode = 'email' }: MailGeneratorFormP
                 className="text-blue-600 text-sm hover:underline relative"
               >
                 プライバシーポリシー
-                <span className="ml-1 px-1.5 py-0.5 text-xs font-bold text-white bg-yellow-500 rounded-full">
-                  更新
-                </span>
+                {shouldShowUpdateNotification() && (
+                  <span className="ml-1 px-1.5 py-0.5 text-xs font-bold text-white bg-yellow-500 rounded-full">
+                    更新
+                  </span>
+                )}
               </a>
             </div>
 
