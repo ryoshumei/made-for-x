@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaMailBulk, FaTrash, FaEnvelope } from 'react-icons/fa';
+import { FaMailBulk, FaTrash, FaEnvelope, FaCalculator } from 'react-icons/fa';
 
 export default function NavigationGrid() {
   const navItems = [
@@ -24,8 +24,15 @@ export default function NavigationGrid() {
       href: '/mail-generator',
       available: true,
     },
+    {
+      title: 'Mercari Shipping Calculator',
+      subtitle: 'メルカリ配送料金計算器',
+      icon: <FaCalculator size={40} className="text-orange-600" />,
+      href: '/shipping-calculator',
+      available: true,
+    },
     // Future navigation items (currently unavailable)
-    ...Array(6).fill({
+    ...Array(5).fill({
       title: 'Coming Soon',
       subtitle: undefined,
       icon: null,
