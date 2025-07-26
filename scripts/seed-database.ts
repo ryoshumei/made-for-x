@@ -20,6 +20,13 @@ interface WasteCollectionData {
 async function main() {
   console.log('🌱 Starting database seeding...');
 
+  // Check if waste collection data already exists
+  const existingSchedules = await prisma.wasteCollectionSchedule.count();
+  if (existingSchedules > 0) {
+    console.log('✅ Waste collection data already exists, skipping seeding...');
+    return;
+  }
+
   // Read the calendar-ready data file
   const dataPath = path.join(process.cwd(), 'private', 'calendar-ready-garbage-data.json');
 

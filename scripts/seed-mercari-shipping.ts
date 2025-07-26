@@ -5,7 +5,14 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🚛 Starting Mercari shipping data seeding...');
 
-  // Clear existing Mercari shipping data
+  // Check if data already exists
+  const existingCategories = await prisma.mercariServiceCategory.count();
+  if (existingCategories > 0) {
+    console.log('✅ Mercari shipping data already exists, skipping seeding...');
+    return;
+  }
+
+  // Clear existing Mercari shipping data (just in case)
   console.log('🧹 Clearing existing Mercari shipping data...');
   await prisma.sizeTier.deleteMany();
   await prisma.shippingOption.deleteMany();
