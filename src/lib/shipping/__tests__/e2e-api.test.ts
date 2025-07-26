@@ -31,7 +31,7 @@ describe('End-to-End API Tests', () => {
       // If we have seed data, should have results
       if (data.totalAvailable > 0) {
         expect(data.groups.length).toBeGreaterThan(0);
-        
+
         // Verify group structure
         data.groups.forEach((group: any) => {
           expect(['らくらくメルカリ便', 'ゆうゆうメルカリ便']).toContain(group.categoryName);
@@ -51,24 +51,24 @@ describe('End-to-End API Tests', () => {
       }
     });
 
-         test('should find specific shipping options for known sizes', async () => {
-       // Test ネコポス dimensions (should work if seed data exists)
-       const nekoposRequest = createRequest({
-         length: 25,
-         width: 20,
-         height: 2,
-       });
+    test('should find specific shipping options for known sizes', async () => {
+      // Test ネコポス dimensions (should work if seed data exists)
+      const nekoposRequest = createRequest({
+        length: 25,
+        width: 20,
+        height: 2,
+      });
 
-       const response = await POST(nekoposRequest);
-       const data = await response.json();
+      const response = await POST(nekoposRequest);
+      const data = await response.json();
 
       expect(response.status).toBe(200);
-      
+
       if (data.totalAvailable > 0) {
         // Should have options from both categories
         const categoryNames = data.groups.map((g: any) => g.categoryName);
         expect(categoryNames.length).toBeGreaterThan(0);
-        
+
         // Check for price sorting within groups
         data.groups.forEach((group: any) => {
           for (let i = 0; i < group.options.length - 1; i++) {
@@ -94,7 +94,7 @@ describe('End-to-End API Tests', () => {
 
       if (data.totalAvailable > 0 && data.weightWarnings) {
         expect(Array.isArray(data.weightWarnings)).toBe(true);
-        
+
         // Each warning should contain option name and weight limit
         data.weightWarnings.forEach((warning: string) => {
           expect(warning).toContain('最大重量');
@@ -107,7 +107,7 @@ describe('End-to-End API Tests', () => {
   describe('Input Validation with Real API', () => {
     test('should reject invalid input types', async () => {
       const request = createRequest({
-        length: '10',  // string instead of number
+        length: '10', // string instead of number
         width: 10,
         height: 10,
       });
@@ -232,7 +232,7 @@ describe('End-to-End API Tests', () => {
       const endTime = Date.now();
 
       expect(response.status).toBe(200);
-      
+
       // Should respond within 2 seconds
       expect(endTime - startTime).toBeLessThan(2000);
     });
@@ -247,13 +247,11 @@ describe('End-to-End API Tests', () => {
       );
 
       const startTime = Date.now();
-      const responses = await Promise.all(
-        requests.map(request => POST(request))
-      );
+      const responses = await Promise.all(requests.map((request) => POST(request)));
       const endTime = Date.now();
 
       // All should succeed
-      responses.forEach(response => {
+      responses.forEach((response) => {
         expect(response.status).toBe(200);
       });
 
@@ -275,13 +273,11 @@ describe('End-to-End API Tests', () => {
         POST(createRequest(sameRequest)),
       ]);
 
-      const results = await Promise.all(
-        responses.map(response => response.json())
-      );
+      const results = await Promise.all(responses.map((response) => response.json()));
 
       // All should have identical results
       const firstResult = JSON.stringify(results[0]);
-      results.forEach(result => {
+      results.forEach((result) => {
         expect(JSON.stringify(result)).toBe(firstResult);
       });
     });
@@ -347,4 +343,4 @@ describe('End-to-End API Tests', () => {
       }
     });
   });
-}); 
+});

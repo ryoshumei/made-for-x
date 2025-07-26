@@ -208,7 +208,6 @@ export async function calculateShippingOptions(input: CalculationInput): Promise
   const { dimensions, prisma } = input;
 
   try {
-    // Get both fixed and tiered options in parallel
     const [fixedOptions, tieredOptions] = await Promise.all([
       getFixedPriceOptions(dimensions, prisma),
       getTieredPriceOptions(dimensions, prisma),
