@@ -2,10 +2,12 @@
 
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 console.log('🔄 Switching to local development environment...');
 
 // Update prisma schema for SQLite
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const schemaPath = path.join(__dirname, '../prisma/schema.prisma');
 let schema = fs.readFileSync(schemaPath, 'utf8');
 

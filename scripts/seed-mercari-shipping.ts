@@ -166,19 +166,37 @@ async function main() {
       sortOrder: 1,
     },
 
-    // らくらくメルカリ便 - 宅急便コンパクト
+    // らくらくメルカリ便 - 宅急便コンパクト (薄型BOX)
     {
       serviceId: takkyubinCompact.id,
-      optionName: '宅急便コンパクト',
-      optionNameEn: 'Takkyubin Compact',
+      optionName: '宅急便コンパクト (薄型BOX)',
+      optionNameEn: 'Takkyubin Compact (Thin Box)',
+      totalPrice: 520,
+      basePrice: 450,
+      packagingPrice: 70,
+      packagingName: '専用薄型BOX',
+      packagingDetails: '専用薄型BOX必要（24×33.2cm）。郵便局、コンビニで購入可能',
+      requiresSpecialPackaging: true,
+      maxLengthCm: new Prisma.Decimal(24.0),
+      maxWidthCm: new Prisma.Decimal(33.2),
+      sortOrder: 2,
+    },
+
+    // らくらくメルカリ便 - 宅急便コンパクト (BOX)
+    {
+      serviceId: takkyubinCompact.id,
+      optionName: '宅急便コンパクト (BOX)',
+      optionNameEn: 'Takkyubin Compact (Box)',
       totalPrice: 520,
       basePrice: 450,
       packagingPrice: 70,
       packagingName: '専用BOX',
-      packagingDetails:
-        '専用BOX必要（薄型BOX: 24.8×34cm、BOX: 20×25×5cm）。郵便局、コンビニで購入可能',
+      packagingDetails: '専用BOX必要（19.3×24.7×4.7cm）。郵便局、コンビニで購入可能',
       requiresSpecialPackaging: true,
-      sortOrder: 2,
+      maxLengthCm: new Prisma.Decimal(19.3),
+      maxWidthCm: new Prisma.Decimal(24.7),
+      maxHeightCm: new Prisma.Decimal(4.7),
+      sortOrder: 3,
     },
 
     // ゆうゆうメルカリ便 - ゆうパケット
@@ -195,7 +213,7 @@ async function main() {
       maxSizeCm: 60,
       maxLengthCm: new Prisma.Decimal(34.0),
       maxThicknessCm: new Prisma.Decimal(3.0),
-      sortOrder: 3,
+      sortOrder: 4,
     },
 
     // ゆうゆうメルカリ便 - ゆうパケットポストmini
@@ -210,9 +228,9 @@ async function main() {
       packagingDetails: '専用封筒必要。郵便局、ローソンで購入可能',
       requiresSpecialPackaging: true,
       maxWeightKg: new Prisma.Decimal(2.0),
-      maxLengthCm: new Prisma.Decimal(21.6),
-      maxWidthCm: new Prisma.Decimal(17.8),
-      sortOrder: 4,
+      maxLengthCm: new Prisma.Decimal(21.1),
+      maxWidthCm: new Prisma.Decimal(16.8),
+      sortOrder: 5,
     },
 
     // ゆうゆうメルカリ便 - ゆうパケットポスト (専用箱)
@@ -231,7 +249,7 @@ async function main() {
       maxLengthCm: new Prisma.Decimal(32.7),
       maxWidthCm: new Prisma.Decimal(22.8),
       maxThicknessCm: new Prisma.Decimal(3.0),
-      sortOrder: 5,
+      sortOrder: 6,
     },
 
     // ゆうゆうメルカリ便 - ゆうパケットポスト (発送用シール)
@@ -239,9 +257,9 @@ async function main() {
       serviceId: yuPacketPost.id,
       optionName: 'ゆうパケットポスト (発送用シール)',
       optionNameEn: 'Yu Packet Post (Sticker)',
-      totalPrice: 235,
+      totalPrice: 220,
       basePrice: 215,
-      packagingPrice: 20,
+      packagingPrice: 5,
       packagingName: '発送用シール',
       packagingDetails:
         '発送用シール必要（20枚入り100円）。郵便局、ローソン、イトーヨーカドー、ダイソーで購入可能',
@@ -252,7 +270,7 @@ async function main() {
       maxThicknessCm: new Prisma.Decimal(3.0),
       minLengthCm: new Prisma.Decimal(14.0),
       minWidthCm: new Prisma.Decimal(9.0),
-      sortOrder: 6,
+      sortOrder: 7,
     },
 
     // ゆうゆうメルカリ便 - ゆうパケットプラス
@@ -267,10 +285,10 @@ async function main() {
       packagingDetails: '専用箱必要（24×17×7cm）。郵便局で購入可能',
       requiresSpecialPackaging: true,
       maxWeightKg: new Prisma.Decimal(2.0),
-      maxLengthCm: new Prisma.Decimal(24.0),
-      maxWidthCm: new Prisma.Decimal(17.0),
-      maxHeightCm: new Prisma.Decimal(7.0),
-      sortOrder: 7,
+      maxLengthCm: new Prisma.Decimal(23.2),
+      maxWidthCm: new Prisma.Decimal(16.2),
+      maxHeightCm: new Prisma.Decimal(6.5),
+      sortOrder: 8,
     },
   ];
 

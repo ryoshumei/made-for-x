@@ -33,3 +33,103 @@ model WasteCollectionSchedule {
   @@index([burnableDay1, burnableDay2])
   @@index([recyclableDay])
 }
+
+// Mercari配送料金データモデル
+model MercariServiceCategory {
+  id                Int               @id @default(autoincrement())
+  categoryName      String            @unique // 'らくらくメルカリ便', 'ゆうゆうメルカリ便'
+  categoryNameEn    String?           // 'Rakuraku Mercari Bin', 'Yuyu Mercari Bin'
+  underlyingCarrier String?           // 'ヤマト運輸', '日本郵政' (for reference)
+  status            String            @default("active") // 'active', 'inactive'
+  description       String?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  
+  // Relations
+  shippingServices  ShippingService[]
+
+  @@index([categoryName])
+  @@map("mercari_service_categories")
+}
+
+model ShippingService {
+  id                    Int                     @id @default(autoincrement())
+  mercariCategoryId     Int
+  serviceName           String                  // 'ネコポス', 'ゆうパケット', 'ゆうパケットポスト'
+  serviceNameEn         String?                 // 'Neko Pos', 'Yu Packet', 'Yu Packet Post'
+  sizeCategory          String?                 // 'small', 'medium', 'large'
+  deliveryInfo          String?                 // 配送時間情報: '翌日配達', '標準配送' 等
+  status                String                  @default("active") // 'active', 'inactive'
+  description           String?
+  referenceUrl          String?                 // Mercari官方説明ページ
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+
+  // Relations
+  mercariCategory       MercariServiceCategory  @relation(fields: [mercariCategoryId], references: [id], onDelete: Cascade)
+  shippingOptions       ShippingOption[]
+  sizeTiers             SizeTier[]
+
+  @@index([mercariCategoryId])
+  @@index([serviceName])
+  @@map("shipping_services")
+}
+
+model ShippingOption {
+  id                        Int              @id @default(autoincrement())
+  serviceId                 Int
+  optionName                String           // 'ゆうパケットポスト (専用箱)', 'ゆうパケットポスト (発送用シール)'
+  optionNameEn              String?
+  totalPrice                Int              // 総価格(円): 280, 235
+  basePrice                 Int?             // 基礎価格: 215
+  packagingPrice            Int?             // 包装価格: 65, 20
+  packagingName             String?          // '専用箱', '発送用シール'
+  packagingDetails          String?          // 包装説明、購入地点等
+  requiresSpecialPackaging  Boolean          @default(false)
+  maxWeightKg               Decimal?         @db.Decimal(5,2) // 重量制限
+  maxSizeCm                 Int?             // 3辺合計制限
+  maxLengthCm               Decimal?         @db.Decimal(5,1) // 長さ制限
+  maxWidthCm                Decimal?         @db.Decimal(5,1) // 幅制限
+  maxHeightCm               Decimal?         @db.Decimal(5,1) // 高さ制限
+  maxThicknessCm            Decimal?         @db.Decimal(3,1) // 厚さ制限
+  minLengthCm               Decimal?         @db.Decimal(5,1) // 最小長さ
+  minWidthCm                Decimal?         @db.Decimal(5,1) // 最小幅
+  pickupRestrictions        Json?            // 取貨制限 {"170_size_plus": ["yamato_office", "pickup"]}
+  status                    String           @default("active") // 'active', 'inactive'
+  sortOrder                 Int              @default(0) // フロントエンド表示順序
+  createdAt                 DateTime         @default(now())
+  updatedAt                 DateTime         @updatedAt
+
+  // Relations
+  service                   ShippingService  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@unique([serviceId, optionName])
+  @@index([serviceId])
+  @@index([totalPrice])
+  @@index([maxLengthCm, maxWidthCm, maxHeightCm, maxThicknessCm])
+  @@index([maxSizeCm])
+  @@index([maxWeightKg])
+  @@index([sortOrder])
+  @@map("shipping_options")
+}
+
+model SizeTier {
+  id              Int              @id @default(autoincrement())
+  serviceId       Int
+  tierName        String           // '60サイズ', '80サイズ', '100サイズ'
+  price           Int              // 該当分級価格(円)
+  maxWeightKg     Decimal?         @db.Decimal(5,2) // 最大重量(kg)
+  maxSizeCm       Int?             // 3辺合計最大サイズ(cm)
+  effectiveFrom   DateTime         @default(now()) @db.Date
+  effectiveUntil  DateTime?        @db.Date
+  createdAt       DateTime         @default(now())
+
+  // Relations
+  service         ShippingService  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@unique([serviceId, tierName, effectiveFrom])
+  @@index([serviceId])
+  @@index([maxSizeCm, maxWeightKg])
+  @@index([price])
+  @@map("size_tiers")
+}
