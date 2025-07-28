@@ -94,7 +94,9 @@ export default function ShippingCalculator() {
             <div>
               <h3 className="font-medium text-gray-800 mb-2">Q. 寸法の測り方を教えてください</h3>
               <p className="text-gray-600 text-sm">
-                商品を梱包した状態での外寸を測定してください。長さ、幅、高さはどの順番で入力しても自動的に判定されます。
+                <strong>通常の配送方法：</strong>商品を梱包した状態での外寸を測定してください。<br />
+                <strong>専用BOX・封筒が必要な配送方法：</strong>商品の実寸（内寸基準）で判定されます。宅急便コンパクト、ゆうパケットプラス、ゆうパケットポストmini等の専用包装が必要な配送方法では、専用包装の内寸に収まるかで配送可否が決まります。<br />
+                長さ、幅、高さはどの順番で入力しても自動的に判定されます。
               </p>
             </div>
             <div>
