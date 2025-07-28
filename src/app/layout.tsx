@@ -109,7 +109,7 @@ export default function RootLayout({
 
         {/* Google Analytics */}
         <GoogleAnalytics />
-        
+
         {/* Vercel Analytics & Speed Insights */}
         <Analytics />
         <SpeedInsights />
