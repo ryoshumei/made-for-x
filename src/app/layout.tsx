@@ -4,6 +4,7 @@ import './globals.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import DynamicTitle from '../components/DynamicTitle';
+import GoogleAnalytics from '../components/GoogleAnalytics';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -106,6 +107,9 @@ export default function RootLayout({
           </p>
         </footer>
 
+        {/* Google Analytics */}
+        <GoogleAnalytics />
+        
         {/* Vercel Analytics & Speed Insights */}
         <Analytics />
         <SpeedInsights />
