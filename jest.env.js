@@ -24,10 +24,9 @@ envFiles.forEach((envFile) => {
 
 // Ensure DATABASE_URL is set for tests
 if (!process.env.DATABASE_URL) {
-  // Fallback to production database for tests (could be risky in real scenarios)
-  process.env.DATABASE_URL =
-    'postgresql://neondb_owner:npg_vj2h1ASQgtWr@ep-rapid-paper-a469wf0k-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
-  console.log('⚠️  Using fallback DATABASE_URL for tests');
+  console.error('❌ DATABASE_URL environment variable is required for tests');
+  console.error('   Please set DATABASE_URL in your .env.test or .env.test.local file');
+  process.exit(1);
 }
 
 // Set test-specific defaults
