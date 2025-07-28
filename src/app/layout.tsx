@@ -90,7 +90,9 @@ export default function RootLayout({
                 className="cursor-pointer"
               />
             </Link>
-            <DynamicTitle />
+            <Link href="/" className="hover:opacity-80 transition-opacity duration-200">
+              <DynamicTitle />
+            </Link>
           </div>
         </header>
 
