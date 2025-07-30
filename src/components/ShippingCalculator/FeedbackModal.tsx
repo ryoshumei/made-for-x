@@ -226,7 +226,7 @@ export default function FeedbackModal({
                   rows={4}
                   value={customFeedback}
                   onChange={(e) => setCustomFeedback(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-gray-900"
                   placeholder="具体的な問題や改善要望がございましたらお聞かせください..."
                   disabled={isSubmitting}
                 />
