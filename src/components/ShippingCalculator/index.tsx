@@ -5,6 +5,7 @@ import { Calculator, RotateCcw } from 'lucide-react';
 import { useShippingCalculator } from './hooks/useShippingCalculator';
 import DimensionInput from './DimensionInput';
 import ShippingResults from './ShippingResults';
+import FeedbackButton from './FeedbackButton';
 
 export default function ShippingCalculator() {
   const { dimensions, result, loading, error, validationErrors, updateDimensions, reset } =
@@ -125,6 +126,9 @@ export default function ShippingCalculator() {
             </div>
           </div>
         </div>
+
+        {/* Feedback Button */}
+        <FeedbackButton userDimensions={dimensions} calculationResult={result} />
       </div>
     </div>
   );
