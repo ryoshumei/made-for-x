@@ -133,3 +133,17 @@ model SizeTier {
   @@index([price])
   @@map("size_tiers")
 }
+
+// User feedback model - used to collect feedback for the shipping calculator
+model ShippingFeedback {
+  id                Int      @id @default(autoincrement())
+  userDimensions    Json     // User input dimensions data {length: number, width: number, height: number}
+  calculationResult Json?    // Calculation result data (optional, if available)
+  feedbackTypes     Json     // Feedback type selection {pricing: boolean, shippingInfo: boolean, sizeCalculation: boolean, newService: boolean, other: boolean}
+  customFeedback    String?  // User custom feedback content
+  userAgent         String?  // User browser information
+  createdAt         DateTime @default(now())
+  
+  @@index([createdAt])
+  @@map("shipping_feedback")
+}
