@@ -2,6 +2,35 @@ import ReplyForm from '../components/ReplyForm';
 import Link from 'next/link';
 import { shouldShowNewTag } from '@/utils/feature-notifications';
 
+export const metadata = {
+  title: 'AI返信メール作成 - 自動返信文章生成ツール | Made for X',
+  description:
+    '受信したメールに対する返信を自動生成。元のメール内容を分析し、適切な返信文章をAIが作成します。ビジネスメールの返信作業を効率化します。',
+  keywords: [
+    '返信メール',
+    'メール返信',
+    '自動返信',
+    'AI返信',
+    'ビジネス返信',
+    'メール自動化',
+    '返信文章',
+    '返信作成',
+  ],
+  openGraph: {
+    title: 'AI返信メール作成 - 自動返信文章生成ツール',
+    description:
+      '受信したメールに対する返信を自動生成。元のメール内容を分析し、適切な返信文章をAIが作成します。',
+    type: 'website',
+    url: 'https://madeforx.com/mail-generator/reply',
+  },
+  twitter: {
+    title: 'AI返信メール作成 - 自動返信文章生成ツール',
+    description:
+      '受信したメールに対する返信を自動生成。元のメール内容を分析し、適切な返信文章をAIが作成します。',
+    card: 'summary_large_image',
+  },
+};
+
 export default function ReplyPage() {
   const showNewTag = shouldShowNewTag();
 

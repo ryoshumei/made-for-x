@@ -2,6 +2,36 @@ import MailGeneratorForm from './components/MailGeneratorForm';
 import Link from 'next/link';
 import { shouldShowNewTag } from '@/utils/feature-notifications';
 
+export const metadata = {
+  title: 'AI メール作成ツール - ビジネスメール自動生成 | Made for X',
+  description:
+    'AIが自動でビジネスメールを作成します。件名、内容、相手の情報を入力するだけで、丁寧で適切な日本語メールが完成。効率的なビジネスコミュニケーションをサポートします。',
+  keywords: [
+    'AI',
+    'メール作成',
+    'ビジネスメール',
+    '自動生成',
+    '日本語メール',
+    'OpenAI',
+    'GPT',
+    'メール自動化',
+    'ビジネスツール',
+  ],
+  openGraph: {
+    title: 'AI メール作成ツール - ビジネスメール自動生成',
+    description:
+      'AIが自動でビジネスメールを作成します。件名、内容、相手の情報を入力するだけで、丁寧で適切な日本語メールが完成。',
+    type: 'website',
+    url: 'https://madeforx.com/mail-generator',
+  },
+  twitter: {
+    title: 'AI メール作成ツール - ビジネスメール自動生成',
+    description:
+      'AIが自動でビジネスメールを作成します。件名、内容、相手の情報を入力するだけで、丁寧で適切な日本語メールが完成。',
+    card: 'summary_large_image',
+  },
+};
+
 export default function MailGeneratorPage() {
   const showNewTag = shouldShowNewTag();
 

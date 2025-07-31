@@ -2,6 +2,35 @@ import MailGeneratorForm from '../components/MailGeneratorForm';
 import Link from 'next/link';
 import { shouldShowNewTag } from '@/utils/feature-notifications';
 
+export const metadata = {
+  title: 'AIチャット形式メール作成 - 対話型ビジネスメール生成 | Made for X',
+  description:
+    'AIとの対話でビジネスメールを作成。チャット形式で自然な会話をしながら、適切なメール文章を自動生成します。複雑な要件も対話で簡単に伝えられます。',
+  keywords: [
+    'AIチャット',
+    'メール作成',
+    '対話型AI',
+    'チャットボット',
+    'ビジネスメール',
+    '会話形式',
+    'インタラクティブ',
+    'AI対話',
+  ],
+  openGraph: {
+    title: 'AIチャット形式メール作成 - 対話型ビジネスメール生成',
+    description:
+      'AIとの対話でビジネスメールを作成。チャット形式で自然な会話をしながら、適切なメール文章を自動生成します。',
+    type: 'website',
+    url: 'https://madeforx.com/mail-generator/chat',
+  },
+  twitter: {
+    title: 'AIチャット形式メール作成 - 対話型ビジネスメール生成',
+    description:
+      'AIとの対話でビジネスメールを作成。チャット形式で自然な会話をしながら、適切なメール文章を自動生成します。',
+    card: 'summary_large_image',
+  },
+};
+
 export default function ChatGeneratorPage() {
   const showNewTag = shouldShowNewTag();
 

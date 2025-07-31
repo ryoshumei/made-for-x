@@ -1,7 +1,15 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
+
+export const metadata = {
+  title: 'ページが見つかりません - 404 Error | Made for X',
+  description:
+    'お探しのページは見つかりませんでした。URLを確認していただくか、トップページから目的のページをお探しください。',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function NotFound() {
   return (
@@ -17,9 +25,6 @@ export default function NotFound() {
             height={120}
             className="opacity-80"
             // Fallback if the image doesn't exist
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
           />
         </div>
       </div>
