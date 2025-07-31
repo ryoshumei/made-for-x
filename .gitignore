@@ -68,3 +68,7 @@ next-env.d.ts
 README-development.md
 /scripts/setup-env.sh
 /.env.test
+
+# Serena AI assistant files
+.serena/
+CLAUDE.md
