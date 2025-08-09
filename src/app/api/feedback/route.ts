@@ -11,10 +11,7 @@ export async function POST(request: NextRequest) {
 
     // Basic validation
     if (!feedbackTypes || typeof feedbackTypes !== 'object') {
-      return NextResponse.json(
-        { error: 'Valid feedback types are required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Valid feedback types are required' }, { status: 400 });
     }
 
     // Check if at least one feedback type is selected or custom feedback is provided
@@ -29,9 +26,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Get IP address for analytics
-    const ipAddress = request.headers.get('x-forwarded-for') || 
-                     request.headers.get('x-real-ip') || 
-                     'unknown';
+    const ipAddress =
+      request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
 
     // Save feedback to database
     const feedback = await prisma.generalFeedback.create({
@@ -51,10 +47,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error submitting feedback:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
@@ -95,9 +88,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error fetching feedback:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

@@ -31,9 +31,7 @@ export default function FeedbackButton({ userDimensions, calculationResult }: Fe
         aria-label="フィードバックを送信"
       >
         <Send className="w-5 h-5" />
-        <span className="text-sm font-medium">
-          フィードバック / Feedback
-        </span>
+        <span className="text-sm font-medium">フィードバック / Feedback</span>
       </button>
 
       {/* Feedback modal */}

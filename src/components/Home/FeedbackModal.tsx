@@ -87,7 +87,9 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
       }, 2500);
     } catch (error) {
       console.error('Error submitting feedback:', error);
-      alert('フィードバックの送信に失敗しました。もう一度お試しください。\nFailed to submit feedback. Please try again.');
+      alert(
+        'フィードバックの送信に失敗しました。もう一度お試しください。\nFailed to submit feedback. Please try again.'
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -113,7 +115,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
               お送りいただいたフィードバックは今後のサービス改善に活用させていただきます。
             </p>
             <p className="text-sm text-gray-500">
-              Thank you for your feedback! We'll use it to improve our services.
+              Thank you for your feedback! We&apos;ll use it to improve our services.
             </p>
           </div>
         ) : (
@@ -121,9 +123,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
           <>
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b">
-              <h2 className="text-lg font-semibold text-gray-900">
-                フィードバック / Feedback
-              </h2>
+              <h2 className="text-lg font-semibold text-gray-900">フィードバック / Feedback</h2>
               <button
                 onClick={onClose}
                 className="text-gray-400 hover:text-gray-600"
@@ -161,9 +161,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       disabled={isSubmitting}
                     />
-                    <span className="text-sm text-gray-700">
-                      新機能の要望 / Feature requests
-                    </span>
+                    <span className="text-sm text-gray-700">新機能の要望 / Feature requests</span>
                   </label>
 
                   <label className="flex items-center space-x-2">
@@ -174,9 +172,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       disabled={isSubmitting}
                     />
-                    <span className="text-sm text-gray-700">
-                      バグ・問題の報告 / Bug reports
-                    </span>
+                    <span className="text-sm text-gray-700">バグ・問題の報告 / Bug reports</span>
                   </label>
 
                   <label className="flex items-center space-x-2">
@@ -200,9 +196,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       disabled={isSubmitting}
                     />
-                    <span className="text-sm text-gray-700">
-                      その他 / Other
-                    </span>
+                    <span className="text-sm text-gray-700">その他 / Other</span>
                   </label>
                 </div>
               </div>
@@ -239,10 +233,9 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                   htmlFor="customFeedback"
                   className="block text-sm font-medium text-gray-900 mb-2"
                 >
-                  {feedbackTypes.other 
+                  {feedbackTypes.other
                     ? 'ご意見・ご要望を詳しく教えてください / Please provide details'
-                    : 'その他のご意見・ご要望（任意） / Additional comments (optional)'
-                  }
+                    : 'その他のご意見・ご要望（任意） / Additional comments (optional)'}
                 </label>
                 <textarea
                   id="customFeedback"
