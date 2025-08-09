@@ -7,6 +7,7 @@ import DynamicTitle from '../components/DynamicTitle';
 import GoogleAnalytics from '../components/GoogleAnalytics';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { UI_CONSTANTS } from '@/config/models';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -103,7 +104,7 @@ export default function RootLayout({
         {/* Footer will now stay at bottom */}
         <footer className="bg-gray-800 text-white p-4 text-center">
           <p className="text-sm">
-            © 2025 madeforx.com All Rights Reserved. Powered by OpenAI o4-mini
+            © 2025 madeforx.com All Rights Reserved. Powered by {UI_CONSTANTS.MODEL_DISPLAY_NAME}
           </p>
         </footer>
 

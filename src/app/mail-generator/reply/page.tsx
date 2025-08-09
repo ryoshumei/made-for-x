@@ -1,6 +1,7 @@
 import ReplyForm from '../components/ReplyForm';
 import Link from 'next/link';
 import { shouldShowNewTag } from '@/utils/feature-notifications';
+import { UI_CONSTANTS } from '@/config/models';
 
 export const metadata = {
   title: 'AI返信メール作成 - 自動返信文章生成ツール | Made for X',
@@ -63,7 +64,7 @@ export default function ReplyPage() {
 
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">日本語メール返信 AI</h1>
-          <p className="text-gray-600">powered by OpenAI o4-mini</p>
+          <p className="text-gray-600">{UI_CONSTANTS.POWERED_BY_TEXT}</p>
         </div>
 
         <ReplyForm />

@@ -1,6 +1,7 @@
 import MailGeneratorForm from '../components/MailGeneratorForm';
 import Link from 'next/link';
 import { shouldShowNewTag } from '@/utils/feature-notifications';
+import { UI_CONSTANTS } from '@/config/models';
 
 export const metadata = {
   title: 'AIチャット形式メール作成 - 対話型ビジネスメール生成 | Made for X',
@@ -60,7 +61,7 @@ export default function ChatGeneratorPage() {
 
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">ビジネスチャット作成 AI</h1>
-          <p className="text-gray-600">powered by OpenAI o4-mini - Slack、Teams向け</p>
+          <p className="text-gray-600">{UI_CONSTANTS.POWERED_BY_TEXT} - Slack、Teams向け</p>
         </div>
 
         <MailGeneratorForm mode="chat" />
