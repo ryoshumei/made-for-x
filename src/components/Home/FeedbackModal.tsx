@@ -2,36 +2,38 @@
 
 import React, { useState } from 'react';
 import { X, Send, Check } from 'lucide-react';
-import { ShippingDimensions, ShippingResult } from './types';
 
 interface FeedbackModalProps {
   isOpen: boolean;
   onClose: () => void;
-  userDimensions: ShippingDimensions;
-  calculationResult: ShippingResult | null;
 }
 
 interface FeedbackTypes {
-  pricing: boolean;
-  shippingInfo: boolean;
-  sizeCalculation: boolean;
-  newService: boolean;
+  usability: boolean;
+  newFeature: boolean;
+  bugReport: boolean;
+  toolSpecific: boolean;
   other: boolean;
 }
 
-export default function FeedbackModal({
-  isOpen,
-  onClose,
-  userDimensions,
-  calculationResult,
-}: FeedbackModalProps) {
+const TOOL_OPTIONS = [
+  { value: 'mail-generator', label: 'Japanese Email Generator (メール作成 AI)' },
+  { value: 'shipping-calculator', label: 'Mercari Shipping Calculator (配送料金計算器)' },
+  { value: 'waste-collection', label: 'Waste Collection (船橋市ごみ収集)' },
+  { value: 'japanpost', label: 'Export Invoice (Japan Post輸出インボイス)' },
+  { value: 'homepage', label: 'Homepage (ホームページ)' },
+  { value: 'general', label: 'General Platform (プラットフォーム全般)' },
+];
+
+export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
   const [feedbackTypes, setFeedbackTypes] = useState<FeedbackTypes>({
-    pricing: false,
-    shippingInfo: false,
-    sizeCalculation: false,
-    newService: false,
+    usability: false,
+    newFeature: false,
+    bugReport: false,
+    toolSpecific: false,
     other: false,
   });
+  const [toolFeedback, setToolFeedback] = useState('');
   const [customFeedback, setCustomFeedback] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -47,15 +49,14 @@ export default function FeedbackModal({
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/shipping/feedback', {
+      const response = await fetch('/api/feedback', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userDimensions,
-          calculationResult,
           feedbackTypes,
+          toolFeedback: toolFeedback || null,
           customFeedback: customFeedback.trim() || null,
           userAgent: navigator.userAgent,
         }),
@@ -74,18 +75,19 @@ export default function FeedbackModal({
         setTimeout(() => {
           setIsSubmitted(false);
           setFeedbackTypes({
-            pricing: false,
-            shippingInfo: false,
-            sizeCalculation: false,
-            newService: false,
+            usability: false,
+            newFeature: false,
+            bugReport: false,
+            toolSpecific: false,
             other: false,
           });
+          setToolFeedback('');
           setCustomFeedback('');
         }, 300);
-      }, 2000);
+      }, 2500);
     } catch (error) {
       console.error('Error submitting feedback:', error);
-      alert('フィードバックの送信に失敗しました。もう一度お試しください。');
+      alert('フィードバックの送信に失敗しました。もう一度お試しください。\nFailed to submit feedback. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -97,7 +99,7 @@ export default function FeedbackModal({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-lg max-w-lg w-full max-h-[90vh] overflow-y-auto">
         {isSubmitted ? (
           // Success state
           <div className="p-6 text-center">
@@ -107,8 +109,11 @@ export default function FeedbackModal({
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
               フィードバックありがとうございます！
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 mb-2">
               お送りいただいたフィードバックは今後のサービス改善に活用させていただきます。
+            </p>
+            <p className="text-sm text-gray-500">
+              Thank you for your feedback! We'll use it to improve our services.
             </p>
           </div>
         ) : (
@@ -116,7 +121,9 @@ export default function FeedbackModal({
           <>
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b">
-              <h2 className="text-lg font-semibold text-gray-900">フィードバック</h2>
+              <h2 className="text-lg font-semibold text-gray-900">
+                フィードバック / Feedback
+              </h2>
               <button
                 onClick={onClose}
                 className="text-gray-400 hover:text-gray-600"
@@ -127,77 +134,62 @@ export default function FeedbackModal({
             </div>
 
             <div className="p-4 space-y-6">
-              {/* User input data display */}
-              <div>
-                <h3 className="text-sm font-medium text-gray-900 mb-2">入力された寸法</h3>
-                <div className="bg-gray-50 rounded-lg p-3 text-sm">
-                  <span className="text-gray-700">
-                    長さ: {userDimensions.length}cm × 幅: {userDimensions.width}cm × 高さ:{' '}
-                    {userDimensions.height}cm
-                  </span>
-                </div>
-              </div>
-
-              {/* Calculation result summary */}
-              {calculationResult && (
-                <div>
-                  <h3 className="text-sm font-medium text-gray-900 mb-2">計算結果</h3>
-                  <div className="bg-gray-50 rounded-lg p-3 text-sm">
-                    <span className="text-gray-700">
-                      {calculationResult.totalAvailable}件の配送方法が見つかりました
-                    </span>
-                  </div>
-                </div>
-              )}
-
               {/* Feedback type selection */}
               <div>
                 <h3 className="text-sm font-medium text-gray-900 mb-3">
-                  該当する問題を選択してください
+                  該当する項目を選択してください / Select applicable items
                 </h3>
                 <div className="space-y-2">
                   <label className="flex items-center space-x-2">
                     <input
                       type="checkbox"
-                      checked={feedbackTypes.pricing}
-                      onChange={() => handleFeedbackTypeChange('pricing')}
+                      checked={feedbackTypes.usability}
+                      onChange={() => handleFeedbackTypeChange('usability')}
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       disabled={isSubmitting}
                     />
-                    <span className="text-sm text-gray-700">料金が実際と異なる</span>
+                    <span className="text-sm text-gray-700">
+                      使いやすさの改善 / Usability improvements
+                    </span>
                   </label>
 
                   <label className="flex items-center space-x-2">
                     <input
                       type="checkbox"
-                      checked={feedbackTypes.shippingInfo}
-                      onChange={() => handleFeedbackTypeChange('shippingInfo')}
+                      checked={feedbackTypes.newFeature}
+                      onChange={() => handleFeedbackTypeChange('newFeature')}
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       disabled={isSubmitting}
                     />
-                    <span className="text-sm text-gray-700">配送方法の情報が間違っている</span>
+                    <span className="text-sm text-gray-700">
+                      新機能の要望 / Feature requests
+                    </span>
                   </label>
 
                   <label className="flex items-center space-x-2">
                     <input
                       type="checkbox"
-                      checked={feedbackTypes.sizeCalculation}
-                      onChange={() => handleFeedbackTypeChange('sizeCalculation')}
+                      checked={feedbackTypes.bugReport}
+                      onChange={() => handleFeedbackTypeChange('bugReport')}
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       disabled={isSubmitting}
                     />
-                    <span className="text-sm text-gray-700">サイズ制限の計算が正しくない</span>
+                    <span className="text-sm text-gray-700">
+                      バグ・問題の報告 / Bug reports
+                    </span>
                   </label>
 
                   <label className="flex items-center space-x-2">
                     <input
                       type="checkbox"
-                      checked={feedbackTypes.newService}
-                      onChange={() => handleFeedbackTypeChange('newService')}
+                      checked={feedbackTypes.toolSpecific}
+                      onChange={() => handleFeedbackTypeChange('toolSpecific')}
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       disabled={isSubmitting}
                     />
-                    <span className="text-sm text-gray-700">新しい配送方法が表示されていない</span>
+                    <span className="text-sm text-gray-700">
+                      特定ツールについて / Specific tool feedback
+                    </span>
                   </label>
 
                   <label className="flex items-center space-x-2">
@@ -208,31 +200,60 @@ export default function FeedbackModal({
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       disabled={isSubmitting}
                     />
-                    <span className="text-sm text-gray-700">その他</span>
+                    <span className="text-sm text-gray-700">
+                      その他 / Other
+                    </span>
                   </label>
                 </div>
               </div>
 
-              {/* Custom feedback textarea - only show when "その他" is selected */}
-              {feedbackTypes.other && (
+              {/* Tool selection - only show when toolSpecific is selected */}
+              {feedbackTypes.toolSpecific && (
                 <div>
                   <label
-                    htmlFor="customFeedback"
+                    htmlFor="toolFeedback"
                     className="block text-sm font-medium text-gray-900 mb-2"
                   >
-                    その他のご意見・ご要望（任意）
+                    どのツールについてですか？ / Which tool is this about?
                   </label>
-                  <textarea
-                    id="customFeedback"
-                    rows={4}
-                    value={customFeedback}
-                    onChange={(e) => setCustomFeedback(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-gray-900"
-                    placeholder="具体的な問題や改善要望がございましたらお聞かせください..."
+                  <select
+                    id="toolFeedback"
+                    value={toolFeedback}
+                    onChange={(e) => setToolFeedback(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                     disabled={isSubmitting}
-                  />
+                  >
+                    <option value="">選択してください / Select a tool</option>
+                    {TOOL_OPTIONS.map((tool) => (
+                      <option key={tool.value} value={tool.value}>
+                        {tool.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               )}
+
+              {/* Custom feedback textarea - show when other is selected OR always show */}
+              <div>
+                <label
+                  htmlFor="customFeedback"
+                  className="block text-sm font-medium text-gray-900 mb-2"
+                >
+                  {feedbackTypes.other 
+                    ? 'ご意見・ご要望を詳しく教えてください / Please provide details'
+                    : 'その他のご意見・ご要望（任意） / Additional comments (optional)'
+                  }
+                </label>
+                <textarea
+                  id="customFeedback"
+                  rows={4}
+                  value={customFeedback}
+                  onChange={(e) => setCustomFeedback(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-gray-900"
+                  placeholder="具体的なご意見やご要望をお聞かせください...\nPlease share your specific feedback or suggestions..."
+                  disabled={isSubmitting}
+                />
+              </div>
 
               {/* Submit button */}
               <div className="flex justify-end space-x-3 pt-4">
@@ -241,7 +262,7 @@ export default function FeedbackModal({
                   className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
                   disabled={isSubmitting}
                 >
-                  キャンセル
+                  キャンセル / Cancel
                 </button>
                 <button
                   onClick={handleSubmit}
@@ -251,12 +272,12 @@ export default function FeedbackModal({
                   {isSubmitting ? (
                     <>
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>送信中...</span>
+                      <span>送信中... / Sending...</span>
                     </>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      <span>送信</span>
+                      <span>送信 / Send</span>
                     </>
                   )}
                 </button>

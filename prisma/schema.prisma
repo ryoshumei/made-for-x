@@ -147,3 +147,18 @@ model ShippingFeedback {
   @@index([createdAt])
   @@map("shipping_feedback")
 }
+
+// General feedback model - used to collect feedback for the overall platform
+model GeneralFeedback {
+  id               Int      @id @default(autoincrement())
+  feedbackTypes    Json     // Feedback type selection {usability: boolean, newFeature: boolean, bugReport: boolean, toolSpecific: boolean, other: boolean}
+  toolFeedback     String?  // Which specific tool feedback relates to (optional)
+  customFeedback   String?  // User custom feedback content
+  userAgent        String?  // User browser information
+  ipAddress        String?  // User IP address for analytics (optional)
+  createdAt        DateTime @default(now())
+  
+  @@index([createdAt])
+  @@index([toolFeedback])
+  @@map("general_feedback")
+}
