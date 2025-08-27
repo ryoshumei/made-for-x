@@ -186,6 +186,7 @@ async function main() {
       requiresSpecialPackaging: true,
       maxLengthCm: new Prisma.Decimal(24.0),
       maxWidthCm: new Prisma.Decimal(33.2),
+      maxHeightCm: new Prisma.Decimal(0.9), // A4コピー用紙100枚程度 = 9mm
       sortOrder: 2,
     },
 
@@ -237,6 +238,7 @@ async function main() {
       maxWeightKg: new Prisma.Decimal(2.0),
       maxLengthCm: new Prisma.Decimal(21.1),
       maxWidthCm: new Prisma.Decimal(16.8),
+      maxHeightCm: new Prisma.Decimal(3.0), // 郵便ポストに投かん可能な厚さの目安は3cm
       sortOrder: 5,
     },
 
