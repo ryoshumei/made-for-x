@@ -22,9 +22,7 @@
     "db:seed:mercari": "tsx scripts/seed-mercari-shipping.ts",
     "db:seed:prod": "NODE_ENV=production tsx scripts/seed-database.ts && NODE_ENV=production tsx scripts/seed-mercari-shipping.ts",
     "db:reset": "prisma migrate reset --force",
-    "db:studio": "prisma studio",
-    "dev:local": "node scripts/switch-to-local.js && prisma generate",
-    "dev:production": "node scripts/switch-to-production.js && prisma generate"
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",

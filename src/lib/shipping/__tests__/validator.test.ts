@@ -73,6 +73,22 @@ describe('validateShippingDimensions', () => {
       expect(result.errors).toHaveLength(0);
     });
 
+    test('should validate 宅急便コンパクト薄型BOX height limit (0.9cm)', () => {
+      const dimensions: ShippingDimensions = { length: 24, width: 33.2, height: 0.9 };
+      const result = validateShippingDimensions(dimensions);
+
+      expect(result.isValid).toBe(true);
+      expect(result.errors).toHaveLength(0);
+    });
+
+    test('should validate ゆうパケットポストmini height limit (3cm)', () => {
+      const dimensions: ShippingDimensions = { length: 21.1, width: 16.8, height: 3.0 };
+      const result = validateShippingDimensions(dimensions);
+
+      expect(result.isValid).toBe(true);
+      expect(result.errors).toHaveLength(0);
+    });
+
     test('should reject exactly 0 dimensions', () => {
       const dimensions: ShippingDimensions = { length: 0, width: 0, height: 0 };
       const result = validateShippingDimensions(dimensions);
