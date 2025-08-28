@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaMailBulk, FaTrash, FaEnvelope, FaCalculator } from 'react-icons/fa';
+import { FaMailBulk, FaTrash, FaEnvelope, FaCalculator, FaClock } from 'react-icons/fa';
 
 export default function NavigationGrid() {
   const navItems = [
@@ -31,8 +31,15 @@ export default function NavigationGrid() {
       href: '/shipping-calculator',
       available: true,
     },
+    {
+      title: 'Break Timer',
+      subtitle: '休憩タイマー',
+      icon: <FaClock size={40} className="text-emerald-600" />,
+      href: '/break',
+      available: true,
+    },
     // Future navigation items (currently unavailable)
-    ...Array(5).fill({
+    ...Array(4).fill({
       title: 'Coming Soon',
       subtitle: undefined,
       icon: null,
