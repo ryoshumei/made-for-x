@@ -1,4 +1,17 @@
 {
   "buildCommand": "npm run build",
-  "installCommand": "npm install && npx prisma generate && npx prisma migrate deploy && npm run db:seed:prod"
+  "installCommand": "npm install && npx prisma generate && npx prisma migrate deploy && npm run db:seed:prod",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeforx.com"
+        }
+      ],
+      "destination": "https://madeforx.com/$1",
+      "permanent": true
+    }
+  ]
 }
