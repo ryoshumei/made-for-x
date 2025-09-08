@@ -39,9 +39,6 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL('https://madeforx.com'),
-  alternates: {
-    canonical: '/',
-  },
   openGraph: {
     title: 'Made for X - 便利なツールとサービス',
     description:
