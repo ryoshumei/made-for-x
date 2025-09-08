@@ -8,6 +8,7 @@ import GoogleAnalytics from '../components/GoogleAnalytics';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { UI_CONSTANTS } from '@/config/models';
+import { OrganizationStructuredData } from '@/components/StructuredData';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -107,6 +108,14 @@ export default function RootLayout({
             © 2025 madeforx.com All Rights Reserved. Powered by {UI_CONSTANTS.MODEL_DISPLAY_NAME}
           </p>
         </footer>
+
+        {/* Structured Data */}
+        <OrganizationStructuredData
+          name="Made for X"
+          url="https://madeforx.com"
+          description="便利なツールとサービスを提供するプラットフォーム - 船橋市ごみ収集スケジュールと日本郵便ツール、AIメール作成ツール、メルカリ配送料計算器"
+          logo="https://madeforx.com/logo.svg"
+        />
 
         {/* Google Analytics */}
         <GoogleAnalytics />
