@@ -3,6 +3,9 @@
 // Privacy policy update date
 export const PRIVACY_POLICY_UPDATE_DATE = '2025-07-23';
 
+// Chat feature release date (for NEW tag display)
+export const CHAT_FEATURE_RELEASE_DATE = '2025-07-23';
+
 // Number of days to show the update notification
 export const UPDATE_NOTIFICATION_DAYS = 60;
 
@@ -22,10 +25,16 @@ export function shouldShowUpdateNotification(): boolean {
 
 /**
  * Check if the "NEW" tag for chat feature should be shown
- * @returns true if within 60 days of the update date (same as update notification)
+ * @returns true if within 60 days of the chat feature release date
  */
 export function shouldShowNewTag(): boolean {
-  return shouldShowUpdateNotification();
+  const releaseDate = new Date(CHAT_FEATURE_RELEASE_DATE);
+  const currentDate = new Date();
+  const daysDifference = Math.floor(
+    (currentDate.getTime() - releaseDate.getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  return daysDifference >= 0 && daysDifference <= UPDATE_NOTIFICATION_DAYS;
 }
 
 /**

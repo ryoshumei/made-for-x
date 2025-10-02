@@ -1,26 +1,41 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 
 export default function BreakTimer() {
   const [timeLeft, setTimeLeft] = useState(5 * 60); // 5 minutes in seconds
   const [isActive, setIsActive] = useState(false);
   const [mode, setMode] = useState<'break' | 'longBreak'>('break');
+  const [startTimestamp, setStartTimestamp] = useState<number | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const modes = {
-    break: { duration: 5 * 60, label: 'Short Break', color: 'from-green-500 to-emerald-600' },
-    longBreak: { duration: 15 * 60, label: 'Long Break', color: 'from-purple-500 to-violet-600' },
-  };
+  const modes = useMemo(
+    () => ({
+      break: { duration: 5 * 60, label: 'Short Break', color: 'from-green-500 to-emerald-600' },
+      longBreak: { duration: 15 * 60, label: 'Long Break', color: 'from-purple-500 to-violet-600' },
+    }),
+    []
+  );
 
   useEffect(() => {
-    if (isActive && timeLeft > 0) {
+    if (isActive && timeLeft > 0 && startTimestamp) {
       intervalRef.current = setInterval(() => {
-        setTimeLeft((time) => time - 1);
-      }, 1000);
+        const now = Date.now();
+        const elapsedSeconds = Math.floor((now - startTimestamp) / 1000);
+        const remaining = modes[mode].duration - elapsedSeconds;
+
+        if (remaining <= 0) {
+          setTimeLeft(0);
+          setIsActive(false);
+          setStartTimestamp(null);
+        } else {
+          setTimeLeft(remaining);
+        }
+      }, 100); // Update more frequently for accuracy
     } else if (timeLeft === 0) {
       setIsActive(false);
+      setStartTimestamp(null);
     } else {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -32,21 +47,28 @@ export default function BreakTimer() {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isActive, timeLeft, mode]);
+  }, [isActive, timeLeft, mode, startTimestamp, modes]);
 
   const toggleTimer = () => {
+    if (!isActive) {
+      // Starting or resuming: calculate start timestamp based on remaining time
+      const elapsedSeconds = modes[mode].duration - timeLeft;
+      setStartTimestamp(Date.now() - elapsedSeconds * 1000);
+    }
     setIsActive(!isActive);
   };
 
   const resetTimer = () => {
     setIsActive(false);
     setTimeLeft(modes[mode].duration);
+    setStartTimestamp(null);
   };
 
   const switchMode = (newMode: 'break' | 'longBreak') => {
     setIsActive(false);
     setMode(newMode);
     setTimeLeft(modes[newMode].duration);
+    setStartTimestamp(null);
   };
 
   const formatTime = (seconds: number) => {
