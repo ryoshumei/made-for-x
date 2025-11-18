@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import ProgressBar from '@/components/ProgressBar';
 import { shouldShowUpdateNotification } from '@/utils/feature-notifications';
+import { MAIL_GENERATOR_CONSTANTS } from '@/config/models';
 
 interface FormData {
   recipient: string;
@@ -29,7 +30,7 @@ export default function MailGeneratorForm({ mode = 'email' }: MailGeneratorFormP
   const [progressMessage, setProgressMessage] = useState('AI生成中...');
   const [includeEmoji, setIncludeEmoji] = useState(false);
 
-  const maxLength = 500;
+  const maxLength = MAIL_GENERATOR_CONSTANTS.MAX_INPUT_LENGTH;
   const charCount = formData.text.length;
 
   // Handle form field changes
@@ -226,11 +227,17 @@ export default function MailGeneratorForm({ mode = 'email' }: MailGeneratorFormP
               disabled={isLoading}
             />
             <div className="flex justify-between items-center mt-2">
-              {charCount > maxLength * 0.9 && (
+              {charCount > maxLength * MAIL_GENERATOR_CONSTANTS.WARNING_THRESHOLD && (
                 <div className="text-red-600 text-sm font-medium">文字数が多すぎます</div>
               )}
               <div className="text-sm text-gray-500 ml-auto">
-                <span className={charCount > maxLength * 0.9 ? 'text-red-600 font-medium' : ''}>
+                <span
+                  className={
+                    charCount > maxLength * MAIL_GENERATOR_CONSTANTS.WARNING_THRESHOLD
+                      ? 'text-red-600 font-medium'
+                      : ''
+                  }
+                >
                   {charCount} 文字
                 </span>
                 <span>/{maxLength} 文字まで</span>

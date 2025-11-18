@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
-import { AI_MODELS } from '@/config/models';
+import { AI_MODELS, MAIL_GENERATOR_CONSTANTS } from '@/config/models';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY_MAIL,
@@ -13,6 +13,25 @@ export async function POST(request: Request) {
     // Validate required fields
     if (!text) {
       return NextResponse.json({ error: 'Reply requirements are required' }, { status: 400 });
+    }
+
+    // Validate input length
+    if (text.length > MAIL_GENERATOR_CONSTANTS.MAX_INPUT_LENGTH) {
+      return NextResponse.json(
+        {
+          error: `Text exceeds maximum length of ${MAIL_GENERATOR_CONSTANTS.MAX_INPUT_LENGTH} characters`,
+        },
+        { status: 400 }
+      );
+    }
+
+    if (receivedMail && receivedMail.length > MAIL_GENERATOR_CONSTANTS.MAX_INPUT_LENGTH) {
+      return NextResponse.json(
+        {
+          error: `Received mail exceeds maximum length of ${MAIL_GENERATOR_CONSTANTS.MAX_INPUT_LENGTH} characters`,
+        },
+        { status: 400 }
+      );
     }
 
     // System content based on Django implementation

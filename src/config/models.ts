@@ -35,3 +35,9 @@ export const UI_CONSTANTS = {
   MODEL_DISPLAY_NAME: 'OpenAI GPT-5 Mini',
   POWERED_BY_TEXT: 'powered by OpenAI GPT-5 Mini',
 } as const;
+
+// Mail Generator domain constants
+export const MAIL_GENERATOR_CONSTANTS = {
+  MAX_INPUT_LENGTH: 1000,
+  WARNING_THRESHOLD: 0.9, // Show warning at 90% of max length
+} as const;

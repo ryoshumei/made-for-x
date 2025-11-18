@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import ProgressBar from '@/components/ProgressBar';
 import { shouldShowUpdateNotification } from '@/utils/feature-notifications';
+import { MAIL_GENERATOR_CONSTANTS } from '@/config/models';
 
 interface FormData {
   receivedMail: string;
@@ -19,7 +20,7 @@ export default function ReplyForm() {
   const [showResult, setShowResult] = useState(false);
   const [copyButtonText, setCopyButtonText] = useState('Copy');
 
-  const maxLength = 500;
+  const maxLength = MAIL_GENERATOR_CONSTANTS.MAX_INPUT_LENGTH;
   const receivedMailCharCount = formData.receivedMail.length;
   const textCharCount = formData.text.length;
 
@@ -108,13 +109,15 @@ export default function ReplyForm() {
               disabled={isLoading}
             />
             <div className="flex justify-between items-center mt-2">
-              {receivedMailCharCount > maxLength * 0.9 && (
+              {receivedMailCharCount > maxLength * MAIL_GENERATOR_CONSTANTS.WARNING_THRESHOLD && (
                 <div className="text-red-600 text-sm font-medium">文字数が多すぎます</div>
               )}
               <div className="text-sm text-gray-500 ml-auto">
                 <span
                   className={
-                    receivedMailCharCount > maxLength * 0.9 ? 'text-red-600 font-medium' : ''
+                    receivedMailCharCount > maxLength * MAIL_GENERATOR_CONSTANTS.WARNING_THRESHOLD
+                      ? 'text-red-600 font-medium'
+                      : ''
                   }
                 >
                   {receivedMailCharCount} 文字
@@ -139,11 +142,17 @@ export default function ReplyForm() {
               disabled={isLoading}
             />
             <div className="flex justify-between items-center mt-2">
-              {textCharCount > maxLength * 0.9 && (
+              {textCharCount > maxLength * MAIL_GENERATOR_CONSTANTS.WARNING_THRESHOLD && (
                 <div className="text-red-600 text-sm font-medium">文字数が多すぎます</div>
               )}
               <div className="text-sm text-gray-500 ml-auto">
-                <span className={textCharCount > maxLength * 0.9 ? 'text-red-600 font-medium' : ''}>
+                <span
+                  className={
+                    textCharCount > maxLength * MAIL_GENERATOR_CONSTANTS.WARNING_THRESHOLD
+                      ? 'text-red-600 font-medium'
+                      : ''
+                  }
+                >
                   {textCharCount} 文字
                 </span>
                 <span>/{maxLength} 文字まで</span>
