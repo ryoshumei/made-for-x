@@ -41,7 +41,7 @@
     "dotenv": "^17.2.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.468.0",
-    "next": "15.2.4",
+    "next": "16.0.7",
     "openai": "^4.67.3",
     "papaparse": "^5.5.1",
     "prisma": "^6.8.2",
