@@ -44,7 +44,7 @@ export async function POST(request: Request) {
     const langString = getLangString(lang || 1);
 
     // System content based on Django implementation
-    const systemContent = `Please create the body of the ${langString} business email based on the following details. Use professional and appropriate business email format. Include proper greetings and closing statements suitable for business correspondence.`;
+    const systemContent = `Please create the body of the ${langString} business email based on the following details. Use professional and appropriate business email format. Include proper greetings and closing statements suitable for modern business email correspondence. Important: For Japanese emails, do not use traditional letter formats like「拝啓」「敬具」as these are not appropriate for modern business emails.`;
 
     const userContent = `宛名: ${recipient || ''}\n署名: ${signature || ''}\n要件: ${text}`;
 
