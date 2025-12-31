@@ -2,7 +2,10 @@
 
 import { useState } from 'react';
 import ProgressBar from '@/components/ProgressBar';
-import { shouldShowUpdateNotification } from '@/utils/feature-notifications';
+import {
+  shouldShowUpdateNotification,
+  shouldShowNewYearFeature,
+} from '@/utils/feature-notifications';
 import { MAIL_GENERATOR_CONSTANTS } from '@/config/models';
 
 interface FormData {
@@ -81,9 +84,46 @@ export default function ReplyForm() {
     }
   };
 
+  // Add New Year greeting context to reply requirements
+  const handleNewYearPreset = () => {
+    const newYearContext = '年賀の挨拶を含めて返信してください。';
+    const currentText = formData.text.trim();
+    const newText = currentText ? `${newYearContext}\n${currentText}` : newYearContext;
+    handleInputChange('text', newText);
+  };
+
   return (
     <>
       <ProgressBar isLoading={isLoading} message="返信生成中..." estimatedTime={8} />
+
+      {/* New Year Reply Feature Banner - Time-limited until 2026-01-31 */}
+      {shouldShowNewYearFeature() && (
+        <div className="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-lg p-4 mb-6">
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <div className="flex items-center space-x-2">
+              <span className="text-lg">🎍</span>
+              <span className="text-gray-700 font-medium">年賀の挨拶を追加</span>
+              <span className="px-1.5 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full">
+                NEW
+              </span>
+              <span className="px-1.5 py-0.5 text-xs font-bold text-white bg-orange-500 rounded-full">
+                期間限定
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={handleNewYearPreset}
+              className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isLoading}
+            >
+              年賀挨拶を追加
+            </button>
+          </div>
+          <p className="text-sm text-gray-500 mt-2">
+            返信に年賀の挨拶を含めます。追加の要件も入力できます。
+          </p>
+        </div>
+      )}
 
       <div className="bg-white rounded-lg shadow-md p-6">
         {/* Input Form */}

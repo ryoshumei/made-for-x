@@ -2,7 +2,10 @@
 
 import { useState } from 'react';
 import ProgressBar from '@/components/ProgressBar';
-import { shouldShowUpdateNotification } from '@/utils/feature-notifications';
+import {
+  shouldShowUpdateNotification,
+  shouldShowNewYearFeature,
+} from '@/utils/feature-notifications';
 import { MAIL_GENERATOR_CONSTANTS } from '@/config/models';
 
 interface FormData {
@@ -159,9 +162,46 @@ export default function MailGeneratorForm({ mode = 'email' }: MailGeneratorFormP
     }
   };
 
+  // Pre-fill with New Year email content
+  const handleNewYearPreset = () => {
+    handleInputChange(
+      'text',
+      '年賀の挨拶メールを作成してください。新年のお祝いと今年もよろしくお願いしますという内容を含めてください。'
+    );
+  };
+
   return (
     <>
       <ProgressBar isLoading={isLoading} message={progressMessage} estimatedTime={10} />
+
+      {/* New Year Email Feature Banner - Time-limited until 2026-01-31 */}
+      {mode === 'email' && shouldShowNewYearFeature() && (
+        <div className="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-lg p-4 mb-6">
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <div className="flex items-center space-x-2">
+              <span className="text-lg">🎍</span>
+              <span className="text-gray-700 font-medium">年賀メール作成機能</span>
+              <span className="px-1.5 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full">
+                NEW
+              </span>
+              <span className="px-1.5 py-0.5 text-xs font-bold text-white bg-orange-500 rounded-full">
+                期間限定
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={handleNewYearPreset}
+              className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isLoading}
+            >
+              年賀メールを作成
+            </button>
+          </div>
+          <p className="text-sm text-gray-500 mt-2">
+            ワンクリックで年賀メールの下書きを作成できます
+          </p>
+        </div>
+      )}
 
       <div className="bg-white rounded-lg shadow-md p-6">
         {/* Input Form */}

@@ -3,6 +3,9 @@
 // Privacy policy update date
 export const PRIVACY_POLICY_UPDATE_DATE = '2025-07-23';
 
+// New Year email feature end date (time-limited feature)
+export const NEW_YEAR_EMAIL_END_DATE = '2026-01-31';
+
 // Chat feature release date (for NEW tag display)
 export const CHAT_FEATURE_RELEASE_DATE = '2025-07-23';
 
@@ -48,4 +51,15 @@ export function getFormattedUpdateDate(): string {
   const day = String(updateDate.getDate()).padStart(2, '0');
 
   return `${year}年${month}月${day}日`;
+}
+
+/**
+ * Check if the New Year email feature should be shown
+ * @returns true if current date is before or on the end date (2026-01-31)
+ */
+export function shouldShowNewYearFeature(): boolean {
+  const endDate = new Date(NEW_YEAR_EMAIL_END_DATE);
+  endDate.setHours(23, 59, 59, 999); // End of day
+  const currentDate = new Date();
+  return currentDate <= endDate;
 }
