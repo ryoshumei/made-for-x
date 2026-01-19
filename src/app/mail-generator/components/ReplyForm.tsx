@@ -7,6 +7,7 @@ import {
   shouldShowNewYearFeature,
 } from '@/utils/feature-notifications';
 import { MAIL_GENERATOR_CONSTANTS } from '@/config/models';
+import QuickActionTags from './QuickActionTags';
 
 interface FormData {
   receivedMail: string;
@@ -166,6 +167,13 @@ export default function ReplyForm() {
               </div>
             </div>
           </div>
+
+          {/* Quick Action Tags */}
+          <QuickActionTags
+            pageContext="reply"
+            onTagClick={(promptText) => handleInputChange('text', promptText)}
+            disabled={isLoading}
+          />
 
           {/* Reply Requirements */}
           <div>

@@ -7,6 +7,8 @@ import {
   shouldShowNewYearFeature,
 } from '@/utils/feature-notifications';
 import { MAIL_GENERATOR_CONSTANTS } from '@/config/models';
+import QuickActionTags from './QuickActionTags';
+import type { PageContext } from '@/config/quick-action-tags';
 
 interface FormData {
   recipient: string;
@@ -247,6 +249,13 @@ export default function MailGeneratorForm({ mode = 'email' }: MailGeneratorFormP
               </div>
             </div>
           )}
+
+          {/* Quick Action Tags */}
+          <QuickActionTags
+            pageContext={mode as PageContext}
+            onTagClick={(promptText) => handleInputChange('text', promptText)}
+            disabled={isLoading}
+          />
 
           {/* Requirements */}
           <div>

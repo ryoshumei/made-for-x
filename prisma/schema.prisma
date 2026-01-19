@@ -162,3 +162,20 @@ model GeneralFeedback {
   @@index([toolFeedback])
   @@map("general_feedback")
 }
+
+// Quick action tag click tracking for mail generator
+model TagClickEvent {
+  id          Int      @id @default(autoincrement())
+  tagId       String   // 'email-meeting', 'reply-accept', etc.
+  pageContext String   // 'email', 'reply', 'chat'
+  clickCount  Int      @default(1)
+  date        DateTime @default(now()) @db.Date
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([tagId, pageContext, date])
+  @@index([tagId])
+  @@index([pageContext])
+  @@index([date])
+  @@map("tag_click_events")
+}
