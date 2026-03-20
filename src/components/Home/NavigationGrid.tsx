@@ -1,5 +1,12 @@
 import Link from 'next/link';
-import { FaMailBulk, FaTrash, FaEnvelope, FaCalculator, FaClock } from 'react-icons/fa';
+import {
+  FaMailBulk,
+  FaTrash,
+  FaEnvelope,
+  FaCalculator,
+  FaClock,
+  FaCalendarAlt,
+} from 'react-icons/fa';
 
 export default function NavigationGrid() {
   const navItems = [
@@ -38,8 +45,15 @@ export default function NavigationGrid() {
       href: '/break',
       available: true,
     },
+    {
+      title: 'Holiday Countdown',
+      subtitle: '次の祝日カウントダウン',
+      icon: <FaCalendarAlt size={40} className="text-red-600" />,
+      href: '/holidays',
+      available: true,
+    },
     // Future navigation items (currently unavailable)
-    ...Array(4).fill({
+    ...Array(3).fill({
       title: 'Coming Soon',
       subtitle: undefined,
       icon: null,
