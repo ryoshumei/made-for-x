@@ -35,14 +35,20 @@ function formatShortDate(date: Date): string {
   return `${m}/${d}（${days[date.getDay()]}）`;
 }
 
-function getCountdown(target: Date): { days: number; hours: number; minutes: number } {
+function getCountdown(target: Date): {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+} {
   const now = new Date();
   const diff = target.getTime() - now.getTime();
-  if (diff <= 0) return { days: 0, hours: 0, minutes: 0 };
+  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  return { days, hours, minutes };
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  return { days, hours, minutes, seconds };
 }
 
 function formatPtoDates(dates: Date[]): string {
@@ -62,6 +68,7 @@ export default function HolidayCard() {
     days: number;
     hours: number;
     minutes: number;
+    seconds: number;
   } | null>(null);
   const [holiday, setHoliday] = useState<Holiday | null>(null);
   const [bridgePlan, setBridgePlan] = useState<BridgePlan | null>(null);
@@ -85,7 +92,7 @@ export default function HolidayCard() {
 
     intervalRef.current = setInterval(() => {
       setCountdown(getCountdown(nextHoliday.date));
-    }, 60000);
+    }, 1000);
 
     return () => {
       if (intervalRef.current) {
@@ -96,7 +103,7 @@ export default function HolidayCard() {
 
   if (noData) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="flex-grow flex items-center justify-center p-4">
         <div className="max-w-md text-center">
           <p className="text-gray-500 text-lg">祝日データを更新中です</p>
         </div>
@@ -109,7 +116,7 @@ export default function HolidayCard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 to-blue-50 flex items-center justify-center p-4">
+    <div className="flex-grow bg-gradient-to-br from-sky-50 to-blue-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-lg p-8">
           {/* Header */}
@@ -125,6 +132,7 @@ export default function HolidayCard() {
               { value: countdown.days, label: '日' },
               { value: countdown.hours, label: '時間' },
               { value: countdown.minutes, label: '分' },
+              { value: countdown.seconds, label: '秒' },
             ].map(({ value, label }) => (
               <div key={label} className="bg-gray-50 rounded-xl px-5 py-3 text-center shadow-sm">
                 <div className="text-3xl font-bold text-blue-700">{value}</div>

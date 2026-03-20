@@ -71,6 +71,7 @@ describe('HolidayCard', () => {
     expect(screen.getByText('日')).toBeInTheDocument();
     expect(screen.getByText('時間')).toBeInTheDocument();
     expect(screen.getByText('分')).toBeInTheDocument();
+    expect(screen.getByText('秒')).toBeInTheDocument();
   });
 
   test('renders bridge plan with PTO badge when PTO needed', () => {
