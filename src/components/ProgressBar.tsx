@@ -6,12 +6,14 @@ interface ProgressBarProps {
   isLoading: boolean;
   message?: string;
   estimatedTime?: number; // in seconds
+  additionalContent?: React.ReactNode;
 }
 
 export default function ProgressBar({
   isLoading,
   message = 'AI生成中...',
   estimatedTime = 10,
+  additionalContent,
 }: ProgressBarProps) {
   const [progress, setProgress] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(estimatedTime);
@@ -64,6 +66,7 @@ export default function ProgressBar({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4 shadow-2xl">
         <div className="text-center">
+          {additionalContent}
           {/* Loading icon */}
           <div className="mb-4">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full">

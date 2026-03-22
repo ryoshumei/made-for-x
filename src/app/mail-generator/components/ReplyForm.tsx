@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProgressBar from '@/components/ProgressBar';
 import {
   shouldShowUpdateNotification,
@@ -8,6 +8,7 @@ import {
 } from '@/utils/feature-notifications';
 import { MAIL_GENERATOR_CONSTANTS } from '@/config/models';
 import QuickActionTags from './QuickActionTags';
+import NativeLanguageSurvey from '@/components/NativeLanguageSurvey';
 
 interface FormData {
   receivedMail: string;
@@ -23,6 +24,16 @@ export default function ReplyForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [copyButtonText, setCopyButtonText] = useState('Copy');
+  const [showSurvey, setShowSurvey] = useState(false);
+
+  useEffect(() => {
+    try {
+      const completed = localStorage.getItem('survey_native_language_completed');
+      setShowSurvey(!completed);
+    } catch {
+      // localStorage unavailable
+    }
+  }, []);
 
   const maxLength = MAIL_GENERATOR_CONSTANTS.MAX_INPUT_LENGTH;
   const receivedMailCharCount = formData.receivedMail.length;
@@ -95,7 +106,12 @@ export default function ReplyForm() {
 
   return (
     <>
-      <ProgressBar isLoading={isLoading} message="返信生成中..." estimatedTime={8} />
+      <ProgressBar
+        isLoading={isLoading}
+        message="返信生成中..."
+        estimatedTime={8}
+        additionalContent={showSurvey && isLoading ? <NativeLanguageSurvey /> : undefined}
+      />
 
       {/* New Year Reply Feature Banner - Time-limited until 2026-01-31 */}
       {shouldShowNewYearFeature() && (
