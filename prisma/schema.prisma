@@ -179,3 +179,14 @@ model TagClickEvent {
   @@index([date])
   @@map("tag_click_events")
 }
+
+// Native language survey responses - anonymous aggregate counts
+model NativeLanguageResponse {
+  id            Int      @id @default(autoincrement())
+  language      String   @unique
+  responseCount Int      @default(1)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("native_language_responses")
+}
