@@ -5,17 +5,29 @@
 import { NextRequest } from 'next/server';
 import { POST, GET } from '../route';
 
-const mockUpsert = jest.fn();
-const mockFindMany = jest.fn();
+// eslint-disable-next-line no-var
+var mockNativeLanguageResponse: { upsert: jest.Mock; findMany: jest.Mock };
 
-jest.mock('@prisma/client', () => ({
-  PrismaClient: jest.fn().mockImplementation(() => ({
-    nativeLanguageResponse: {
-      upsert: mockUpsert,
-      findMany: mockFindMany,
-    },
-  })),
-}));
+jest.mock('@prisma/client', () => {
+  mockNativeLanguageResponse = {
+    upsert: jest.fn(),
+    findMany: jest.fn(),
+  };
+  return {
+    PrismaClient: jest.fn().mockImplementation(() => ({
+      nativeLanguageResponse: mockNativeLanguageResponse,
+    })),
+  };
+});
+
+// Suppress console output during tests
+beforeAll(() => {
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+});
+
+afterAll(() => {
+  (console.error as jest.Mock).mockRestore();
+});
 
 describe('/api/native-language', () => {
   beforeEach(() => {
@@ -31,7 +43,7 @@ describe('/api/native-language', () => {
         createdAt: new Date(),
         updatedAt: new Date(),
       };
-      mockUpsert.mockResolvedValue(mockResult);
+      mockNativeLanguageResponse.upsert.mockResolvedValue(mockResult);
 
       const request = new NextRequest('http://localhost:3000/api/native-language', {
         method: 'POST',
@@ -44,7 +56,7 @@ describe('/api/native-language', () => {
 
       expect(response.status).toBe(200);
       expect(data.success).toBe(true);
-      expect(mockUpsert).toHaveBeenCalledWith({
+      expect(mockNativeLanguageResponse.upsert).toHaveBeenCalledWith({
         where: { language: 'japanese' },
         update: { responseCount: { increment: 1 } },
         create: { language: 'japanese', responseCount: 1 },
@@ -54,7 +66,7 @@ describe('/api/native-language', () => {
     it.each(['japanese', 'english', 'chinese', 'korean', 'other'])(
       'accepts valid language: %s',
       async (language) => {
-        mockUpsert.mockResolvedValue({ id: 1, language, responseCount: 1 });
+        mockNativeLanguageResponse.upsert.mockResolvedValue({ id: 1, language, responseCount: 1 });
 
         const request = new NextRequest('http://localhost:3000/api/native-language', {
           method: 'POST',
@@ -104,7 +116,7 @@ describe('/api/native-language', () => {
     });
 
     it('returns 500 on database error', async () => {
-      mockUpsert.mockRejectedValue(new Error('DB error'));
+      mockNativeLanguageResponse.upsert.mockRejectedValue(new Error('DB error'));
 
       const request = new NextRequest('http://localhost:3000/api/native-language', {
         method: 'POST',
@@ -123,7 +135,7 @@ describe('/api/native-language', () => {
         { language: 'japanese', responseCount: 50 },
         { language: 'english', responseCount: 20 },
       ];
-      mockFindMany.mockResolvedValue(mockData);
+      mockNativeLanguageResponse.findMany.mockResolvedValue(mockData);
 
       const response = await GET();
       const data = await response.json();
@@ -133,14 +145,14 @@ describe('/api/native-language', () => {
       expect(data.data).toHaveLength(2);
       expect(data.data[0].language).toBe('japanese');
       expect(data.data[0].responseCount).toBe(50);
-      expect(mockFindMany).toHaveBeenCalledWith({
+      expect(mockNativeLanguageResponse.findMany).toHaveBeenCalledWith({
         orderBy: { responseCount: 'desc' },
         select: { language: true, responseCount: true },
       });
     });
 
     it('returns 500 on database error', async () => {
-      mockFindMany.mockRejectedValue(new Error('DB error'));
+      mockNativeLanguageResponse.findMany.mockRejectedValue(new Error('DB error'));
 
       const response = await GET();
       expect(response.status).toBe(500);
