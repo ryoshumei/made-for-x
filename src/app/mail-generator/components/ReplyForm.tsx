@@ -110,7 +110,11 @@ export default function ReplyForm() {
         isLoading={isLoading}
         message="返信生成中..."
         estimatedTime={8}
-        additionalContent={showSurvey && isLoading ? <NativeLanguageSurvey /> : undefined}
+        additionalContent={
+          showSurvey && isLoading ? (
+            <NativeLanguageSurvey onComplete={() => setShowSurvey(false)} />
+          ) : undefined
+        }
       />
 
       {/* New Year Reply Feature Banner - Time-limited until 2026-01-31 */}

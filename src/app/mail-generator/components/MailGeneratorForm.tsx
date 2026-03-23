@@ -189,7 +189,11 @@ export default function MailGeneratorForm({ mode = 'email' }: MailGeneratorFormP
         isLoading={isLoading}
         message={progressMessage}
         estimatedTime={10}
-        additionalContent={showSurvey && isLoading ? <NativeLanguageSurvey /> : undefined}
+        additionalContent={
+          showSurvey && isLoading ? (
+            <NativeLanguageSurvey onComplete={() => setShowSurvey(false)} />
+          ) : undefined
+        }
       />
 
       {/* New Year Email Feature Banner - Time-limited until 2026-01-31 */}
