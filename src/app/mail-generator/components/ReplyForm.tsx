@@ -27,13 +27,15 @@ export default function ReplyForm() {
   const [showSurvey, setShowSurvey] = useState(false);
 
   useEffect(() => {
-    try {
-      const completed = localStorage.getItem('survey_native_language_completed');
-      setShowSurvey(!completed);
-    } catch {
-      // localStorage unavailable
+    if (isLoading) {
+      try {
+        const completed = localStorage.getItem('survey_native_language_completed');
+        setShowSurvey(!completed);
+      } catch {
+        // localStorage unavailable
+      }
     }
-  }, []);
+  }, [isLoading]);
 
   const maxLength = MAIL_GENERATOR_CONSTANTS.MAX_INPUT_LENGTH;
   const receivedMailCharCount = formData.receivedMail.length;
@@ -110,11 +112,7 @@ export default function ReplyForm() {
         isLoading={isLoading}
         message="返信生成中..."
         estimatedTime={8}
-        additionalContent={
-          showSurvey && isLoading ? (
-            <NativeLanguageSurvey onComplete={() => setShowSurvey(false)} />
-          ) : undefined
-        }
+        additionalContent={showSurvey && isLoading ? <NativeLanguageSurvey /> : undefined}
       />
 
       {/* New Year Reply Feature Banner - Time-limited until 2026-01-31 */}

@@ -10,11 +10,7 @@ const LANGUAGE_OPTIONS = [
   { label: 'Other', value: 'other' },
 ] as const;
 
-interface NativeLanguageSurveyProps {
-  onComplete?: () => void;
-}
-
-export default function NativeLanguageSurvey({ onComplete }: NativeLanguageSurveyProps) {
+export default function NativeLanguageSurvey() {
   const [answered, setAnswered] = useState(false);
 
   const handleSelect = (language: string) => {
@@ -25,8 +21,6 @@ export default function NativeLanguageSurvey({ onComplete }: NativeLanguageSurve
     } catch {
       // localStorage may be unavailable (private browsing, quota exceeded)
     }
-
-    onComplete?.();
 
     fetch('/api/native-language', {
       method: 'POST',

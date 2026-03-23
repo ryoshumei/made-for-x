@@ -38,13 +38,15 @@ export default function MailGeneratorForm({ mode = 'email' }: MailGeneratorFormP
   const [showSurvey, setShowSurvey] = useState(false);
 
   useEffect(() => {
-    try {
-      const completed = localStorage.getItem('survey_native_language_completed');
-      setShowSurvey(!completed);
-    } catch {
-      // localStorage unavailable
+    if (isLoading) {
+      try {
+        const completed = localStorage.getItem('survey_native_language_completed');
+        setShowSurvey(!completed);
+      } catch {
+        // localStorage unavailable
+      }
     }
-  }, []);
+  }, [isLoading]);
 
   const maxLength = MAIL_GENERATOR_CONSTANTS.MAX_INPUT_LENGTH;
   const charCount = formData.text.length;
@@ -189,11 +191,7 @@ export default function MailGeneratorForm({ mode = 'email' }: MailGeneratorFormP
         isLoading={isLoading}
         message={progressMessage}
         estimatedTime={10}
-        additionalContent={
-          showSurvey && isLoading ? (
-            <NativeLanguageSurvey onComplete={() => setShowSurvey(false)} />
-          ) : undefined
-        }
+        additionalContent={showSurvey && isLoading ? <NativeLanguageSurvey /> : undefined}
       />
 
       {/* New Year Email Feature Banner - Time-limited until 2026-01-31 */}
