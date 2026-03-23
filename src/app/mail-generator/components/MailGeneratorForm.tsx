@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProgressBar from '@/components/ProgressBar';
 import {
   shouldShowUpdateNotification,
@@ -9,6 +9,7 @@ import {
 import { MAIL_GENERATOR_CONSTANTS } from '@/config/models';
 import QuickActionTags from './QuickActionTags';
 import type { PageContext } from '@/config/quick-action-tags';
+import NativeLanguageSurvey from '@/components/NativeLanguageSurvey';
 
 interface FormData {
   recipient: string;
@@ -34,6 +35,18 @@ export default function MailGeneratorForm({ mode = 'email' }: MailGeneratorFormP
   const [copyButtonText, setCopyButtonText] = useState('Copy');
   const [progressMessage, setProgressMessage] = useState('AI生成中...');
   const [includeEmoji, setIncludeEmoji] = useState(false);
+  const [showSurvey, setShowSurvey] = useState(false);
+
+  useEffect(() => {
+    if (isLoading) {
+      try {
+        const completed = localStorage.getItem('survey_native_language_completed');
+        setShowSurvey(!completed);
+      } catch {
+        // localStorage unavailable
+      }
+    }
+  }, [isLoading]);
 
   const maxLength = MAIL_GENERATOR_CONSTANTS.MAX_INPUT_LENGTH;
   const charCount = formData.text.length;
@@ -174,7 +187,12 @@ export default function MailGeneratorForm({ mode = 'email' }: MailGeneratorFormP
 
   return (
     <>
-      <ProgressBar isLoading={isLoading} message={progressMessage} estimatedTime={10} />
+      <ProgressBar
+        isLoading={isLoading}
+        message={progressMessage}
+        estimatedTime={10}
+        additionalContent={showSurvey && isLoading ? <NativeLanguageSurvey /> : undefined}
+      />
 
       {/* New Year Email Feature Banner - Time-limited until 2026-01-31 */}
       {mode === 'email' && shouldShowNewYearFeature() && (
