@@ -1,14 +1,12 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import Image from 'next/image';
-import Link from 'next/link';
-import DynamicTitle from '../components/DynamicTitle';
 import GoogleAnalytics from '../components/GoogleAnalytics';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { UI_CONSTANTS } from '@/config/models';
-import { OrganizationStructuredData } from '@/components/StructuredData';
+import { OrganizationStructuredData, WebSiteStructuredData } from '@/components/StructuredData';
+import { HeaderNav } from '@/components/Header';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -24,25 +22,49 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Made for X - 便利なツールとサービス',
+    default: 'Made for X - 日本の生活とビジネスを支える無料ツール集',
     template: '%s | Made for X',
   },
   description:
-    '便利なツールとサービスを提供するプラットフォーム - 船橋市ごみ収集スケジュールと日本郵便ツール',
-  keywords: ['Made for X', '便利ツール', 'ごみ収集', '日本郵便', 'Funabashi', '船橋市'],
-  authors: [{ name: 'Made for X' }],
+    'AIメール作成、メルカリ配送料計算、船橋市ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウン。日本での生活と仕事を効率化する無料ツールを提供します。',
+  keywords: [
+    'Made for X',
+    '便利ツール',
+    'AIメール作成',
+    'メルカリ配送料計算',
+    '船橋市ごみ収集',
+    '日本郵便',
+    '輸出インボイス',
+    '休憩タイマー',
+    '祝日カウントダウン',
+    '連休プランナー',
+    'Funabashi',
+    '船橋市',
+    'ビジネス効率化',
+    '日本語ツール',
+  ],
+  authors: [{ name: 'Made for X', url: 'https://madeforx.com' }],
   creator: 'Made for X',
   publisher: 'Made for X',
+  applicationName: 'Made for X',
+  category: 'productivity',
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   metadataBase: new URL('https://madeforx.com'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'ja-JP': '/',
+      'x-default': '/',
+    },
+  },
   openGraph: {
-    title: 'Made for X - 便利なツールとサービス',
+    title: 'Made for X - 日本の生活とビジネスを支える無料ツール集',
     description:
-      '便利なツールとサービスを提供するプラットフォーム - 船橋市ごみ収集スケジュールと日本郵便ツール',
+      'AIメール作成、メルカリ配送料計算、船橋市ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウン。日本での生活と仕事を効率化する無料ツールを提供します。',
     url: 'https://madeforx.com',
     siteName: 'Made for X',
     locale: 'ja_JP',
@@ -50,9 +72,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Made for X - 便利なツールとサービス',
+    title: 'Made for X - 日本の生活とビジネスを支える無料ツール集',
     description:
-      '便利なツールとサービスを提供するプラットフォーム - 船橋市ごみ収集スケジュールと日本郵便ツール',
+      'AIメール作成、メルカリ配送料計算、船橋市ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウンなどの無料ツール。',
   },
   robots: {
     index: true,
@@ -74,44 +96,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      {/* Add min-h-screen to ensure minimum height of viewport */}
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        {/* Header section */}
-        <header className="bg-gray-800 text-white p-4">
-          <div className="container mx-auto flex items-center">
-            <Link href="/" className="hover:opacity-80 transition-opacity duration-200">
-              <Image
-                src="/logo.svg"
-                alt="Made for X Logo"
-                width={50}
-                height={50}
-                className="cursor-pointer"
-              />
-            </Link>
-            <Link href="/" className="hover:opacity-80 transition-opacity duration-200">
-              <DynamicTitle />
-            </Link>
-          </div>
-        </header>
+        <HeaderNav />
 
-        {/* Main content area with flex-grow to push footer down */}
         <main className="flex-grow flex flex-col bg-gray-50">{children}</main>
 
-        {/* Footer will now stay at bottom */}
         <footer className="bg-gray-800 text-white p-4 text-center">
           <p className="text-sm">
             © 2025 madeforx.com All Rights Reserved. Powered by {UI_CONSTANTS.MODEL_DISPLAY_NAME}
           </p>
         </footer>
 
-        {/* Structured Data */}
         <OrganizationStructuredData
           name="Made for X"
           url="https://madeforx.com"
-          description="便利なツールとサービスを提供するプラットフォーム - 船橋市ごみ収集スケジュールと日本郵便ツール、AIメール作成ツール、メルカリ配送料計算器"
+          description="AIメール作成、メルカリ配送料計算、船橋市ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウンなど、日本での生活と仕事を効率化する無料ツールを提供します。"
           logo="https://madeforx.com/logo.svg"
+        />
+        <WebSiteStructuredData
+          name="Made for X"
+          url="https://madeforx.com"
+          description="AIメール作成、メルカリ配送料計算、船橋市ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウンなど、日本での生活と仕事を効率化する無料ツールを提供します。"
+          publisher={{ name: 'Made for X', url: 'https://madeforx.com' }}
         />
 
         {/* Google Analytics */}

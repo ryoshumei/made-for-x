@@ -148,10 +148,15 @@ export default function ReplyForm() {
         {/* Input Form */}
         <form
           className="space-y-6"
+          method="post"
+          action=""
           onSubmit={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             handleGenerateReply();
+            return false;
           }}
+          noValidate
         >
           {/* Received Mail */}
           <div>
