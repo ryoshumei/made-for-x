@@ -227,10 +227,15 @@ export default function MailGeneratorForm({ mode = 'email' }: MailGeneratorFormP
         {/* Input Form */}
         <form
           className="space-y-6"
+          method="post"
+          action=""
           onSubmit={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             handleGenerate();
+            return false;
           }}
+          noValidate
         >
           {mode === 'email' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

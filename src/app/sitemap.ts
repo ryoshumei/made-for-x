@@ -1,54 +1,63 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+  const baseUrl = 'https://madeforx.com';
+
   return [
     {
-      url: 'https://madeforx.com',
-      lastModified: new Date(),
+      url: baseUrl,
+      lastModified: now,
       changeFrequency: 'weekly',
-      priority: 1,
+      priority: 1.0,
     },
     {
-      url: 'https://madeforx.com/mail-generator',
-      lastModified: new Date(),
+      url: `${baseUrl}/mail-generator`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/mail-generator/reply`,
+      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: 'https://madeforx.com/mail-generator/reply',
-      lastModified: new Date(),
+      url: `${baseUrl}/mail-generator/chat`,
+      lastModified: now,
       changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/shipping-calculator`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/waste-collection`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/japanpost`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/holidays`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/break`,
+      lastModified: now,
+      changeFrequency: 'monthly',
       priority: 0.7,
-    },
-    {
-      url: 'https://madeforx.com/mail-generator/chat',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
-    {
-      url: 'https://madeforx.com/shipping-calculator',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: 'https://madeforx.com/waste-collection',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: 'https://madeforx.com/japanpost',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: 'https://madeforx.com/holidays',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
     },
   ];
 }

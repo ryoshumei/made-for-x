@@ -5,6 +5,7 @@ import { getNextHoliday } from '@/lib/holidays/holidays';
 import { calculateBridgePlan } from '@/lib/holidays/bridge-calculator';
 import { Holiday, BridgePlan } from '@/lib/holidays/types';
 import holiday_jp from '@holiday-jp/holiday_jp';
+import ShareButton from './ShareButton';
 
 function getAllHolidays(): Holiday[] {
   const now = new Date();
@@ -78,14 +79,16 @@ export default function HolidayCard() {
   useEffect(() => {
     const nextHoliday = getNextHoliday();
     if (!nextHoliday) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setNoData(true);
       return;
     }
 
-    setHoliday(nextHoliday);
-
     const allHolidays = getAllHolidays();
     const plan = calculateBridgePlan(nextHoliday.date, allHolidays);
+
+    setHoliday(nextHoliday);
+
     setBridgePlan(plan);
 
     setCountdown(getCountdown(nextHoliday.date));
@@ -115,10 +118,23 @@ export default function HolidayCard() {
     return null;
   }
 
+  const shareText =
+    bridgePlan.ptoDaysNeeded > 0
+      ? `次の祝日「${holiday.name}」(${formatDate(holiday.date)})。有給${bridgePlan.ptoDaysNeeded}日で${bridgePlan.totalDaysOff}連休に！`
+      : `次の祝日「${holiday.name}」(${formatDate(holiday.date)})。${bridgePlan.totalDaysOff}連休になります！`;
+
   return (
     <div className="flex-grow bg-gradient-to-br from-sky-50 to-blue-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-lg p-8">
+          <div className="flex justify-end mb-2">
+            <ShareButton
+              title={`次の祝日: ${holiday.name} - Made for X`}
+              text={shareText}
+              url="https://madeforx.com/holidays"
+            />
+          </div>
+
           {/* Header */}
           <div className="text-center mb-6">
             <p className="text-sm text-gray-500 mb-1">次の祝日</p>
