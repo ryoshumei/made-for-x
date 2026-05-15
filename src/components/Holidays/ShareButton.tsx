@@ -44,18 +44,6 @@ export default function ShareButton({ title, text, url }: ShareButtonProps) {
     setTimeout(() => setFeedback(null), 2000);
   };
 
-  const handleNativeShare = async (): Promise<boolean> => {
-    if (typeof navigator === 'undefined' || !('share' in navigator)) return false;
-    try {
-      await navigator.share({ title, text, url });
-      return true;
-    } catch (err) {
-      const name = (err as Error)?.name;
-      if (name === 'AbortError') return true;
-      return false;
-    }
-  };
-
   const handleCopyLink = async () => {
     setMenuOpen(false);
     try {
@@ -66,15 +54,8 @@ export default function ShareButton({ title, text, url }: ShareButtonProps) {
     }
   };
 
-  const handleClick = async () => {
-    if (menuOpen) {
-      setMenuOpen(false);
-      return;
-    }
-    const handled = await handleNativeShare();
-    if (!handled) {
-      setMenuOpen(true);
-    }
+  const handleClick = () => {
+    setMenuOpen((open) => !open);
   };
 
   const encodedText = encodeURIComponent(`${text} ${url}`);
