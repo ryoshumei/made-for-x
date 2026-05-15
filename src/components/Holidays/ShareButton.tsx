@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface ShareButtonProps {
   title: string;
@@ -11,39 +11,51 @@ interface ShareButtonProps {
 export default function ShareButton({ title, text, url }: ShareButtonProps) {
   const [feedback, setFeedback] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!containerRef.current) return;
+      if (!containerRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+        buttonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [menuOpen]);
 
   const showFeedback = (message: string) => {
     setFeedback(message);
     setTimeout(() => setFeedback(null), 2000);
   };
 
-  const handleNativeShare = async () => {
-    if (typeof navigator !== 'undefined' && 'share' in navigator) {
-      try {
-        await navigator.share({ title, text, url });
-        return true;
-      } catch (err) {
-        if ((err as Error)?.name === 'AbortError') return true;
-      }
-    }
-    return false;
-  };
-
   const handleCopyLink = async () => {
+    setMenuOpen(false);
     try {
       await navigator.clipboard.writeText(url);
       showFeedback('リンクをコピーしました');
     } catch {
       showFeedback('コピーに失敗しました');
     }
-    setMenuOpen(false);
   };
 
-  const handleClick = async () => {
-    const handled = await handleNativeShare();
-    if (!handled) {
-      setMenuOpen((open) => !open);
-    }
+  const handleClick = () => {
+    setMenuOpen((open) => !open);
   };
 
   const encodedText = encodeURIComponent(`${text} ${url}`);
@@ -55,12 +67,14 @@ export default function ShareButton({ title, text, url }: ShareButtonProps) {
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
 
   return (
-    <div className="relative">
+    <div className="relative" ref={containerRef}>
       <button
+        ref={buttonRef}
         type="button"
         onClick={handleClick}
         className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium shadow-sm"
         aria-label="このページをシェアする"
+        aria-haspopup="menu"
         aria-expanded={menuOpen}
       >
         <svg
@@ -84,7 +98,8 @@ export default function ShareButton({ title, text, url }: ShareButtonProps) {
       {feedback && (
         <div
           role="status"
-          className="absolute right-0 mt-2 px-3 py-1 bg-gray-900 text-white text-xs rounded-md shadow-md whitespace-nowrap"
+          aria-live="polite"
+          className="absolute right-0 top-full mt-2 px-3 py-1 bg-gray-900 text-white text-xs rounded-md shadow-md whitespace-nowrap z-50"
         >
           {feedback}
         </div>
@@ -92,7 +107,7 @@ export default function ShareButton({ title, text, url }: ShareButtonProps) {
 
       {menuOpen && !feedback && (
         <div
-          className="absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden z-10"
+          className="absolute right-0 top-full mt-2 w-44 bg-white border border-gray-200 rounded-lg shadow-xl overflow-hidden z-50"
           role="menu"
         >
           <button
