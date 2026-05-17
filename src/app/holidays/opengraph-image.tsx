@@ -5,6 +5,7 @@ import holiday_jp from '@holiday-jp/holiday_jp';
 import { Holiday } from '@/lib/holidays/types';
 
 export const runtime = 'edge';
+export const revalidate = 3600;
 
 export const alt = '次の祝日カウントダウン・連休プランナー';
 export const size = { width: 1200, height: 630 };
@@ -228,6 +229,9 @@ export default async function OpenGraphImage() {
     ),
     {
       ...size,
+      headers: {
+        'Cache-Control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
+      },
     }
   );
 }
