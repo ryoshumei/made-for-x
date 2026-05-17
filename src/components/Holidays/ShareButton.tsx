@@ -62,7 +62,7 @@ export default function ShareButton({ title, text, url }: ShareButtonProps) {
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
 
-  const xUrl = `https://x.com/intent/post?text=${encodedText}`;
+  const xUrl = `https://twitter.com/intent/tweet?text=${encodedText}`;
   const lineUrl = `https://social-plugins.line.me/lineit/share?url=${encodedUrl}&text=${encodedTitle}`;
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
 

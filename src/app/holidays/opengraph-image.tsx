@@ -72,19 +72,35 @@ export default async function OpenGraphImage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <div
             style={{
-              width: 48,
-              height: 48,
-              borderRadius: 10,
-              backgroundColor: '#1f2937',
-              color: 'white',
+              width: 56,
+              height: 56,
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: 26,
-              fontWeight: 700,
+              flexWrap: 'wrap',
+              gap: 4,
             }}
           >
-            X
+            {[
+              '#60a5fa',
+              '#34d399',
+              '#f87171',
+              '#fb923c',
+              '#a78bfa',
+              '#22d3ee',
+              '#fbbf24',
+              '#e5e7eb',
+              '#10b981',
+            ].map((color) => (
+              <div
+                key={color}
+                style={{
+                  width: 16,
+                  height: 16,
+                  borderRadius: 4,
+                  backgroundColor: color,
+                  display: 'flex',
+                }}
+              />
+            ))}
           </div>
           <div style={{ fontSize: 30, color: '#1f2937', fontWeight: 600, display: 'flex' }}>
             Made for X
@@ -111,52 +127,52 @@ export default async function OpenGraphImage() {
             >
               <div
                 style={{
-                  fontSize: 30,
+                  fontSize: 26,
                   color: '#475569',
                   display: 'flex',
-                  marginBottom: 8,
+                  marginBottom: 4,
                 }}
               >
                 次の祝日
               </div>
               <div
                 style={{
-                  fontSize: 90,
+                  fontSize: 76,
                   fontWeight: 800,
                   color: '#0f172a',
                   display: 'flex',
-                  marginBottom: 8,
+                  marginBottom: 4,
                 }}
               >
                 🎌 {holiday.name}
               </div>
               <div
                 style={{
-                  fontSize: 34,
+                  fontSize: 28,
                   color: '#334155',
                   display: 'flex',
-                  marginBottom: 36,
+                  marginBottom: 24,
                 }}
               >
                 {formatDate(holiday.date)}
               </div>
 
-              <div style={{ display: 'flex', gap: 32 }}>
+              <div style={{ display: 'flex', gap: 28 }}>
                 <div
                   style={{
                     backgroundColor: 'white',
-                    borderRadius: 24,
-                    padding: '24px 56px',
+                    borderRadius: 20,
+                    padding: '18px 44px',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     boxShadow: '0 4px 6px rgba(0,0,0,0.05)',
                   }}
                 >
-                  <div style={{ fontSize: 22, color: '#64748b', display: 'flex' }}>あと</div>
+                  <div style={{ fontSize: 20, color: '#64748b', display: 'flex' }}>あと</div>
                   <div
                     style={{
-                      fontSize: 96,
+                      fontSize: 80,
                       fontWeight: 800,
                       color: '#1d4ed8',
                       lineHeight: 1,
@@ -165,26 +181,26 @@ export default async function OpenGraphImage() {
                   >
                     {days}
                   </div>
-                  <div style={{ fontSize: 22, color: '#64748b', display: 'flex' }}>日</div>
+                  <div style={{ fontSize: 20, color: '#64748b', display: 'flex' }}>日</div>
                 </div>
 
                 <div
                   style={{
                     backgroundColor: 'white',
-                    borderRadius: 24,
-                    padding: '24px 40px',
+                    borderRadius: 20,
+                    padding: '18px 32px',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
                     boxShadow: '0 4px 6px rgba(0,0,0,0.05)',
-                    minWidth: 420,
+                    minWidth: 380,
                   }}
                 >
-                  <div style={{ fontSize: 22, color: '#64748b', display: 'flex' }}>連休プラン</div>
+                  <div style={{ fontSize: 20, color: '#64748b', display: 'flex' }}>連休プラン</div>
                   <div
                     style={{
-                      fontSize: 76,
+                      fontSize: 64,
                       fontWeight: 800,
                       color: '#1d4ed8',
                       lineHeight: 1.1,
@@ -193,7 +209,7 @@ export default async function OpenGraphImage() {
                   >
                     {plan.totalDaysOff}連休
                   </div>
-                  <div style={{ fontSize: 22, color: '#0369a1', display: 'flex' }}>{ptoLabel}</div>
+                  <div style={{ fontSize: 20, color: '#0369a1', display: 'flex' }}>{ptoLabel}</div>
                 </div>
               </div>
             </div>
