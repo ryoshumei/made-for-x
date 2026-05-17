@@ -62,9 +62,37 @@ export default function ShareButton({ title, text, url }: ShareButtonProps) {
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
 
-  const xUrl = `https://x.com/intent/post?text=${encodedText}`;
+  const xWebUrl = `https://x.com/intent/post?text=${encodedText}`;
+  const xAppUrl = `twitter://post?message=${encodedText}`;
   const lineUrl = `https://social-plugins.line.me/lineit/share?url=${encodedUrl}&text=${encodedTitle}`;
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+
+  const handleXShare = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    setMenuOpen(false);
+    if (typeof window === 'undefined') return;
+
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (!isMobile) {
+      // Desktop: let the default <a target="_blank"> open the web composer
+      return;
+    }
+
+    // Mobile: try the X app's native composer via deep link; fall back to web if it doesn't open
+    event.preventDefault();
+    const fallbackTimer = window.setTimeout(() => {
+      if (!document.hidden) {
+        window.location.href = xWebUrl;
+      }
+    }, 1200);
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        window.clearTimeout(fallbackTimer);
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.location.href = xAppUrl;
+  };
 
   return (
     <div className="relative" ref={containerRef}>
@@ -134,10 +162,10 @@ export default function ShareButton({ title, text, url }: ShareButtonProps) {
             リンクをコピー
           </button>
           <a
-            href={xUrl}
+            href={xWebUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => setMenuOpen(false)}
+            onClick={handleXShare}
             className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
             role="menuitem"
           >
