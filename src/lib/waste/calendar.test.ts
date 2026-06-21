@@ -35,6 +35,8 @@ describe('buildIcs', () => {
     expect(ics).toContain('BEGIN:VCALENDAR');
     expect(ics).toContain('DTSTART;VALUE=DATE:20260608');
     expect(ics).toContain('DTSTART;VALUE=DATE:20261207');
+    expect(ics).toContain('DTEND;VALUE=DATE:20260609');
+    expect(ics).toContain('DTEND;VALUE=DATE:20261208');
     expect((ics.match(/BEGIN:VEVENT/g) ?? []).length).toBe(2);
     expect(ics.trim().endsWith('END:VCALENDAR')).toBe(true);
   });

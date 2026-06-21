@@ -32,6 +32,12 @@ export function buildRecurrenceRule(s: Schedule): string | null {
   }
 }
 
+function nextDayYmd(iso: string): string {
+  const d = new Date(`${iso}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + 1);
+  return `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}${String(d.getUTCDate()).padStart(2, '0')}`;
+}
+
 export function buildIcs(title: string, isoDates: string[]): string {
   const slug = title.replace(/\s+/g, '').slice(0, 12);
   const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//madeforx//waste//JA'];
@@ -42,6 +48,7 @@ export function buildIcs(title: string, isoDates: string[]): string {
       `UID:waste-${slug}-${ymd}-${i}@madeforx.com`,
       `SUMMARY:${title}`,
       `DTSTART;VALUE=DATE:${ymd}`,
+      `DTEND;VALUE=DATE:${nextDayYmd(iso)}`,
       'END:VEVENT'
     );
   });

@@ -44,7 +44,7 @@ function nextWeekday(jpDay: string): Date {
   const target = map[jpDay] ?? 1;
   const today = new Date();
   let delta = target - today.getDay();
-  if (delta <= 0) delta += 7;
+  if (delta < 0) delta += 7;
   const d = new Date(today);
   d.setDate(today.getDate() + delta);
   return d;
@@ -209,7 +209,7 @@ const WasteCollectionForm = () => {
                     <div className="flex flex-wrap gap-2">
                       {area.schedules.map((s, i) => (
                         <button
-                          key={i}
+                          key={`${s.wasteType}-${i}`}
                           onClick={() => exportSchedule(area, s, data.city.name)}
                           title="カレンダーに追加"
                           className={`text-left px-3 py-2 rounded-lg border ${
@@ -219,7 +219,7 @@ const WasteCollectionForm = () => {
                           <span className="block text-xs font-bold">
                             {s.wasteTypeJa ?? s.wasteType}
                           </span>
-                          <span className="block text-xs flex items-center gap-1">
+                          <span className="text-xs flex items-center gap-1">
                             <Calendar className="w-3 h-3" />
                             {formatSchedule(s)}
                             {s.collectionTime === 'nighttime' ? ' (夜)' : ''}
