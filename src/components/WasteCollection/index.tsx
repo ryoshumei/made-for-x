@@ -1,456 +1,236 @@
 'use client';
 
-import React, { useState, FormEvent } from 'react';
-import { Calendar, MapPin, Clock, Trash2 } from 'lucide-react';
+import React, { useMemo, useState, FormEvent } from 'react';
+import { Calendar, MapPin, Trash2, Search } from 'lucide-react';
+import { formatSchedule } from '@/lib/waste/schedule-format';
+import { buildRecurrenceRule, buildIcs } from '@/lib/waste/calendar';
+import type { Schedule } from '@/lib/waste/types';
 
-// Types for API response
-interface WasteScheduleArea {
-  id: number;
+interface Area {
   areaName: string;
-  zipcode: string;
-  addressDetail?: string;
-  burnable: {
-    days: string;
-    time: string;
-    dayNumbers: number[];
-  };
-  nonBurnable: {
-    week: number;
-    day: string;
-    dayNumber: number;
-  } | null;
-  recyclable: {
-    day: string;
-    dayNumber: number;
-  };
-  valuable: {
-    day: string;
-    dayNumber: number;
-  } | null;
+  addressDetail?: string | null;
+  schedules: Schedule[];
 }
-
-interface WasteScheduleResponse {
+interface LookupResponse {
   success: boolean;
   zipcode: string;
+  city: { cityCode: string; name: string; prefecture: string };
+  towns: string[];
+  matchType: 'town' | 'city';
   count: number;
-  areas: WasteScheduleArea[];
+  areas: Area[];
+}
+
+const WT_COLOR: Record<string, string> = {
+  burnable: 'bg-red-50 text-red-800 border-red-200',
+  non_burnable: 'bg-blue-50 text-blue-800 border-blue-200',
+  recyclable: 'bg-green-50 text-green-800 border-green-200',
+  pet_bottles: 'bg-cyan-50 text-cyan-800 border-cyan-200',
+  bottles: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+  cans: 'bg-gray-50 text-gray-800 border-gray-200',
+  metals: 'bg-slate-50 text-slate-800 border-slate-200',
+  paper: 'bg-amber-50 text-amber-800 border-amber-200',
+  cardboard: 'bg-orange-50 text-orange-800 border-orange-200',
+  plastic: 'bg-purple-50 text-purple-800 border-purple-200',
+  hazardous: 'bg-yellow-50 text-yellow-800 border-yellow-200',
+  valuables: 'bg-yellow-50 text-yellow-800 border-yellow-200',
+  clothing: 'bg-pink-50 text-pink-800 border-pink-200',
+  branches: 'bg-lime-50 text-lime-800 border-lime-200',
+  large_waste: 'bg-stone-50 text-stone-800 border-stone-200',
+};
+
+function nextWeekday(jpDay: string): Date {
+  const map: Record<string, number> = { 日: 0, 月: 1, 火: 2, 水: 3, 木: 4, 金: 5, 土: 6 };
+  const target = map[jpDay] ?? 1;
+  const today = new Date();
+  let delta = target - today.getDay();
+  if (delta <= 0) delta += 7;
+  const d = new Date(today);
+  d.setDate(today.getDate() + delta);
+  return d;
+}
+function ymd(d: Date): string {
+  return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+}
+
+function exportSchedule(area: Area, s: Schedule, cityName: string) {
+  const title = `${s.wasteTypeJa ?? s.wasteType}収集 - ${area.areaName}`;
+  const dates = s.collectionDates ?? [];
+  // Explicit-date schedules → downloadable .ics with every date.
+  if (
+    (s.frequency === 'scheduled' || (s.frequency === 'monthly' && dates.length)) &&
+    dates.length
+  ) {
+    const ics = buildIcs(title, dates);
+    const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${s.wasteType}-${area.areaName}.ics`;
+    a.click();
+    URL.revokeObjectURL(url);
+    return;
+  }
+  // Recurring → Google Calendar template URL with RRULE.
+  const recur = buildRecurrenceRule(s);
+  const start = nextWeekday((s.dayOfWeek ?? ['月'])[0]);
+  const end = new Date(start);
+  end.setDate(start.getDate() + 1);
+  const params = new URLSearchParams({
+    text: title,
+    dates: `${ymd(start)}/${ymd(end)}`,
+    details: `${formatSchedule(s)}\n地域: ${area.areaName}, ${cityName}`,
+    location: `${area.areaName}、${cityName}`,
+  });
+  if (recur) params.append('recur', recur);
+  window.open(
+    `https://calendar.google.com/calendar/render?action=TEMPLATE&${params.toString()}`,
+    '_blank'
+  );
 }
 
 const WasteCollectionForm = () => {
-  // State for form handling
   const [zipcode, setZipcode] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [scheduleData, setScheduleData] = useState<WasteScheduleResponse | null>(null);
+  const [data, setData] = useState<LookupResponse | null>(null);
+  const [filter, setFilter] = useState('');
 
-  // Remove hyphen from zipcode if exists
-  const normalizeZipcode = (input: string) => {
-    // Remove any non-digit characters
-    return input.replace(/\D/g, '');
-  };
-
-  // Handle input change with formatting
-  const handleZipcodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value;
-    setZipcode(input);
-  };
-
-  // Calculate next occurrence of a specific day of week
-  const getNextDateForDayOfWeek = (dayOfWeek: number): Date => {
-    const today = new Date();
-    const currentDay = today.getDay();
-    const targetDay = dayOfWeek === 7 ? 0 : dayOfWeek; // Convert 7 (Sunday) to 0
-
-    let daysUntilTarget = targetDay - currentDay;
-    if (daysUntilTarget <= 0) {
-      daysUntilTarget += 7; // Get next week's occurrence
-    }
-
-    const targetDate = new Date(today);
-    targetDate.setDate(today.getDate() + daysUntilTarget);
-    return targetDate;
-  };
-
-  // Calculate next occurrence of specific week and day (e.g., 2nd Thursday)
-  const getNextDateForWeekAndDay = (weekNumber: number, dayOfWeek: number): Date => {
-    const today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-
-    // Helper function to find the nth occurrence of a day in a given month
-    const findNthOccurrence = (
-      year: number,
-      month: number,
-      weekNum: number,
-      dayNum: number
-    ): Date | null => {
-      const targetDay = dayNum === 7 ? 0 : dayNum; // Convert 7 (Sunday) to 0
-      const firstDay = new Date(year, month, 1);
-      const firstDayOfWeek = firstDay.getDay();
-
-      // Find the first occurrence of the target day
-      const firstOccurrence = 1 + ((targetDay - firstDayOfWeek + 7) % 7);
-
-      // Calculate the nth occurrence
-      const targetDate = new Date(year, month, firstOccurrence + (weekNum - 1) * 7);
-
-      // Check if this date actually exists in the given month
-      if (targetDate.getMonth() !== month) {
-        return null; // Date doesn't exist in this month
-      }
-
-      return targetDate;
-    };
-
-    // Try current month first
-    let targetDate = findNthOccurrence(year, month, weekNumber, dayOfWeek);
-
-    // If date doesn't exist in current month or is in the past, try next months
-    if (!targetDate || targetDate <= today) {
-      let monthsChecked = 0;
-      do {
-        month++;
-        if (month > 11) {
-          month = 0;
-          year++;
-        }
-        targetDate = findNthOccurrence(year, month, weekNumber, dayOfWeek);
-        monthsChecked++;
-      } while ((!targetDate || targetDate <= today) && monthsChecked < 12);
-    }
-
-    // Fallback: if we still don't have a valid date, return next occurrence of the day
-    if (!targetDate) {
-      return getNextDateForDayOfWeek(dayOfWeek);
-    }
-
-    return targetDate;
-  };
-
-  // Format date for Google Calendar all-day events (YYYYMMDD)
-  const formatDateForCalendar = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}${month}${day}`;
-  };
-
-  // Get next day for all-day event end date
-  const getNextDay = (date: Date): Date => {
-    const nextDay = new Date(date);
-    nextDay.setDate(date.getDate() + 1);
-    return nextDay;
-  };
-
-  // Generate Google Calendar URL
-  const generateCalendarUrl = (
-    title: string,
-    startDate: Date,
-    description: string,
-    location: string,
-    isRecurring: boolean = true,
-    recurrenceType: 'weekly' | 'monthly' = 'weekly'
-  ): string => {
-    const baseUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
-
-    // Format as all-day event
-    const startDateStr = formatDateForCalendar(startDate);
-    const endDateStr = formatDateForCalendar(getNextDay(startDate));
-
-    const params = new URLSearchParams({
-      text: title,
-      dates: `${startDateStr}/${endDateStr}`,
-      details: description,
-      location: location,
-    });
-
-    // Add recurrence rule for events
-    if (isRecurring) {
-      if (recurrenceType === 'monthly') {
-        // For monthly events, calculate which week and day of month
-        const dayOfMonth = startDate.getDate();
-        const weekOfMonth = Math.ceil(dayOfMonth / 7);
-        const dayOfWeek = startDate.getDay();
-        const dayNames = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
-
-        // RRULE for "every nth weekday of the month"
-        params.append('recur', `RRULE:FREQ=MONTHLY;BYDAY=${weekOfMonth}${dayNames[dayOfWeek]}`);
-      } else {
-        params.append('recur', 'RRULE:FREQ=WEEKLY');
-      }
-    }
-
-    return `${baseUrl}&${params.toString()}`;
-  };
-
-  // Handle calendar export
-  const handleExportToCalendar = (
-    area: WasteScheduleArea,
-    wasteType: 'burnable' | 'nonBurnable' | 'recyclable' | 'valuable'
-  ) => {
-    let title = '';
-    let description = '';
-    let startDate: Date;
-    let isRecurring = true;
-
-    const location = `${area.areaName}${area.addressDetail ? ` ${area.addressDetail}` : ''}、船橋市`;
-
-    switch (wasteType) {
-      case 'burnable':
-        title = `可燃ごみ収集 - ${area.areaName}`;
-        description = `可燃ごみの収集日です。\n収集日: ${area.burnable.days}\n収集時間帯: ${area.burnable.time}\n地域: ${area.areaName}${area.addressDetail ? `\n詳細: ${area.addressDetail}` : ''}`;
-        // For burnable waste, use the first day (e.g., Monday from "月木")
-        startDate = getNextDateForDayOfWeek(area.burnable.dayNumbers[0]);
-        break;
-
-      case 'nonBurnable':
-        if (!area.nonBurnable) return;
-        title = `不燃ごみ収集 - ${area.areaName}`;
-        description = `不燃ごみの収集日です。\n第${area.nonBurnable.week}週 ${area.nonBurnable.day}曜日\n地域: ${area.areaName}${area.addressDetail ? `\n詳細: ${area.addressDetail}` : ''}`;
-        startDate = getNextDateForWeekAndDay(area.nonBurnable.week, area.nonBurnable.dayNumber);
-        isRecurring = true; // Enable monthly recurring
-        break;
-
-      case 'recyclable':
-        title = `資源ごみ収集 - ${area.areaName}`;
-        description = `資源ごみの収集日です。\n${area.recyclable.day}曜日\n地域: ${area.areaName}${area.addressDetail ? `\n詳細: ${area.addressDetail}` : ''}`;
-        startDate = getNextDateForDayOfWeek(area.recyclable.dayNumber);
-        break;
-
-      case 'valuable':
-        if (!area.valuable) return;
-        title = `有価物収集 - ${area.areaName}`;
-        description = `有価物の収集日です。\n${area.valuable.day}曜日\n地域: ${area.areaName}${area.addressDetail ? `\n詳細: ${area.addressDetail}` : ''}`;
-        startDate = getNextDateForDayOfWeek(area.valuable.dayNumber);
-        break;
-
-      default:
-        return;
-    }
-
-    const recurrenceType = wasteType === 'nonBurnable' ? 'monthly' : 'weekly';
-    const calendarUrl = generateCalendarUrl(
-      title,
-      startDate,
-      description,
-      location,
-      isRecurring,
-      recurrenceType
-    );
-    window.open(calendarUrl, '_blank');
-  };
-
-  // Handle form submission
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Normalize zipcode to remove hyphen
-    const normalizedZipcode = normalizeZipcode(zipcode);
-
-    // Validate that we have 7 digits
-    if (normalizedZipcode.length !== 7) {
+    const zip = zipcode.replace(/\D/g, '');
+    if (zip.length !== 7) {
       setError('正しい郵便番号を入力してください（7桁の数字）');
       return;
     }
-
     setLoading(true);
     setError('');
-    setScheduleData(null);
-
+    setData(null);
+    setFilter('');
     try {
-      const response = await fetch(`/api/search?zipcode=${normalizedZipcode}`);
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to fetch data');
+      const res = await fetch(`/api/waste/lookup?zipcode=${zip}`);
+      if (!res.ok) {
+        const j = await res.json();
+        throw new Error(j.message || 'データの取得に失敗しました');
       }
-
-      const data: WasteScheduleResponse = await response.json();
-      setScheduleData(data);
+      setData(await res.json());
     } catch (err) {
       setError(err instanceof Error ? err.message : 'データの取得に失敗しました');
-      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  // Get waste type color
-  const getWasteTypeColor = (type: string) => {
-    switch (type) {
-      case 'burnable':
-        return 'bg-red-100 text-red-800 border-red-200';
-      case 'nonBurnable':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'recyclable':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'valuable':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
-  };
+  const visibleAreas = useMemo(() => {
+    if (!data) return [];
+    const q = filter.trim();
+    if (!q) return data.areas;
+    return data.areas.filter((a) => `${a.areaName}${a.addressDetail ?? ''}`.includes(q));
+  }, [data, filter]);
 
   return (
     <div className="bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
-        {/* Notice */}
-        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 rounded">
-          <p className="font-medium">注意：現在は船橋市のみ対応しています</p>
-          <p className="text-sm">We currently only support Funabashi City area</p>
+        <div className="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 mb-6 rounded">
+          <p className="font-medium">千葉県全60市町村に対応しています</p>
+          <p className="text-sm">郵便番号で市町村を特定し、地域別の収集日を表示します。</p>
         </div>
 
-        {/* Search Form */}
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md mb-6">
-          <div className="mb-4">
-            <label htmlFor="zipcode" className="block text-gray-700 text-sm font-bold mb-2">
-              郵便番号を入力:
-            </label>
-            <div className="relative">
-              <MapPin className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-              <input
-                id="zipcode"
-                type="text"
-                value={zipcode}
-                onChange={handleZipcodeChange}
-                className="w-full pl-10 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-                placeholder="例: 273-0001 または 2730001"
-                pattern="[0-9]{3}-?[0-9]{4}"
-                title="正しい日本の郵便番号形式で入力してください（例: 273-0001 または 2730001）"
-                required
-              />
-            </div>
-            <p className="mt-1 text-xs text-gray-500">船橋市の郵便番号は273から始まります</p>
+          <label htmlFor="zipcode" className="block text-gray-700 text-sm font-bold mb-2">
+            郵便番号を入力:
+          </label>
+          <div className="relative">
+            <MapPin className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+            <input
+              id="zipcode"
+              type="text"
+              value={zipcode}
+              onChange={(e) => setZipcode(e.target.value)}
+              className="w-full pl-10 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+              placeholder="例: 274-0072 または 2740072"
+              required
+            />
           </div>
-
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors disabled:bg-blue-300 flex items-center justify-center space-x-2"
             disabled={loading}
+            className="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors disabled:bg-blue-300 flex items-center justify-center space-x-2"
           >
             <Trash2 className="w-5 h-5" />
             <span>{loading ? '読み込み中...' : '収集日程を確認'}</span>
           </button>
         </form>
 
-        {/* Error Message */}
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
             {error}
           </div>
         )}
 
-        {/* Results */}
-        {scheduleData && (
-          <div className="bg-white rounded-lg shadow-md">
-            <div className="p-4 border-b">
-              <h2 className="text-xl font-semibold text-gray-800 flex items-center space-x-2">
-                <Calendar className="w-6 h-6" />
-                <span>収集スケジュール - 郵便番号 {scheduleData.zipcode}</span>
+        {data && (
+          <div className="bg-white rounded-lg shadow-md p-4">
+            <div className="border-b pb-3 mb-3">
+              <h2 className="text-xl font-semibold text-gray-800">
+                {data.city.name}
+                {data.towns.length > 0 && (
+                  <span className="text-gray-500 text-base"> {data.towns.join('・')}</span>
+                )}
               </h2>
               <p className="text-sm text-gray-600 mt-1">
-                {scheduleData.count}件の地域が見つかりました
+                {data.matchType === 'city'
+                  ? `郵便番号では市までの特定です。下の欄に町名を入れて絞り込めます（全${data.areas.length}地区）。`
+                  : `${data.count}件の地域が見つかりました。`}
               </p>
             </div>
 
-            <div className="divide-y">
-              {scheduleData.areas.map((area) => (
-                <div key={area.id} className="p-6">
-                  <div className="mb-4">
+            <div className="relative mb-4">
+              <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                placeholder="町名で絞り込む 例: 三山 / 万町"
+                className="w-full pl-10 p-2 border rounded-md text-gray-900"
+              />
+            </div>
+
+            {visibleAreas.length === 0 ? (
+              <p className="text-center text-gray-500 py-8">
+                該当する地区がありません。町名の一部だけ入れてみてください。
+              </p>
+            ) : (
+              <div className="space-y-4">
+                {visibleAreas.map((area, idx) => (
+                  <div key={`${area.areaName}-${idx}`} className="border rounded-lg p-4">
                     <h3 className="text-lg font-medium text-gray-900">{area.areaName}</h3>
                     {area.addressDetail && (
-                      <p className="text-sm text-gray-600">{area.addressDetail}</p>
+                      <p className="text-xs text-gray-500 mb-2">{area.addressDetail}</p>
                     )}
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
-                    {/* Burnable Waste */}
-                    <div
-                      className={`p-4 rounded-lg border ${getWasteTypeColor('burnable')} flex flex-col h-full`}
-                    >
-                      <h4 className="font-semibold mb-2">可燃ごみ</h4>
-                      <div className="flex items-center space-x-1 mb-1">
-                        <Clock className="w-4 h-4" />
-                        <span className="text-sm">{area.burnable.days}</span>
-                      </div>
-                      <p className="text-xs mb-3">{area.burnable.time}</p>
-                      <div className="mt-auto">
+                    <div className="flex flex-wrap gap-2">
+                      {area.schedules.map((s, i) => (
                         <button
-                          onClick={() => handleExportToCalendar(area, 'burnable')}
-                          className="w-full bg-red-50 hover:bg-red-100 text-red-700 text-xs py-2 px-2 rounded border border-red-200 transition-colors flex items-center justify-center space-x-1"
+                          key={i}
+                          onClick={() => exportSchedule(area, s, data.city.name)}
+                          title="カレンダーに追加"
+                          className={`text-left px-3 py-2 rounded-lg border ${
+                            WT_COLOR[s.wasteType] ?? 'bg-gray-50 text-gray-800 border-gray-200'
+                          }`}
                         >
-                          <Calendar className="w-3 h-3" />
-                          <span>Googleカレンダーに追加</span>
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Non-burnable Waste */}
-                    {area.nonBurnable && (
-                      <div
-                        className={`p-4 rounded-lg border ${getWasteTypeColor('nonBurnable')} flex flex-col h-full`}
-                      >
-                        <h4 className="font-semibold mb-2">不燃ごみ</h4>
-                        <div className="flex items-center space-x-1 mb-1">
-                          <Clock className="w-4 h-4" />
-                          <span className="text-sm">
-                            第{area.nonBurnable.week}週 {area.nonBurnable.day}
+                          <span className="block text-xs font-bold">
+                            {s.wasteTypeJa ?? s.wasteType}
                           </span>
-                        </div>
-                        <div className="flex-grow"></div>
-                        <button
-                          onClick={() => handleExportToCalendar(area, 'nonBurnable')}
-                          className="w-full bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs py-2 px-2 rounded border border-blue-200 transition-colors flex items-center justify-center space-x-1"
-                        >
-                          <Calendar className="w-3 h-3" />
-                          <span>Googleカレンダーに追加</span>
+                          <span className="block text-xs flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />
+                            {formatSchedule(s)}
+                            {s.collectionTime === 'nighttime' ? ' (夜)' : ''}
+                          </span>
                         </button>
-                      </div>
-                    )}
-
-                    {/* Recyclable Waste */}
-                    <div
-                      className={`p-4 rounded-lg border ${getWasteTypeColor('recyclable')} flex flex-col h-full`}
-                    >
-                      <h4 className="font-semibold mb-2">資源ごみ</h4>
-                      <div className="flex items-center space-x-1 mb-1">
-                        <Clock className="w-4 h-4" />
-                        <span className="text-sm">{area.recyclable.day}</span>
-                      </div>
-                      <div className="flex-grow"></div>
-                      <button
-                        onClick={() => handleExportToCalendar(area, 'recyclable')}
-                        className="w-full bg-green-50 hover:bg-green-100 text-green-700 text-xs py-2 px-2 rounded border border-green-200 transition-colors flex items-center justify-center space-x-1"
-                      >
-                        <Calendar className="w-3 h-3" />
-                        <span>Googleカレンダーに追加</span>
-                      </button>
+                      ))}
                     </div>
-
-                    {/* Valuable Waste */}
-                    {area.valuable && (
-                      <div
-                        className={`p-4 rounded-lg border ${getWasteTypeColor('valuable')} flex flex-col h-full`}
-                      >
-                        <h4 className="font-semibold mb-2">有価物</h4>
-                        <div className="flex items-center space-x-1 mb-1">
-                          <Clock className="w-4 h-4" />
-                          <span className="text-sm">{area.valuable.day}</span>
-                        </div>
-                        <div className="flex-grow"></div>
-                        <button
-                          onClick={() => handleExportToCalendar(area, 'valuable')}
-                          className="w-full bg-yellow-50 hover:bg-yellow-100 text-yellow-700 text-xs py-2 px-2 rounded border border-yellow-200 transition-colors flex items-center justify-center space-x-1"
-                        >
-                          <Calendar className="w-3 h-3" />
-                          <span>Googleカレンダーに追加</span>
-                        </button>
-                      </div>
-                    )}
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
