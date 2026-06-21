@@ -16,6 +16,11 @@ export async function lookupByZipcode(
   });
   if (postals.length === 0) return { status: 'not_found' };
 
+  const uniqueCityIds = [...new Set(postals.map((p) => p.cityId))];
+  if (uniqueCityIds.length > 1) {
+    console.warn(`zipcode ${zipcode} maps to multiple cities: ${uniqueCityIds.join(', ')}`);
+  }
+
   const c = postals[0].city;
   const towns = [...new Set(postals.map((p) => p.townName).filter((t) => t && t.length))];
   const areas = (await prisma.area.findMany({
