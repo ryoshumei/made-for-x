@@ -32,4 +32,37 @@ describe('formatSchedule', () => {
   it('on_demand', () => {
     expect(formatSchedule({ ...base, frequency: 'on_demand' })).toBe('申込制');
   });
+
+  it('monthly with 12 collectionDates caps at 4 with ellipsis', () => {
+    expect(
+      formatSchedule({
+        ...base,
+        frequency: 'monthly',
+        collectionDates: [
+          '2026-04-02',
+          '2026-05-01',
+          '2026-06-01',
+          '2026-07-02',
+          '2026-08-03',
+          '2026-09-01',
+          '2026-10-01',
+          '2026-11-02',
+          '2026-12-01',
+          '2027-01-04',
+          '2027-02-01',
+          '2027-03-01',
+        ],
+      })
+    ).toBe('指定日 4/2・5/1・6/1・7/2…');
+  });
+
+  it('scheduled with 2 dates shows both without ellipsis', () => {
+    expect(
+      formatSchedule({
+        ...base,
+        frequency: 'scheduled',
+        collectionDates: ['2026-06-08', '2026-12-07'],
+      })
+    ).toBe('指定日 6/8・12/7');
+  });
 });

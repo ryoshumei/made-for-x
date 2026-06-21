@@ -16,5 +16,7 @@ describe('normalize', () => {
   });
   it('handles empty/nullish', () => {
     expect(normalize('')).toBe('');
+    expect(normalize(null as unknown as string)).toBe('');
+    expect(normalize(undefined as unknown as string)).toBe('');
   });
 });

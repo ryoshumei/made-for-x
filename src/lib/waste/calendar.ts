@@ -33,12 +33,13 @@ export function buildRecurrenceRule(s: Schedule): string | null {
 }
 
 export function buildIcs(title: string, isoDates: string[]): string {
+  const slug = title.replace(/\s+/g, '').slice(0, 12);
   const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//madeforx//waste//JA'];
   isoDates.forEach((iso, i) => {
     const ymd = iso.replace(/-/g, '');
     lines.push(
       'BEGIN:VEVENT',
-      `UID:waste-${ymd}-${i}@madeforx.com`,
+      `UID:waste-${slug}-${ymd}-${i}@madeforx.com`,
       `SUMMARY:${title}`,
       `DTSTART;VALUE=DATE:${ymd}`,
       'END:VEVENT'

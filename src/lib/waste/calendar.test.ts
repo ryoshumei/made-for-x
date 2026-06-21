@@ -38,4 +38,14 @@ describe('buildIcs', () => {
     expect((ics.match(/BEGIN:VEVENT/g) ?? []).length).toBe(2);
     expect(ics.trim().endsWith('END:VCALENDAR')).toBe(true);
   });
+
+  it('different waste types on same date produce different UIDs', () => {
+    const ics1 = buildIcs('カン', ['2026-04-02']);
+    const ics2 = buildIcs('びん', ['2026-04-02']);
+    const uid1 = ics1.split('\r\n').find((l) => l.startsWith('UID:'));
+    const uid2 = ics2.split('\r\n').find((l) => l.startsWith('UID:'));
+    expect(uid1).toBeDefined();
+    expect(uid2).toBeDefined();
+    expect(uid1).not.toBe(uid2);
+  });
 });
