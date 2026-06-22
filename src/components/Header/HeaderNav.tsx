@@ -8,7 +8,7 @@ import { useState } from 'react';
 const NAV_ITEMS = [
   { href: '/mail-generator', label: 'メール作成', labelEn: 'Mail' },
   { href: '/shipping-calculator', label: 'メルカリ配送', labelEn: 'Shipping' },
-  { href: '/waste-collection', label: '船橋ごみ収集', labelEn: 'Waste' },
+  { href: '/waste-collection', label: '千葉ごみ収集', labelEn: 'Waste' },
   { href: '/japanpost', label: '日本郵便', labelEn: 'Japan Post' },
   { href: '/holidays', label: '次の祝日', labelEn: 'Holidays' },
   { href: '/break', label: '休憩タイマー', labelEn: 'Break' },

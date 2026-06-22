@@ -47,8 +47,8 @@ const NAV_ITEMS: NavItem[] = [
     },
   },
   {
-    title: '船橋市ごみ収集スケジュール',
-    subtitle: 'Funabashi Waste Collection',
+    title: '千葉県ごみ収集スケジュール',
+    subtitle: 'Chiba Waste Collection',
     description: '住所から地区別の収集日を検索',
     icon: <FaTrash size={28} />,
     href: '/waste-collection',

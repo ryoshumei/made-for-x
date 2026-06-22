@@ -212,7 +212,7 @@ model PostalCode {
 - 単体: `normalize()` ＋ マッチング（町域→Area、フォールバック、`万町→中央①` 逆引き）、
   `fmtSchedule` 全6モード、郵便番号正規化。
 - API: `lookup` の town一致 / フォールバック / not_found。
-- フィクスチャ: `273-0003→宮本`（CLAUDE.md 検証基準）/ `274-0072→三山`（複数丁目）/ `289-2144→万町→中央①`。
+- フィクスチャ: `273-0003→宮本`（CLAUDE.md 検証基準）/ `274-0072→三山`（複数丁目）/ `289-2144 (匝瑳市) → town not directly matched → city fallback shows all 14 匝瑳市 areas incl. 中央①`。
 
 ## 11. スコープ外 / フォローアップ
 

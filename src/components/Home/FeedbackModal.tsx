@@ -19,7 +19,7 @@ interface FeedbackTypes {
 const TOOL_OPTIONS = [
   { value: 'mail-generator', label: 'Japanese Email Generator (メール作成 AI)' },
   { value: 'shipping-calculator', label: 'Mercari Shipping Calculator (配送料金計算器)' },
-  { value: 'waste-collection', label: 'Waste Collection (船橋市ごみ収集)' },
+  { value: 'waste-collection', label: 'Waste Collection (千葉県ごみ収集)' },
   { value: 'japanpost', label: 'Export Invoice (Japan Post輸出インボイス)' },
   { value: 'homepage', label: 'Homepage (ホームページ)' },
   { value: 'general', label: 'General Platform (プラットフォーム全般)' },
