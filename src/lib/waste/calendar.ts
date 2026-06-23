@@ -32,6 +32,54 @@ export function buildRecurrenceRule(s: Schedule): string | null {
   }
 }
 
+const JP_DAY_TO_JS: Record<string, number> = {
+  日: 0,
+  月: 1,
+  火: 2,
+  水: 3,
+  木: 4,
+  金: 5,
+  土: 6,
+};
+
+/**
+ * The first calendar date on/after `from` that matches a recurring schedule's
+ * pattern. This is the seed (DTSTART) for a Google Calendar recurrence: it MUST
+ * be a real instance of the rule, otherwise Google infers the wrong recurrence
+ * from the start date (e.g. seeding a "1st Wednesday" rule on the 4th Wednesday
+ * makes Google show "monthly on the fourth Wednesday").
+ *
+ * Returns null if nothing matches within a year (e.g. empty pattern).
+ */
+export function nextOccurrence(s: Schedule, from: Date): Date | null {
+  const start = new Date(from.getFullYear(), from.getMonth(), from.getDate());
+
+  // Explicit-date schedules: the earliest date that hasn't passed.
+  if (s.collectionDates && s.collectionDates.length) {
+    const future = s.collectionDates
+      .map((d) => new Date(`${d}T00:00:00`))
+      .filter((d) => d.getTime() >= start.getTime())
+      .sort((a, b) => a.getTime() - b.getTime());
+    return future[0] ?? null;
+  }
+
+  const days = (s.dayOfWeek ?? []).map((d) => JP_DAY_TO_JS[d]).filter((n) => n !== undefined);
+
+  for (let i = 0; i < 400; i++) {
+    const d = new Date(start);
+    d.setDate(start.getDate() + i);
+    if (s.frequency === 'monthly' && s.dayOfMonth && s.dayOfMonth.length) {
+      if (s.dayOfMonth.includes(d.getDate())) return d;
+    } else if (s.frequency === 'monthly' && s.weekOfMonth && s.weekOfMonth.length) {
+      const nth = Math.ceil(d.getDate() / 7); // nth occurrence of this weekday in its month
+      if (days.includes(d.getDay()) && s.weekOfMonth.includes(nth)) return d;
+    } else if (days.includes(d.getDay())) {
+      return d; // weekly / biweekly
+    }
+  }
+  return null;
+}
+
 function nextDayYmd(iso: string): string {
   const d = new Date(`${iso}T00:00:00Z`);
   d.setUTCDate(d.getUTCDate() + 1);

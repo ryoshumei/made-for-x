@@ -3,7 +3,7 @@
 import React, { useMemo, useState, FormEvent } from 'react';
 import { Calendar, MapPin, Trash2, Search } from 'lucide-react';
 import { formatSchedule } from '@/lib/waste/schedule-format';
-import { buildRecurrenceRule, buildIcs } from '@/lib/waste/calendar';
+import { buildRecurrenceRule, buildIcs, nextOccurrence } from '@/lib/waste/calendar';
 import type { Schedule } from '@/lib/waste/types';
 
 interface Area {
@@ -39,16 +39,6 @@ const WT_COLOR: Record<string, string> = {
   large_waste: 'bg-stone-50 text-stone-800 border-stone-200',
 };
 
-function nextWeekday(jpDay: string): Date {
-  const map: Record<string, number> = { 日: 0, 月: 1, 火: 2, 水: 3, 木: 4, 金: 5, 土: 6 };
-  const target = map[jpDay] ?? 1;
-  const today = new Date();
-  let delta = target - today.getDay();
-  if (delta < 0) delta += 7;
-  const d = new Date(today);
-  d.setDate(today.getDate() + delta);
-  return d;
-}
 function ymd(d: Date): string {
   return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
 }
@@ -70,9 +60,11 @@ function exportSchedule(area: Area, s: Schedule, cityName: string) {
     URL.revokeObjectURL(url);
     return;
   }
-  // Recurring → Google Calendar template URL with RRULE.
+  // Recurring → Google Calendar template URL with RRULE. The seed date must be
+  // a real instance of the rule (e.g. an actual 1st-Wednesday), or Google infers
+  // the recurrence from the start date and shows the wrong week.
   const recur = buildRecurrenceRule(s);
-  const start = nextWeekday((s.dayOfWeek ?? ['月'])[0]);
+  const start = nextOccurrence(s, new Date()) ?? new Date();
   const end = new Date(start);
   end.setDate(start.getDate() + 1);
   const params = new URLSearchParams({

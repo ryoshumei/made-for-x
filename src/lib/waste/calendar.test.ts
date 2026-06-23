@@ -1,5 +1,50 @@
-import { buildRecurrenceRule, buildIcs } from './calendar';
+import { buildRecurrenceRule, buildIcs, nextOccurrence } from './calendar';
 import type { Schedule } from './types';
+
+const iso = (d: Date | null) =>
+  d
+    ? `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    : null;
+
+describe('nextOccurrence (Google Calendar seed date)', () => {
+  // from = Tue 2026-06-23
+  const from = new Date(2026, 5, 23);
+
+  it('monthly 1st Wednesday seeds on a real 1st Wednesday', () => {
+    const s: Schedule = {
+      wasteType: 'non_burnable',
+      frequency: 'monthly',
+      dayOfWeek: ['水'],
+      weekOfMonth: [1],
+    };
+    // June 2026 1st Wed (3rd) is past → next is July 1, 2026 (a Wednesday, 1st of month)
+    expect(iso(nextOccurrence(s, from))).toBe('2026-07-01');
+  });
+
+  it('weekly multi-day seeds on the earliest upcoming weekday', () => {
+    const s: Schedule = { wasteType: 'burnable', frequency: 'weekly', dayOfWeek: ['月', '木'] };
+    // from Tue 6/23 → Thu 6/25 (before next Mon 6/29)
+    expect(iso(nextOccurrence(s, from))).toBe('2026-06-25');
+  });
+
+  it('monthly day_of_month seeds on the next matching day', () => {
+    const s: Schedule = {
+      wasteType: 'recyclable',
+      frequency: 'monthly',
+      dayOfMonth: [13, 27],
+    };
+    expect(iso(nextOccurrence(s, from))).toBe('2026-06-27');
+  });
+
+  it('collection_dates seeds on the earliest future date', () => {
+    const s: Schedule = {
+      wasteType: 'hazardous',
+      frequency: 'scheduled',
+      collectionDates: ['2026-06-08', '2026-12-07'],
+    };
+    expect(iso(nextOccurrence(s, from))).toBe('2026-12-07');
+  });
+});
 
 describe('buildRecurrenceRule', () => {
   it('weekly → WEEKLY by day', () => {
