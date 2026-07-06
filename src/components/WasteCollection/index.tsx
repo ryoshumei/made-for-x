@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useMemo, useState, FormEvent } from 'react';
-import { Calendar, CalendarPlus, MapPin, Trash2, Search } from 'lucide-react';
+import { Calendar, CalendarPlus, Download, MapPin, Trash2, Search } from 'lucide-react';
 import { formatSchedule } from '@/lib/waste/schedule-format';
-import { buildRecurrenceRule, nextOccurrence } from '@/lib/waste/calendar';
+import { buildIcs, buildRecurrenceRule, nextOccurrence } from '@/lib/waste/calendar';
 import type { Schedule } from '@/lib/waste/types';
 
 interface Area {
@@ -43,6 +43,12 @@ function ymd(d: Date): string {
   return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
 }
 
+// collection_dates that haven't passed yet (local-date compare, includes today)
+function upcomingDates(s: Schedule): string[] {
+  const today = ymd(new Date());
+  return (s.collectionDates ?? []).filter((d) => d.replace(/-/g, '') >= today);
+}
+
 // Every schedule opens a prefilled Google Calendar event.
 // - Recurring patterns (weekly / Nth-weekday / day-of-month) get an RRULE, so a
 //   single event covers the whole series.
@@ -58,15 +64,11 @@ function addToGoogleCalendar(area: Area, s: Schedule, cityName: string) {
   const recur = buildRecurrenceRule(s);
   let details = `${formatSchedule(s)}\n地域: ${area.areaName}（${cityName}）`;
 
-  const dates = s.collectionDates ?? [];
-  if (!recur && dates.length) {
-    const today = ymd(new Date());
-    const upcoming = dates
-      .filter((d) => d.replace(/-/g, '') >= today)
-      .map((d) => {
-        const [, m, day] = d.split('-');
-        return `${Number(m)}/${Number(day)}`;
-      });
+  if (!recur && s.collectionDates?.length) {
+    const upcoming = upcomingDates(s).map((d) => {
+      const [, m, day] = d.split('-');
+      return `${Number(m)}/${Number(day)}`;
+    });
     if (upcoming.length) details += `\n収集日（今後）: ${upcoming.join('、')}`;
   }
 
@@ -82,6 +84,81 @@ function addToGoogleCalendar(area: Area, s: Schedule, cityName: string) {
   window.open(
     `https://calendar.google.com/calendar/render?action=TEMPLATE&${params.toString()}`,
     '_blank'
+  );
+}
+
+// Footer for areas with irregular explicit-date schedules: one .ics bundles
+// every upcoming pickup across those waste types (Google's template URL is
+// single-event, so bulk registration is only possible via .ics import).
+function IcsBulkExport({ area, cityName }: { area: Area; cityName: string }) {
+  const [helpOpen, setHelpOpen] = useState(false);
+
+  const targets = area.schedules
+    .map((s) => ({ s, dates: upcomingDates(s) }))
+    .filter(
+      ({ s, dates }) =>
+        !buildRecurrenceRule(s) && (s.collectionDates?.length ?? 0) > 0 && dates.length > 0
+    );
+  if (targets.length === 0) return null;
+
+  const typeNames = targets.map(({ s }) => s.wasteTypeJa ?? s.wasteType).join('・');
+  const total = targets.reduce((n, { dates }) => n + dates.length, 0);
+
+  const download = () => {
+    const ics = buildIcs(
+      targets.map(({ s, dates }) => ({
+        title: `${s.wasteTypeJa ?? s.wasteType}収集`,
+        dates,
+        description: `地域: ${area.areaName}（${cityName}）`,
+      }))
+    );
+    const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ごみ収集_${cityName}_${area.areaName}.ics`.replace(/[/\\]/g, '・');
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="mt-3 pt-3 border-t">
+      <button
+        onClick={download}
+        className="flex items-start gap-1.5 text-sm text-blue-700 hover:text-blue-900 hover:underline text-left"
+      >
+        <Download className="w-4 h-4 mt-0.5 shrink-0" />
+        <span>
+          指定日収集（{typeNames}）をまとめて一括登録（.ics・今後全{total}回）
+        </span>
+      </button>
+      <button
+        onClick={() => setHelpOpen((v) => !v)}
+        className="mt-1 ml-5 text-xs text-gray-500 hover:text-gray-700"
+      >
+        登録方法を見る {helpOpen ? '▴' : '▾'}
+      </button>
+      {helpOpen && (
+        <ol className="mt-2 ml-5 text-xs text-gray-600 space-y-1.5 list-decimal list-inside bg-gray-50 rounded-md p-3">
+          <li>
+            <span className="font-medium">iPhone / Mac（Appleカレンダー）</span>:
+            ダウンロードしたファイルを開き「すべて追加」を押すと全件登録されます。
+          </li>
+          <li>
+            <span className="font-medium">パソコン（Googleカレンダー）</span>: calendar.google.com →
+            右上⚙「設定」→「インポート / エクスポート」→ ファイルを選択 → インポート。
+            <span className="block text-gray-500 mt-0.5">
+              ヒント:
+              先に「ごみ収集」用のカレンダーを作成し、そこへインポートすると、不要になったときにカレンダーごとまとめて削除できます。
+            </span>
+          </li>
+          <li>
+            <span className="font-medium">スマホのGoogleカレンダーアプリ</span>:
+            アプリからは取り込めません。お手数ですがパソコンで2の手順をお使いください。
+          </li>
+        </ol>
+      )}
+    </div>
   );
 }
 
@@ -235,6 +312,7 @@ const WasteCollectionForm = () => {
                           </button>
                         ))}
                       </div>
+                      <IcsBulkExport area={area} cityName={data.city.name} />
                     </div>
                   ))}
                 </div>
