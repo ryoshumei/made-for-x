@@ -86,20 +86,42 @@ function nextDayYmd(iso: string): string {
   return `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}${String(d.getUTCDate()).padStart(2, '0')}`;
 }
 
-export function buildIcs(title: string, isoDates: string[]): string {
-  const slug = title.replace(/\s+/g, '').slice(0, 12);
+// RFC5545 3.3.11 TEXT: backslash must be escaped first, then , ; and newlines.
+function escapeText(value: string): string {
+  return value
+    .replace(/\\/g, '\\\\')
+    .replace(/;/g, '\\;')
+    .replace(/,/g, '\\,')
+    .replace(/\r?\n/g, '\\n');
+}
+
+function utcStamp(d: Date): string {
+  const p = (n: number) => String(n).padStart(2, '0');
+  return `${d.getUTCFullYear()}${p(d.getUTCMonth() + 1)}${p(d.getUTCDate())}T${p(d.getUTCHours())}${p(d.getUTCMinutes())}${p(d.getUTCSeconds())}Z`;
+}
+
+export function buildIcs(
+  events: { title: string; dates: string[]; description?: string }[]
+): string {
+  const stamp = utcStamp(new Date());
   const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//madeforx//waste//JA'];
-  isoDates.forEach((iso, i) => {
-    const ymd = iso.replace(/-/g, '');
-    lines.push(
-      'BEGIN:VEVENT',
-      `UID:waste-${slug}-${ymd}-${i}@madeforx.com`,
-      `SUMMARY:${title}`,
-      `DTSTART;VALUE=DATE:${ymd}`,
-      `DTEND;VALUE=DATE:${nextDayYmd(iso)}`,
-      'END:VEVENT'
-    );
-  });
+  let seq = 0;
+  for (const ev of events) {
+    const slug = ev.title.replace(/\s+/g, '').slice(0, 12);
+    for (const iso of ev.dates) {
+      const ymd = iso.replace(/-/g, '');
+      lines.push(
+        'BEGIN:VEVENT',
+        `UID:waste-${slug}-${ymd}-${seq++}@madeforx.com`,
+        `DTSTAMP:${stamp}`,
+        `SUMMARY:${escapeText(ev.title)}`,
+        `DTSTART;VALUE=DATE:${ymd}`,
+        `DTEND;VALUE=DATE:${nextDayYmd(iso)}`
+      );
+      if (ev.description) lines.push(`DESCRIPTION:${escapeText(ev.description)}`);
+      lines.push('END:VEVENT');
+    }
+  }
   lines.push('END:VCALENDAR');
   return lines.join('\r\n');
 }

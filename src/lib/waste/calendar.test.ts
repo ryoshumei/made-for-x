@@ -75,24 +75,52 @@ describe('buildRecurrenceRule', () => {
 });
 
 describe('buildIcs', () => {
-  it('emits one VEVENT per collection date', () => {
-    const ics = buildIcs('電池類収集', ['2026-06-08', '2026-12-07']);
+  it('emits one VEVENT per date across multiple groups', () => {
+    const ics = buildIcs([
+      { title: 'カン収集', dates: ['2026-07-03', '2026-07-17'] },
+      { title: 'ビン・ガラス収集', dates: ['2026-08-05'] },
+    ]);
     expect(ics).toContain('BEGIN:VCALENDAR');
-    expect(ics).toContain('DTSTART;VALUE=DATE:20260608');
-    expect(ics).toContain('DTSTART;VALUE=DATE:20261207');
-    expect(ics).toContain('DTEND;VALUE=DATE:20260609');
-    expect(ics).toContain('DTEND;VALUE=DATE:20261208');
-    expect((ics.match(/BEGIN:VEVENT/g) ?? []).length).toBe(2);
+    expect((ics.match(/BEGIN:VEVENT/g) ?? []).length).toBe(3);
+    expect(ics).toContain('SUMMARY:カン収集');
+    expect(ics).toContain('SUMMARY:ビン・ガラス収集');
+    expect(ics).toContain('DTSTART;VALUE=DATE:20260703');
+    expect(ics).toContain('DTSTART;VALUE=DATE:20260717');
+    expect(ics).toContain('DTSTART;VALUE=DATE:20260805');
+    expect(ics).toContain('DTEND;VALUE=DATE:20260704');
+    expect(ics).toContain('DTEND;VALUE=DATE:20260806');
     expect(ics.trim().endsWith('END:VCALENDAR')).toBe(true);
   });
 
-  it('different waste types on same date produce different UIDs', () => {
-    const ics1 = buildIcs('カン', ['2026-04-02']);
-    const ics2 = buildIcs('びん', ['2026-04-02']);
-    const uid1 = ics1.split('\r\n').find((l) => l.startsWith('UID:'));
-    const uid2 = ics2.split('\r\n').find((l) => l.startsWith('UID:'));
-    expect(uid1).toBeDefined();
-    expect(uid2).toBeDefined();
-    expect(uid1).not.toBe(uid2);
+  it('every VEVENT has a DTSTAMP', () => {
+    const ics = buildIcs([{ title: 'カン収集', dates: ['2026-07-03', '2026-07-17'] }]);
+    expect((ics.match(/DTSTAMP:\d{8}T\d{6}Z/g) ?? []).length).toBe(2);
+  });
+
+  it('escapes backslash, comma, semicolon and newline in SUMMARY/DESCRIPTION', () => {
+    const ics = buildIcs([
+      {
+        title: 'A,B;C\\D',
+        dates: ['2026-07-03'],
+        description: '地域: 区分1（大網白里市）\nメモ, 注意; 済',
+      },
+    ]);
+    expect(ics).toContain('SUMMARY:A\\,B\\;C\\\\D');
+    expect(ics).toContain('DESCRIPTION:地域: 区分1（大網白里市）\\nメモ\\, 注意\\; 済');
+  });
+
+  it('UIDs are unique across the whole file even for same title and date', () => {
+    const ics = buildIcs([
+      { title: 'カン収集', dates: ['2026-07-03'] },
+      { title: 'カン収集', dates: ['2026-07-03'] },
+    ]);
+    const uids = ics.split('\r\n').filter((l) => l.startsWith('UID:'));
+    expect(uids.length).toBe(2);
+    expect(new Set(uids).size).toBe(2);
+  });
+
+  it('omits DESCRIPTION when not provided', () => {
+    const ics = buildIcs([{ title: 'カン収集', dates: ['2026-07-03'] }]);
+    expect(ics).not.toContain('DESCRIPTION:');
   });
 });
