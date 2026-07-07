@@ -1,127 +1,118 @@
 import { PrismaClient } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
+import { normalize } from '../src/lib/waste/normalize';
 
 const prisma = new PrismaClient();
+const DATA_DIR = path.join(process.cwd(), 'prisma', 'data', 'waste');
 
-interface WasteCollectionData {
+interface RawSchedule {
+  waste_type: string;
+  waste_type_ja?: string | null;
+  frequency: string;
+  day_of_week?: string[] | null;
+  week_of_month?: number[] | null;
+  day_of_month?: number[] | null;
+  collection_dates?: string[] | null;
+  collection_time?: string | null;
+}
+interface RawArea {
   areaName: string;
+  addressDetail: string | null;
+  schedules: RawSchedule[];
+}
+interface RawCity {
+  cityCode: string;
+  cityName: string;
+  prefecture: string;
+  sourceUrl: string | null;
+  areas: RawArea[];
+}
+interface RawPostal {
   zipcode: string;
-  addressDetail?: string;
-  burnableDay1: number;
-  burnableDay2: number;
-  burnableTime: string;
-  nonBurnableWeekNumber?: number;
-  nonBurnableDayOfWeek?: number;
-  recyclableDay: number;
-  valuableDay: number | null;
+  cityCode: string;
+  townName: string;
+}
+
+function readJson<T>(filename: string): T {
+  const p = path.join(DATA_DIR, filename);
+  try {
+    return JSON.parse(fs.readFileSync(p, 'utf-8')) as T;
+  } catch (e) {
+    throw new Error(`Failed to read/parse ${p}: ${(e as Error).message}`);
+  }
+}
+
+function toCamel(s: RawSchedule) {
+  return {
+    wasteType: s.waste_type,
+    wasteTypeJa: s.waste_type_ja ?? null,
+    frequency: s.frequency,
+    dayOfWeek: s.day_of_week ?? null,
+    weekOfMonth: s.week_of_month ?? null,
+    dayOfMonth: s.day_of_month ?? null,
+    collectionDates: s.collection_dates ?? null,
+    collectionTime: s.collection_time ?? null,
+  };
 }
 
 async function main() {
-  console.log('🌱 Starting database seeding...');
+  console.log('🌱 Seeding waste collection data...');
+  const cities = readJson<RawCity[]>('chiba-waste-schedules.json');
+  const postals = readJson<RawPostal[]>('chiba-postal-codes.json');
 
-  // Check if waste collection data already exists
-  const existingSchedules = await prisma.wasteCollectionSchedule.count();
-  if (existingSchedules > 0) {
-    console.log('✅ Waste collection data already exists, skipping seeding...');
-    return;
+  // Idempotent: cascade-clear then re-insert (safe to run on every deploy).
+  await prisma.city.deleteMany();
+
+  const codeToId = new Map<string, number>();
+  for (const c of cities) {
+    const city = await prisma.city.create({
+      data: {
+        cityCode: c.cityCode,
+        name: c.cityName,
+        prefecture: c.prefecture,
+        sourceUrl: c.sourceUrl,
+      },
+    });
+    codeToId.set(c.cityCode, city.id);
+
+    if (c.areas.length) {
+      await prisma.area.createMany({
+        data: c.areas.map((a) => ({
+          cityId: city.id,
+          areaName: a.areaName,
+          addressDetail: a.addressDetail,
+          searchText: normalize(`${a.areaName}${a.addressDetail ?? ''}`),
+          schedules: a.schedules.map(toCamel),
+        })),
+      });
+    }
   }
+  console.log(`📍 Inserted ${codeToId.size} cities + areas, seeding postal codes…`);
 
-  // Read the calendar-ready data file
-  const dataPath = path.join(process.cwd(), 'private', 'calendar-ready-garbage-data.json');
-
-  if (!fs.existsSync(dataPath)) {
-    throw new Error(`Data file not found: ${dataPath}`);
-  }
-
-  const rawData = fs.readFileSync(dataPath, 'utf-8');
-  const wasteData: WasteCollectionData[] = JSON.parse(rawData);
-
-  console.log(`📊 Found ${wasteData.length} records to import`);
-
-  // Clear existing data
-  console.log('🧹 Clearing existing data...');
-  await prisma.wasteCollectionSchedule.deleteMany();
-
-  // Import data in batches for better performance
-  const batchSize = 50;
-  let imported = 0;
-
-  for (let i = 0; i < wasteData.length; i += batchSize) {
-    const batch = wasteData.slice(i, i + batchSize);
-
-    await prisma.wasteCollectionSchedule.createMany({
-      data: batch.map((item) => ({
-        areaName: item.areaName,
-        zipcode: item.zipcode,
-        addressDetail: item.addressDetail || null,
-        burnableDay1: item.burnableDay1,
-        burnableDay2: item.burnableDay2,
-        burnableTime: item.burnableTime,
-        nonBurnableWeekNumber: item.nonBurnableWeekNumber || null,
-        nonBurnableDayOfWeek: item.nonBurnableDayOfWeek || null,
-        recyclableDay: item.recyclableDay,
-        valuableDay: item.valuableDay,
+  const validPostals = postals.filter((p) => codeToId.has(p.cityCode));
+  const batchSize = 1000;
+  for (let i = 0; i < validPostals.length; i += batchSize) {
+    await prisma.postalCode.createMany({
+      data: validPostals.slice(i, i + batchSize).map((p) => ({
+        zipcode: p.zipcode,
+        cityId: codeToId.get(p.cityCode)!,
+        townName: p.townName,
       })),
     });
-
-    imported += batch.length;
-    console.log(`✅ Imported ${imported}/${wasteData.length} records`);
   }
 
-  // Verify import
-  const totalRecords = await prisma.wasteCollectionSchedule.count();
-  console.log(`🎯 Total records in database: ${totalRecords}`);
-
-  // Show some sample data
-  console.log('\n📋 Sample records:');
-  const samples = await prisma.wasteCollectionSchedule.findMany({
-    take: 3,
-    select: {
-      id: true,
-      areaName: true,
-      burnableDay1: true,
-      burnableDay2: true,
-      burnableTime: true,
-      zipcode: true,
-      addressDetail: true,
-    },
-  });
-
-  const dayNames = ['', '月', '火', '水', '木', '金', '土', '日'];
-
-  samples.forEach((record, index) => {
-    console.log(`${index + 1}. ${record.areaName} (${record.zipcode})`);
-    console.log(
-      `   可燃垃圾: ${dayNames[record.burnableDay1]}${dayNames[record.burnableDay2]} ${record.burnableTime}`
-    );
-    if (record.addressDetail) {
-      console.log(`   詳細: ${record.addressDetail}`);
-    }
-    console.log('');
-  });
-
-  // Show statistics
-  console.log('📈 Import Statistics:');
-  console.log(`- Total areas: ${totalRecords}`);
-
-  const uniqueZipcodes = await prisma.wasteCollectionSchedule.groupBy({
-    by: ['zipcode'],
-    _count: { zipcode: true },
-  });
-  console.log(`- Unique zipcodes: ${uniqueZipcodes.length}`);
-
-  const recordsWithDetails = await prisma.wasteCollectionSchedule.count({
-    where: { addressDetail: { not: null } },
-  });
-  console.log(`- Records with address details: ${recordsWithDetails}`);
-
-  console.log('\n✨ Database seeding completed successfully!');
+  const [nc, na, np] = await Promise.all([
+    prisma.city.count(),
+    prisma.area.count(),
+    prisma.postalCode.count(),
+  ]);
+  console.log(`✅ Seeded: ${nc} cities, ${na} areas, ${np} postal rows`);
 }
 
 main()
   .catch((e) => {
-    console.error('❌ Error during seeding:', e);
+    console.error('❌ Seeding failed:', e);
     process.exit(1);
   })
   .finally(async () => {

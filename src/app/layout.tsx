@@ -26,20 +26,20 @@ export const metadata: Metadata = {
     template: '%s | Made for X',
   },
   description:
-    'AIメール作成、メルカリ配送料計算、船橋市ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウン。日本での生活と仕事を効率化する無料ツールを提供します。',
+    'AIメール作成、メルカリ配送料計算、千葉県ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウン。日本での生活と仕事を効率化する無料ツールを提供します。',
   keywords: [
     'Made for X',
     '便利ツール',
     'AIメール作成',
     'メルカリ配送料計算',
-    '船橋市ごみ収集',
+    '千葉県ごみ収集',
     '日本郵便',
     '輸出インボイス',
     '休憩タイマー',
     '祝日カウントダウン',
     '連休プランナー',
-    'Funabashi',
-    '船橋市',
+    'Chiba',
+    '千葉県',
     'ビジネス効率化',
     '日本語ツール',
   ],
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Made for X - 日本の生活とビジネスを支える無料ツール集',
     description:
-      'AIメール作成、メルカリ配送料計算、船橋市ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウン。日本での生活と仕事を効率化する無料ツールを提供します。',
+      'AIメール作成、メルカリ配送料計算、千葉県ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウン。日本での生活と仕事を効率化する無料ツールを提供します。',
     url: 'https://madeforx.com',
     siteName: 'Made for X',
     locale: 'ja_JP',
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Made for X - 日本の生活とビジネスを支える無料ツール集',
     description:
-      'AIメール作成、メルカリ配送料計算、船橋市ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウンなどの無料ツール。',
+      'AIメール作成、メルカリ配送料計算、千葉県ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウンなどの無料ツール。',
   },
   robots: {
     index: true,
@@ -112,13 +112,13 @@ export default function RootLayout({
         <OrganizationStructuredData
           name="Made for X"
           url="https://madeforx.com"
-          description="AIメール作成、メルカリ配送料計算、船橋市ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウンなど、日本での生活と仕事を効率化する無料ツールを提供します。"
+          description="AIメール作成、メルカリ配送料計算、千葉県ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウンなど、日本での生活と仕事を効率化する無料ツールを提供します。"
           logo="https://madeforx.com/logo.svg"
         />
         <WebSiteStructuredData
           name="Made for X"
           url="https://madeforx.com"
-          description="AIメール作成、メルカリ配送料計算、船橋市ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウンなど、日本での生活と仕事を効率化する無料ツールを提供します。"
+          description="AIメール作成、メルカリ配送料計算、千葉県ごみ収集スケジュール、日本郵便輸出インボイス、休憩タイマー、祝日カウントダウンなど、日本での生活と仕事を効率化する無料ツールを提供します。"
           publisher={{ name: 'Made for X', url: 'https://madeforx.com' }}
         />
 
