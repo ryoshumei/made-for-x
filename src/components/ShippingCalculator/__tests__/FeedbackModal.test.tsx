@@ -75,11 +75,15 @@ describe('FeedbackModal', () => {
     expect(submitButton).toBeEnabled();
   });
 
-  it('enables submit button when custom feedback is provided', () => {
+  it('reveals the custom feedback textarea via その他 and enables submit', () => {
     render(<FeedbackModal {...mockProps} />);
 
     const submitButton = screen.getByRole('button', { name: /送信/ });
     expect(submitButton).toBeDisabled();
+    // The textarea only renders once その他 is selected
+    expect(screen.queryByPlaceholderText(/具体的な問題や改善要望/)).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByLabelText('その他'));
 
     const textarea = screen.getByPlaceholderText(/具体的な問題や改善要望/);
     fireEvent.change(textarea, { target: { value: 'Test feedback' } });
