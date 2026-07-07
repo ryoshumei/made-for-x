@@ -6,17 +6,23 @@ import { NextRequest } from 'next/server';
 import { POST, GET } from '../route';
 import { PrismaClient } from '@prisma/client';
 
-// Mock Prisma
-jest.mock('@prisma/client', () => ({
-  PrismaClient: jest.fn().mockImplementation(() => ({
-    shippingFeedback: {
-      create: jest.fn(),
-      findMany: jest.fn(),
-      count: jest.fn(),
-    },
-    $disconnect: jest.fn(),
-  })),
-}));
+// Mock Prisma. Every PrismaClient instance must share the SAME model object:
+// the route module creates its own client at import time, so a factory that
+// builds a fresh object per instance would leave the route's client with
+// mocks this test never configured (create → undefined → 500).
+jest.mock('@prisma/client', () => {
+  const mockShippingFeedback = {
+    create: jest.fn(),
+    findMany: jest.fn(),
+    count: jest.fn(),
+  };
+  return {
+    PrismaClient: jest.fn().mockImplementation(() => ({
+      shippingFeedback: mockShippingFeedback,
+      $disconnect: jest.fn(),
+    })),
+  };
+});
 
 const mockPrisma = new PrismaClient() as jest.Mocked<PrismaClient>;
 
@@ -192,7 +198,10 @@ describe('/api/shipping/feedback', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.feedbacks).toEqual(mockFeedbacks);
+      // Dates come back JSON-serialized as ISO strings
+      expect(data.feedbacks).toEqual(
+        mockFeedbacks.map((f) => ({ ...f, createdAt: f.createdAt.toISOString() }))
+      );
       expect(data.total).toBe(2);
       expect(data.limit).toBe(50);
       expect(data.offset).toBe(0);

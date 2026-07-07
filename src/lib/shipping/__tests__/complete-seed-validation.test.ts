@@ -46,7 +46,8 @@ describe('Complete Seed Data Validation Tests', () => {
     });
 
     test('should find 宅急便コンパクト (薄型BOX) with 内寸 dimensions', async () => {
-      const dimensions: ShippingDimensions = { length: 24, width: 33, height: 1 };
+      // 薄型BOX 内寸厚 is 0.9cm (seed maxHeightCm); height 1 would be excluded
+      const dimensions: ShippingDimensions = { length: 24, width: 33, height: 0.9 };
       const fixedOptions = await getFixedPriceOptions(dimensions, prisma);
 
       const compactThin = fixedOptions.find(
@@ -244,8 +245,8 @@ describe('Complete Seed Data Validation Tests', () => {
     });
 
     test('should distinguish between 宅急便コンパクト BOX types based on dimensions', async () => {
-      // Item that fits thin BOX but not regular BOX
-      const thinBoxItem: ShippingDimensions = { length: 24, width: 33, height: 1 };
+      // Item that fits thin BOX (内寸厚 0.9cm) but not regular BOX
+      const thinBoxItem: ShippingDimensions = { length: 24, width: 33, height: 0.9 };
       const thinOptions = await getFixedPriceOptions(thinBoxItem, prisma);
 
       const thinBox = thinOptions.find((opt) => opt.optionName === '宅急便コンパクト (薄型BOX)');

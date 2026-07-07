@@ -62,7 +62,8 @@ next-env.d.ts
 # Generated files
 README-development.md
 /scripts/setup-env.sh
-/.env.test
+# .env.test is tracked on purpose: it pins jest to the LOCAL database
+# (no secrets — localhost URL only). Machine overrides: .env.test.local
 
 # Serena AI assistant files
 .serena/
