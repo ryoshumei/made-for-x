@@ -5,6 +5,26 @@ import {
   shouldShowNewTag,
 } from '@/utils/feature-notifications';
 
+export const metadata = {
+  title: 'プライバシーポリシー - AIメール作成ツール',
+  description:
+    'Made for X AIメール作成ツールのプライバシーポリシー。入力されたメール内容の取り扱い、データの保存方針、外部サービスの利用について説明します。',
+  alternates: {
+    canonical: '/mail-generator/privacy',
+    languages: {
+      'ja-JP': '/mail-generator/privacy',
+      'x-default': '/mail-generator/privacy',
+    },
+  },
+  openGraph: {
+    title: 'プライバシーポリシー - AIメール作成ツール | Made for X',
+    description:
+      'Made for X AIメール作成ツールのプライバシーポリシー。入力されたメール内容の取り扱い、データの保存方針について説明します。',
+    type: 'website',
+    url: 'https://madeforx.com/mail-generator/privacy',
+  },
+};
+
 export default function PrivacyPolicyPage() {
   const showUpdateNotification = shouldShowUpdateNotification();
   const formattedUpdateDate = getFormattedUpdateDate();

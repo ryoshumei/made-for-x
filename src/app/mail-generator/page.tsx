@@ -7,6 +7,7 @@ import {
   BreadcrumbStructuredData,
   FAQStructuredData,
 } from '@/components/StructuredData';
+import FAQSection from '@/components/FAQSection';
 
 export const metadata = {
   title: 'AIメール作成ツール - ビジネス日本語メール自動生成',
@@ -136,6 +137,7 @@ export default function MailGeneratorPage() {
           <MailGeneratorForm />
         </div>
       </div>
+      <FAQSection items={FAQ_ITEMS} />
     </>
   );
 }

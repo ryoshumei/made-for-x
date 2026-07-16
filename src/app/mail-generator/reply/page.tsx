@@ -18,6 +18,13 @@ export const metadata = {
     '返信文章',
     '返信作成',
   ],
+  alternates: {
+    canonical: '/mail-generator/reply',
+    languages: {
+      'ja-JP': '/mail-generator/reply',
+      'x-default': '/mail-generator/reply',
+    },
+  },
   openGraph: {
     title: 'AI返信メール作成 - 自動返信文章生成ツール',
     description:

@@ -4,6 +4,7 @@ import {
   BreadcrumbStructuredData,
   FAQStructuredData,
 } from '@/components/StructuredData';
+import FAQSection from '@/components/FAQSection';
 
 export const metadata = {
   title: '日本郵便 輸出インボイス自動作成ツール - HSコード自動生成',
@@ -96,6 +97,7 @@ export default function Home() {
       <FAQStructuredData items={FAQ_ITEMS} id="japanpost-faq" />
       <div className="bg-gray-50">
         <ExportInvoiceForm />
+        <FAQSection items={FAQ_ITEMS} />
       </div>
     </>
   );

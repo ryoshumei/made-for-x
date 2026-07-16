@@ -18,6 +18,13 @@ export const metadata = {
     'インタラクティブ',
     'AI対話',
   ],
+  alternates: {
+    canonical: '/mail-generator/chat',
+    languages: {
+      'ja-JP': '/mail-generator/chat',
+      'x-default': '/mail-generator/chat',
+    },
+  },
   openGraph: {
     title: 'AIチャット形式メール作成 - 対話型ビジネスメール生成',
     description:

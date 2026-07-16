@@ -4,6 +4,7 @@ import {
   BreadcrumbStructuredData,
   FAQStructuredData,
 } from '@/components/StructuredData';
+import FAQSection from '@/components/FAQSection';
 
 export const metadata = {
   title: '休憩タイマー - 集中と休憩の最適バランス',
@@ -87,6 +88,7 @@ export default function BreakPage() {
       />
       <FAQStructuredData items={FAQ_ITEMS} id="break-faq" />
       <BreakTimer />
+      <FAQSection items={FAQ_ITEMS} />
     </>
   );
 }

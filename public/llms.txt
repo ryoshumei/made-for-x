@@ -1,0 +1,22 @@
+# Made for X
+
+> 日本の生活とビジネスを支える無料Webツール集。AIメール作成、メルカリ配送料計算、千葉県ごみ収集スケジュール検索、日本郵便輸出インボイス作成、休憩タイマー、祝日カウントダウンを提供。全ツール無料・会員登録不要。
+> Made for X is a collection of free web tools for life and business in Japan: AI business email writer, Mercari shipping cost calculator, Chiba Prefecture garbage collection schedule search, Japan Post export invoice generator, break timer, and Japanese holiday countdown. All tools are free and require no sign-up.
+
+サイトの言語は日本語です。運営: Made for X (https://madeforx.com)
+
+## ツール (Tools)
+
+- [AIメール作成ツール](https://madeforx.com/mail-generator): 要件を入力するだけでAIが丁寧な日本語ビジネスメールを自動生成。会議依頼・お礼・お詫び・問い合わせなどに対応。日本語・英語・簡体字中国語・繁体字中国語の4言語対応。
+- [AI返信メール作成](https://madeforx.com/mail-generator/reply): 受信したメールを貼り付けると、内容を分析して適切な返信文章をAIが自動作成。
+- [AIチャット形式メール作成](https://madeforx.com/mail-generator/chat): チャットで対話しながらビジネスメールを作成。複雑な要件も会話形式で伝えられる。
+- [メルカリ配送料金計算器](https://madeforx.com/shipping-calculator): 商品の縦・横・厚さ・重量を入力すると、らくらくメルカリ便（ネコポス・宅急便コンパクト・宅急便）とゆうゆうメルカリ便（ゆうパケット・ゆうパケットポスト・ゆうパケットプラス・ゆうパック）の全配送方法の料金を比較し、最安の配送方法を判定。
+- [千葉県ごみ収集スケジュール検索](https://madeforx.com/waste-collection): 千葉県全60市町村のごみ収集日を住所・町名・郵便番号から検索。燃やすごみ・燃やさないごみ・資源ごみなどの収集曜日を確認できる。
+- [日本郵便 輸出インボイス自動作成](https://madeforx.com/japanpost): EMS・国際eパケットなど日本郵便の国際郵便向け輸出インボイスをAIで自動作成。商品名からHSコード（関税分類番号）を自動判定。
+- [次の祝日カウントダウン・連休プランナー](https://madeforx.com/holidays): 日本の次の祝日までの日数をリアルタイム表示。有給休暇を使った橋渡し（ブリッジ）連休プランを自動計算。
+- [休憩タイマー](https://madeforx.com/break): 短時間休憩（5分）と長時間休憩（15分）に対応したシンプルなタイマー。ポモドーロテクニックの休憩に最適。
+
+## その他 (Other)
+
+- [プライバシーポリシー](https://madeforx.com/mail-generator/privacy): AIメール作成ツールのプライバシーポリシー。入力内容はサーバーに保存されません。
+- [サイトマップ](https://madeforx.com/sitemap.xml)
