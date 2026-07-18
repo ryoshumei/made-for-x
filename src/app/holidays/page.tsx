@@ -5,6 +5,7 @@ import {
   BreadcrumbStructuredData,
   FAQStructuredData,
 } from '@/components/StructuredData';
+import FAQSection from '@/components/FAQSection';
 
 export const metadata = {
   title: '次の祝日カウントダウン・連休プランナー',
@@ -97,6 +98,7 @@ export default function HolidaysPage() {
       />
       <FAQStructuredData items={FAQ_ITEMS} id="holidays-faq" />
       <HolidayCard />
+      <FAQSection items={FAQ_ITEMS} />
     </>
   );
 }

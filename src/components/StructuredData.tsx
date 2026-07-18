@@ -1,4 +1,16 @@
-import Script from 'next/script';
+// JSON-LD is rendered as an inline <script> in the server HTML (not via next/script)
+// so that crawlers that don't execute JavaScript — including most AI crawlers like
+// GPTBot, ClaudeBot, and PerplexityBot — can read the structured data.
+function JsonLd({ id, data }: { id: string; data: Record<string, unknown> }) {
+  return (
+    <script
+      id={id}
+      type="application/ld+json"
+      // Escape "<" to prevent the payload from closing the script tag early.
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, '\\u003c') }}
+    />
+  );
+}
 
 interface ServiceStructuredDataProps {
   name: string;
@@ -35,6 +47,8 @@ export function ServiceStructuredData({
     name,
     description,
     url,
+    inLanguage: 'ja',
+    isAccessibleForFree: true,
     applicationCategory,
     operatingSystem,
     ...(offers && { offers: { '@type': 'Offer', ...offers } }),
@@ -47,12 +61,9 @@ export function ServiceStructuredData({
   };
 
   return (
-    <Script
+    <JsonLd
       id={`structured-data-${name.replace(/\s+/g, '-').toLowerCase()}`}
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData),
-      }}
+      data={structuredData}
     />
   );
 }
@@ -76,15 +87,7 @@ export function BreadcrumbStructuredData({ items }: BreadcrumbStructuredDataProp
     })),
   };
 
-  return (
-    <Script
-      id="breadcrumb-structured-data"
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData),
-      }}
-    />
-  );
+  return <JsonLd id="breadcrumb-structured-data" data={structuredData} />;
 }
 
 interface OrganizationStructuredDataProps {
@@ -112,15 +115,7 @@ export function OrganizationStructuredData({
     ...(sameAs && { sameAs }),
   };
 
-  return (
-    <Script
-      id="organization-structured-data"
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData),
-      }}
-    />
-  );
+  return <JsonLd id="organization-structured-data" data={structuredData} />;
 }
 
 interface FAQItem {
@@ -137,6 +132,7 @@ export function FAQStructuredData({ items, id = 'faq-structured-data' }: FAQStru
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    inLanguage: 'ja',
     mainEntity: items.map((item) => ({
       '@type': 'Question',
       name: item.question,
@@ -147,15 +143,7 @@ export function FAQStructuredData({ items, id = 'faq-structured-data' }: FAQStru
     })),
   };
 
-  return (
-    <Script
-      id={id}
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData),
-      }}
-    />
-  );
+  return <JsonLd id={id} data={structuredData} />;
 }
 
 interface WebSiteStructuredDataProps {
@@ -191,13 +179,5 @@ export function WebSiteStructuredData({
     }),
   };
 
-  return (
-    <Script
-      id="website-structured-data"
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData),
-      }}
-    />
-  );
+  return <JsonLd id="website-structured-data" data={structuredData} />;
 }

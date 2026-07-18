@@ -4,6 +4,7 @@ import {
   BreadcrumbStructuredData,
   FAQStructuredData,
 } from '@/components/StructuredData';
+import FAQSection from '@/components/FAQSection';
 
 export const metadata = {
   title: '千葉県ごみ収集スケジュール検索 - 市町村・住所別収集日確認',
@@ -90,6 +91,7 @@ export default function WasteCollectionPage() {
       <FAQStructuredData items={FAQ_ITEMS} id="waste-collection-faq" />
       <div className="flex flex-col bg-gray-50">
         <WasteCollectionForm />
+        <FAQSection items={FAQ_ITEMS} />
       </div>
     </>
   );

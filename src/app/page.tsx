@@ -1,5 +1,6 @@
 import HomePage from '@/components/Home/HomePage';
 import { FAQStructuredData } from '@/components/StructuredData';
+import FAQSection from '@/components/FAQSection';
 
 export const metadata = {
   title: 'Made for X - 日本の生活とビジネスを支える無料ツール集',
@@ -70,6 +71,7 @@ export default function Home() {
     <>
       <FAQStructuredData items={FAQ_ITEMS} id="home-faq" />
       <HomePage />
+      <FAQSection items={FAQ_ITEMS} />
     </>
   );
 }
