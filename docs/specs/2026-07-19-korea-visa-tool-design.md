@@ -47,6 +47,25 @@ The page IS the visa form — no idle/upload stage:
 4. A visible privacy line: 「PDFと入力内容はブラウザ内で処理され、サーバーには送信
    されません / Your PDF and answers never leave your browser」.
 
+### Disclaimers & provenance
+
+Three lines of page chrome, always visible (in or directly under the header):
+
+- **Unofficial-tool disclaimer** — the realistic risk is looking official, so say
+  plainly: 「本ツールは非公式の入力補助ツールであり、韓国政府・大使館・領事館とは
+  一切関係ありません / Unofficial helper tool — not affiliated with the Korean
+  government or any consulate」.
+- **Form version + staleness guard** — the tool is hash-locked to one exact PDF;
+  if the Ministry of Justice revises the form, the bundled copy silently becomes
+  outdated. Mitigation: display the bundled form's revision identifier (read off
+  the form's own footer during implementation) and the bundling date, e.g.
+  「収録様式: 사증발급신청서 — 2026-07-19時点 / Bundled form version, as of
+  2026-07-19」, so users can compare against the official source before
+  submitting.
+- **Official source link** — link to the Korea Visa Portal
+  (https://www.visa.go.kr), labeled 「最新の公式様式はこちらで確認 / Verify the
+  current official form here」. Doubles as attribution for the form itself.
+
 ### Draft auto-save
 
 Ported as built: every change is debounce-saved (300 ms) to
