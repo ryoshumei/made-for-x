@@ -133,8 +133,10 @@ made-for-x convention):
 - **template contract** — bundled template parses against the zod schema, has 84
   fields, and its `pdf.sha256` matches the committed sample PDF.
 - **fill roundtrip** — fill golden values into the real sample PDF, re-extract
-  text with pdf.js, assert values render under their labels and checkbox marks
-  are real ✓ (U+2713).
+  text with pdf.js, assert values landed and checkbox marks are real ✓
+  (U+2713). Runs as a `tsx` script (`npm run verify:korea-visa`), not Jest:
+  pdfjs-dist 4.x is ESM-only and this repo's Jest is CJS, while tsx runs ESM
+  natively — same pattern as the source repo's golden-fill script.
 - **store** — download-wipe and clear-all leave no values and no draft behind.
 
 No Playwright in made-for-x; the final gate is a manual browser pass on the dev
