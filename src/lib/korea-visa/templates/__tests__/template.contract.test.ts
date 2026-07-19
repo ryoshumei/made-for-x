@@ -23,3 +23,19 @@ it('keeps the calibrated shape: 84 fields, 5 pages of 595x841', () => {
     expect(s).toEqual({ w: 595, h: 841 });
   }
 });
+
+it('carries the Japanese labels transcribed from the official PDF', () => {
+  expect(SAMPLE_TEMPLATE.title.ja).toBe('査証発給申請書');
+
+  const s1 = SAMPLE_TEMPLATE.sections.find((s) => s.id === 's1');
+  expect(s1?.label.ja).toBe('人的事項');
+
+  const familyName = SAMPLE_TEMPLATE.fields.find((f) => f.id === 's1_family_name');
+  expect(familyName?.label.ja).toBe('姓');
+
+  const sex = SAMPLE_TEMPLATE.fields.find((f) => f.id === 's1_sex');
+  expect(sex?.type).toBe('radio');
+  if (sex?.type === 'radio') {
+    expect(sex.options.map((o) => o.label.ja)).toEqual(['男性', '女性']);
+  }
+});

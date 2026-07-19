@@ -115,6 +115,11 @@ export function FormView({
               <span className="mr-2 text-blue-600">{section.index + 1}.</span>
               {section.label.ko}
               <span className="ml-2 text-sm font-normal text-neutral-500">{section.label.en}</span>
+              {section.label.ja && (
+                <span className="ml-2 text-sm font-normal text-neutral-500">
+                  {section.label.ja}
+                </span>
+              )}
               <span className="ml-2 rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-normal text-neutral-500">
                 p.{fields[0].page + 1}
               </span>

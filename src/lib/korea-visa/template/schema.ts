@@ -17,6 +17,7 @@ export type Rect = z.infer<typeof RectSchema>;
 export const BilingualSchema = z.strictObject({
   ko: z.string(),
   en: z.string(),
+  ja: z.string().optional(),
 });
 export type Bilingual = z.infer<typeof BilingualSchema>;
 

@@ -3,7 +3,8 @@
   "id": "kor-visa-application-v1",
   "title": {
     "ko": "사증발급신청서",
-    "en": "Visa Application Form (Republic of Korea)"
+    "en": "Visa Application Form (Republic of Korea)",
+    "ja": "査証発給申請書"
   },
   "pdf": {
     "sha256": "1ba3935fdaab49ef5459a500a8f85a4bccd378edc4483b1342587fd595e8dffa",
@@ -37,7 +38,8 @@
       "index": 0,
       "label": {
         "ko": "인적사항",
-        "en": "PERSONAL DETAILS"
+        "en": "PERSONAL DETAILS",
+        "ja": "人的事項"
       },
       "page": 0
     },
@@ -46,7 +48,8 @@
       "index": 1,
       "label": {
         "ko": "신청 사증 정보",
-        "en": "DETAILS OF VISA APPLICATION"
+        "en": "DETAILS OF VISA APPLICATION",
+        "ja": "申請査証情報"
       },
       "page": 0
     },
@@ -55,7 +58,8 @@
       "index": 2,
       "label": {
         "ko": "여권정보",
-        "en": "PASSPORT INFORMATION"
+        "en": "PASSPORT INFORMATION",
+        "ja": "パスポート情報"
       },
       "page": 1
     },
@@ -64,7 +68,8 @@
       "index": 3,
       "label": {
         "ko": "연락처",
-        "en": "CONTACT INFORMATION"
+        "en": "CONTACT INFORMATION",
+        "ja": "連絡先"
       },
       "page": 1
     },
@@ -73,7 +78,8 @@
       "index": 4,
       "label": {
         "ko": "혼인사항 및 가족사항",
-        "en": "MARITAL STATUS AND FAMILY DETAILS"
+        "en": "MARITAL STATUS AND FAMILY DETAILS",
+        "ja": "婚姻事項及び家族事項"
       },
       "page": 1
     },
@@ -82,7 +88,8 @@
       "index": 5,
       "label": {
         "ko": "학력",
-        "en": "EDUCATION"
+        "en": "EDUCATION",
+        "ja": "学歴"
       },
       "page": 1
     },
@@ -91,7 +98,8 @@
       "index": 6,
       "label": {
         "ko": "직업",
-        "en": "EMPLOYMENT"
+        "en": "EMPLOYMENT",
+        "ja": "職業"
       },
       "page": 2
     },
@@ -100,7 +108,8 @@
       "index": 7,
       "label": {
         "ko": "방문정보",
-        "en": "DETAILS OF VISIT"
+        "en": "DETAILS OF VISIT",
+        "ja": "訪問情報"
       },
       "page": 2
     },
@@ -109,7 +118,8 @@
       "index": 8,
       "label": {
         "ko": "초청 정보",
-        "en": "DETAILS OF INVITATION"
+        "en": "DETAILS OF INVITATION",
+        "ja": "招請情報"
       },
       "page": 3
     },
@@ -118,7 +128,8 @@
       "index": 9,
       "label": {
         "ko": "방문경비",
-        "en": "FUNDING DETAILS"
+        "en": "FUNDING DETAILS",
+        "ja": "訪問経費"
       },
       "page": 3
     },
@@ -127,7 +138,8 @@
       "index": 10,
       "label": {
         "ko": "서류 작성 시 도움 여부",
-        "en": "ASSISTANCE WITH THIS FORM"
+        "en": "ASSISTANCE WITH THIS FORM",
+        "ja": "書類作成時に他人からの支援"
       },
       "page": 3
     },
@@ -136,7 +148,8 @@
       "index": 11,
       "label": {
         "ko": "서약",
-        "en": "DECLARATION"
+        "en": "DECLARATION",
+        "ja": "誓約"
       },
       "page": 4
     }
@@ -148,7 +161,8 @@
       "page": 0,
       "label": {
         "ko": "성",
-        "en": "Family Name (as in passport)"
+        "en": "Family Name (as in passport)",
+        "ja": "姓"
       },
       "required": true,
       "type": "text",
@@ -171,7 +185,8 @@
       "page": 0,
       "label": {
         "ko": "명",
-        "en": "Given Names (as in passport)"
+        "en": "Given Names (as in passport)",
+        "ja": "名"
       },
       "required": true,
       "type": "text",
@@ -194,7 +209,8 @@
       "page": 0,
       "label": {
         "ko": "한자성명",
-        "en": "Name in Chinese Characters"
+        "en": "Name in Chinese Characters",
+        "ja": "漢字姓名"
       },
       "type": "text",
       "rect": {
@@ -216,7 +232,8 @@
       "page": 0,
       "label": {
         "ko": "성별",
-        "en": "Sex"
+        "en": "Sex",
+        "ja": "性別"
       },
       "required": true,
       "type": "radio",
@@ -225,7 +242,8 @@
           "value": "male",
           "label": {
             "ko": "남성",
-            "en": "Male"
+            "en": "Male",
+            "ja": "男性"
           },
           "gapRect": {
             "x": 424.9,
@@ -252,7 +270,8 @@
           "value": "female",
           "label": {
             "ko": "여성",
-            "en": "Female"
+            "en": "Female",
+            "ja": "女性"
           },
           "gapRect": {
             "x": 520.7,
@@ -283,7 +302,8 @@
       "page": 0,
       "label": {
         "ko": "생년월일",
-        "en": "Date of Birth"
+        "en": "Date of Birth",
+        "ja": "生年月日"
       },
       "required": true,
       "type": "date",
@@ -309,7 +329,8 @@
       "page": 0,
       "label": {
         "ko": "국적",
-        "en": "Nationality"
+        "en": "Nationality",
+        "ja": "国籍"
       },
       "required": true,
       "type": "text",
@@ -332,7 +353,8 @@
       "page": 0,
       "label": {
         "ko": "출생국가",
-        "en": "Country of Birth"
+        "en": "Country of Birth",
+        "ja": "出生国家"
       },
       "type": "text",
       "rect": {
@@ -354,7 +376,8 @@
       "page": 0,
       "label": {
         "ko": "이전에 한국에 출입국하였을 때 다른 성명을 사용했는지 여부",
-        "en": "Has the applicant ever used any other names to enter or depart Korea?"
+        "en": "Has the applicant ever used any other names to enter or depart Korea?",
+        "ja": "以前韓国を訪問した際、他の姓名で入国したことがありますか"
       },
       "type": "radio",
       "options": [
@@ -362,7 +385,8 @@
           "value": "no",
           "label": {
             "ko": "아니요",
-            "en": "No"
+            "en": "No",
+            "ja": "いいえ"
           },
           "gapRect": {
             "x": 143.7,
@@ -389,7 +413,8 @@
           "value": "yes",
           "label": {
             "ko": "예",
-            "en": "Yes"
+            "en": "Yes",
+            "ja": "はい"
           },
           "gapRect": {
             "x": 230.9,
@@ -420,7 +445,8 @@
       "page": 0,
       "label": {
         "ko": "성 (다른 성명)",
-        "en": "Other Family Name"
+        "en": "Other Family Name",
+        "ja": "姓"
       },
       "visibleWhen": {
         "fieldId": "s1_other_names",
@@ -446,7 +472,8 @@
       "page": 0,
       "label": {
         "ko": "명 (다른 성명)",
-        "en": "Other Given Name"
+        "en": "Other Given Name",
+        "ja": "名"
       },
       "visibleWhen": {
         "fieldId": "s1_other_names",
@@ -472,7 +499,8 @@
       "page": 0,
       "label": {
         "ko": "복수국적여부",
-        "en": "Is the applicant a citizen of more than one country?"
+        "en": "Is the applicant a citizen of more than one country?",
+        "ja": "あなたは複数国籍者ですか？"
       },
       "type": "radio",
       "options": [
@@ -480,7 +508,8 @@
           "value": "no",
           "label": {
             "ko": "아니요",
-            "en": "No"
+            "en": "No",
+            "ja": "いいえ"
           },
           "gapRect": {
             "x": 455.7,
@@ -507,7 +536,8 @@
           "value": "yes",
           "label": {
             "ko": "예",
-            "en": "Yes"
+            "en": "Yes",
+            "ja": "はい"
           },
           "gapRect": {
             "x": 516.5,
@@ -631,7 +661,8 @@
       "page": 0,
       "label": {
         "ko": "체류자격",
-        "en": "Status of Stay"
+        "en": "Status of Stay",
+        "ja": "滞在資格"
       },
       "type": "text",
       "rect": {
@@ -653,7 +684,8 @@
       "page": 1,
       "label": {
         "ko": "여권종류",
-        "en": "Passport Type"
+        "en": "Passport Type",
+        "ja": "パスポートの種類"
       },
       "required": true,
       "type": "radio",
@@ -662,7 +694,8 @@
           "value": "diplomatic",
           "label": {
             "ko": "외교관",
-            "en": "Diplomatic"
+            "en": "Diplomatic",
+            "ja": "外交官"
           },
           "gapRect": {
             "x": 220.1,
@@ -689,7 +722,8 @@
           "value": "official",
           "label": {
             "ko": "관용",
-            "en": "Official"
+            "en": "Official",
+            "ja": "公用"
           },
           "gapRect": {
             "x": 451.2,
@@ -716,7 +750,8 @@
           "value": "regular",
           "label": {
             "ko": "일반",
-            "en": "Regular"
+            "en": "Regular",
+            "ja": "一般"
           },
           "gapRect": {
             "x": 206.9,
@@ -743,7 +778,8 @@
           "value": "other",
           "label": {
             "ko": "기타",
-            "en": "Other"
+            "en": "Other",
+            "ja": "その他"
           },
           "gapRect": {
             "x": 449,
@@ -800,7 +836,8 @@
       "page": 1,
       "label": {
         "ko": "여권번호",
-        "en": "Passport No."
+        "en": "Passport No.",
+        "ja": "パスポート番号"
       },
       "required": true,
       "type": "text",
@@ -823,7 +860,8 @@
       "page": 1,
       "label": {
         "ko": "발급국가",
-        "en": "Country of Passport"
+        "en": "Country of Passport",
+        "ja": "発給国家"
       },
       "type": "text",
       "rect": {
@@ -845,7 +883,8 @@
       "page": 1,
       "label": {
         "ko": "발급지",
-        "en": "Place of Issue"
+        "en": "Place of Issue",
+        "ja": "発給地"
       },
       "type": "text",
       "rect": {
@@ -867,7 +906,8 @@
       "page": 1,
       "label": {
         "ko": "발급일자",
-        "en": "Date of Issue"
+        "en": "Date of Issue",
+        "ja": "発給日"
       },
       "required": true,
       "type": "date",
@@ -893,7 +933,8 @@
       "page": 1,
       "label": {
         "ko": "기간만료일",
-        "en": "Date of Expiry"
+        "en": "Date of Expiry",
+        "ja": "期間満了日"
       },
       "required": true,
       "type": "date",
@@ -919,7 +960,8 @@
       "page": 1,
       "label": {
         "ko": "다른 여권 소지 여부",
-        "en": "Does the applicant have any other valid passports?"
+        "en": "Does the applicant have any other valid passports?",
+        "ja": "その他別のパスポートをもっていますか"
       },
       "type": "radio",
       "options": [
@@ -927,7 +969,8 @@
           "value": "no",
           "label": {
             "ko": "아니요",
-            "en": "No"
+            "en": "No",
+            "ja": "いいえ"
           },
           "gapRect": {
             "x": 464.1,
@@ -954,7 +997,8 @@
           "value": "yes",
           "label": {
             "ko": "예",
-            "en": "Yes"
+            "en": "Yes",
+            "ja": "はい"
           },
           "gapRect": {
             "x": 522.8,
@@ -985,7 +1029,8 @@
       "page": 1,
       "label": {
         "ko": "여권종류 (기타 여권)",
-        "en": "Passport Type (other passport)"
+        "en": "Passport Type (other passport)",
+        "ja": "パスポートの種類"
       },
       "visibleWhen": {
         "fieldId": "s3_other_passports",
@@ -997,7 +1042,8 @@
           "value": "diplomatic",
           "label": {
             "ko": "외교관",
-            "en": "Diplomatic"
+            "en": "Diplomatic",
+            "ja": "外交官"
           },
           "gapRect": {
             "x": 218.5,
@@ -1024,7 +1070,8 @@
           "value": "official",
           "label": {
             "ko": "관용",
-            "en": "Official"
+            "en": "Official",
+            "ja": "公用"
           },
           "gapRect": {
             "x": 451.2,
@@ -1051,7 +1098,8 @@
           "value": "regular",
           "label": {
             "ko": "일반",
-            "en": "Regular"
+            "en": "Regular",
+            "ja": "一般"
           },
           "gapRect": {
             "x": 206.9,
@@ -1078,7 +1126,8 @@
           "value": "other",
           "label": {
             "ko": "기타",
-            "en": "Other"
+            "en": "Other",
+            "ja": "その他"
           },
           "gapRect": {
             "x": 449,
@@ -1109,7 +1158,8 @@
       "page": 1,
       "label": {
         "ko": "여권번호 (기타 여권)",
-        "en": "Passport No. (other passport)"
+        "en": "Passport No. (other passport)",
+        "ja": "パスポート番号"
       },
       "visibleWhen": {
         "fieldId": "s3_other_passports",
@@ -1135,7 +1185,8 @@
       "page": 1,
       "label": {
         "ko": "발급국가 (기타 여권)",
-        "en": "Country of Passport (other passport)"
+        "en": "Country of Passport (other passport)",
+        "ja": "発給国家"
       },
       "visibleWhen": {
         "fieldId": "s3_other_passports",
@@ -1161,7 +1212,8 @@
       "page": 1,
       "label": {
         "ko": "기간만료일 (기타 여권)",
-        "en": "Date of Expiry (other passport)"
+        "en": "Date of Expiry (other passport)",
+        "ja": "期間満了日"
       },
       "visibleWhen": {
         "fieldId": "s3_other_passports",
@@ -1190,7 +1242,8 @@
       "page": 1,
       "label": {
         "ko": "본국 주소",
-        "en": "Home Country Address"
+        "en": "Home Country Address",
+        "ja": "本国住所"
       },
       "type": "multiline",
       "rect": {
@@ -1212,7 +1265,8 @@
       "page": 1,
       "label": {
         "ko": "현 거주지",
-        "en": "Current Residential Address"
+        "en": "Current Residential Address",
+        "ja": "日本の現住所"
       },
       "type": "multiline",
       "rect": {
@@ -1234,7 +1288,8 @@
       "page": 1,
       "label": {
         "ko": "휴대전화 / 일반전화",
-        "en": "Cell Phone / Telephone No."
+        "en": "Cell Phone / Telephone No.",
+        "ja": "携帯電話 / 固定電話"
       },
       "validation": {
         "kind": "phone"
@@ -1259,7 +1314,8 @@
       "page": 1,
       "label": {
         "ko": "전자우편",
-        "en": "E-mail"
+        "en": "E-mail",
+        "ja": "メールアドレス"
       },
       "validation": {
         "kind": "email"
@@ -1284,7 +1340,8 @@
       "page": 1,
       "label": {
         "ko": "비상연락처: 성명",
-        "en": "Emergency contact: Full Name"
+        "en": "Emergency contact: Full Name",
+        "ja": "緊急連絡先: 姓名"
       },
       "type": "text",
       "rect": {
@@ -1306,7 +1363,8 @@
       "page": 1,
       "label": {
         "ko": "비상연락처: 거주 국가",
-        "en": "Emergency contact: Country of Residence"
+        "en": "Emergency contact: Country of Residence",
+        "ja": "緊急連絡先: 居住国"
       },
       "type": "text",
       "rect": {
@@ -1328,7 +1386,8 @@
       "page": 1,
       "label": {
         "ko": "비상연락처: 전화번호",
-        "en": "Emergency contact: Telephone No."
+        "en": "Emergency contact: Telephone No.",
+        "ja": "緊急連絡先: 電話番号"
       },
       "validation": {
         "kind": "phone"
@@ -1353,7 +1412,8 @@
       "page": 1,
       "label": {
         "ko": "비상연락처: 관계",
-        "en": "Emergency contact: Relationship"
+        "en": "Emergency contact: Relationship",
+        "ja": "緊急連絡先: 関係"
       },
       "type": "text",
       "rect": {
@@ -1375,7 +1435,8 @@
       "page": 1,
       "label": {
         "ko": "현재 혼인사항",
-        "en": "Current Marital Status"
+        "en": "Current Marital Status",
+        "ja": "現在婚姻状況"
       },
       "type": "radio",
       "options": [
@@ -1383,7 +1444,8 @@
           "value": "married",
           "label": {
             "ko": "기혼",
-            "en": "Married"
+            "en": "Married",
+            "ja": "既婚"
           },
           "gapRect": {
             "x": 144.7,
@@ -1410,7 +1472,8 @@
           "value": "divorced",
           "label": {
             "ko": "이혼",
-            "en": "Divorced"
+            "en": "Divorced",
+            "ja": "離婚"
           },
           "gapRect": {
             "x": 313,
@@ -1437,7 +1500,8 @@
           "value": "single",
           "label": {
             "ko": "미혼",
-            "en": "Single"
+            "en": "Single",
+            "ja": "未婚"
           },
           "gapRect": {
             "x": 470.2,
@@ -1468,7 +1532,8 @@
       "page": 1,
       "label": {
         "ko": "배우자: 성",
-        "en": "Spouse: Family Name (in English)"
+        "en": "Spouse: Family Name (in English)",
+        "ja": "配偶者: 姓（英文)"
       },
       "visibleWhen": {
         "fieldId": "s5_marital",
@@ -1494,7 +1559,8 @@
       "page": 1,
       "label": {
         "ko": "배우자: 명",
-        "en": "Spouse: Given Names (in English)"
+        "en": "Spouse: Given Names (in English)",
+        "ja": "配偶者: 名（英文)"
       },
       "visibleWhen": {
         "fieldId": "s5_marital",
@@ -1520,7 +1586,8 @@
       "page": 1,
       "label": {
         "ko": "배우자: 생년월일",
-        "en": "Spouse: Date of Birth"
+        "en": "Spouse: Date of Birth",
+        "ja": "配偶者: 生年月日"
       },
       "visibleWhen": {
         "fieldId": "s5_marital",
@@ -1549,7 +1616,8 @@
       "page": 1,
       "label": {
         "ko": "배우자: 국적",
-        "en": "Spouse: Nationality"
+        "en": "Spouse: Nationality",
+        "ja": "配偶者: 国籍"
       },
       "visibleWhen": {
         "fieldId": "s5_marital",
@@ -1575,7 +1643,8 @@
       "page": 1,
       "label": {
         "ko": "배우자: 거주지",
-        "en": "Spouse: Residential Address"
+        "en": "Spouse: Residential Address",
+        "ja": "配偶者: 居住所"
       },
       "visibleWhen": {
         "fieldId": "s5_marital",
@@ -1601,7 +1670,8 @@
       "page": 1,
       "label": {
         "ko": "배우자: 연락처",
-        "en": "Spouse: Contact No."
+        "en": "Spouse: Contact No.",
+        "ja": "配偶者: 連絡先"
       },
       "visibleWhen": {
         "fieldId": "s5_marital",
@@ -1630,7 +1700,8 @@
       "page": 1,
       "label": {
         "ko": "자녀 유무",
-        "en": "Does the applicant have children?"
+        "en": "Does the applicant have children?",
+        "ja": "子女有無"
       },
       "type": "radio",
       "options": [
@@ -1638,7 +1709,8 @@
           "value": "no",
           "label": {
             "ko": "없음",
-            "en": "No"
+            "en": "No",
+            "ja": "いない"
           },
           "gapRect": {
             "x": 157.7,
@@ -1665,7 +1737,8 @@
           "value": "yes",
           "label": {
             "ko": "있음",
-            "en": "Yes"
+            "en": "Yes",
+            "ja": "いる"
           },
           "gapRect": {
             "x": 321,
@@ -1696,7 +1769,8 @@
       "page": 1,
       "label": {
         "ko": "자녀수",
-        "en": "Number of children"
+        "en": "Number of children",
+        "ja": "子女数"
       },
       "visibleWhen": {
         "fieldId": "s5_children",
@@ -1725,7 +1799,8 @@
       "page": 1,
       "label": {
         "ko": "최종학력",
-        "en": "Highest level of education completed"
+        "en": "Highest level of education completed",
+        "ja": "最終学歴"
       },
       "type": "radio",
       "options": [
@@ -1733,7 +1808,8 @@
           "value": "master_doctoral",
           "label": {
             "ko": "석사/박사",
-            "en": "Master's/Doctoral Degree"
+            "en": "Master's/Doctoral Degree",
+            "ja": "修士・博士"
           },
           "gapRect": {
             "x": 257.4,
@@ -1760,7 +1836,8 @@
           "value": "bachelor",
           "label": {
             "ko": "대졸",
-            "en": "Bachelor's Degree"
+            "en": "Bachelor's Degree",
+            "ja": "大卒"
           },
           "gapRect": {
             "x": 478.9,
@@ -1787,7 +1864,8 @@
           "value": "high_school",
           "label": {
             "ko": "고졸",
-            "en": "High School Diploma"
+            "en": "High School Diploma",
+            "ja": "高卒"
           },
           "gapRect": {
             "x": 233.3,
@@ -1814,7 +1892,8 @@
           "value": "other",
           "label": {
             "ko": "기타",
-            "en": "Other"
+            "en": "Other",
+            "ja": "その他"
           },
           "gapRect": {
             "x": 451.2,
@@ -1871,7 +1950,8 @@
       "page": 1,
       "label": {
         "ko": "학교명",
-        "en": "Name of School"
+        "en": "Name of School",
+        "ja": "学校名"
       },
       "type": "text",
       "rect": {
@@ -1893,7 +1973,8 @@
       "page": 1,
       "label": {
         "ko": "학교 소재지",
-        "en": "Location of School (city/province/country)"
+        "en": "Location of School (city/province/country)",
+        "ja": "学校所在地"
       },
       "type": "text",
       "rect": {
@@ -1923,7 +2004,8 @@
           "value": "entrepreneur",
           "label": {
             "ko": "사업가",
-            "en": "Entrepreneur"
+            "en": "Entrepreneur",
+            "ja": "事業者"
           },
           "gapRect": {
             "x": 196.2,
@@ -1950,7 +2032,8 @@
           "value": "self_employed",
           "label": {
             "ko": "자영업자",
-            "en": "Self-Employed"
+            "en": "Self-Employed",
+            "ja": "自営業"
           },
           "gapRect": {
             "x": 361.8,
@@ -1977,7 +2060,8 @@
           "value": "employed",
           "label": {
             "ko": "직장인",
-            "en": "Employed"
+            "en": "Employed",
+            "ja": "会社員"
           },
           "gapRect": {
             "x": 519.3,
@@ -2004,7 +2088,8 @@
           "value": "civil_servant",
           "label": {
             "ko": "공무원",
-            "en": "Civil Servant"
+            "en": "Civil Servant",
+            "ja": "公務員"
           },
           "gapRect": {
             "x": 196.2,
@@ -2031,7 +2116,8 @@
           "value": "student",
           "label": {
             "ko": "학생",
-            "en": "Student"
+            "en": "Student",
+            "ja": "学生"
           },
           "gapRect": {
             "x": 357.5,
@@ -2058,7 +2144,8 @@
           "value": "retired",
           "label": {
             "ko": "퇴직자",
-            "en": "Retired"
+            "en": "Retired",
+            "ja": "退職者"
           },
           "gapRect": {
             "x": 519.3,
@@ -2085,7 +2172,8 @@
           "value": "unemployed",
           "label": {
             "ko": "무직",
-            "en": "Unemployed"
+            "en": "Unemployed",
+            "ja": "無職"
           },
           "gapRect": {
             "x": 196.2,
@@ -2112,7 +2200,8 @@
           "value": "other",
           "label": {
             "ko": "기타",
-            "en": "Other"
+            "en": "Other",
+            "ja": "その他"
           },
           "gapRect": {
             "x": 357.5,
@@ -2169,7 +2258,8 @@
       "page": 2,
       "label": {
         "ko": "회사/기관/학교명",
-        "en": "Name of Company/Institute/School"
+        "en": "Name of Company/Institute/School",
+        "ja": "会社/機関/学校名"
       },
       "type": "text",
       "rect": {
@@ -2191,7 +2281,8 @@
       "page": 2,
       "label": {
         "ko": "직위/과정",
-        "en": "Position/Course"
+        "en": "Position/Course",
+        "ja": "職位/課程"
       },
       "type": "text",
       "rect": {
@@ -2213,7 +2304,8 @@
       "page": 2,
       "label": {
         "ko": "회사/기관/학교 주소",
-        "en": "Address of Company/Institute/School"
+        "en": "Address of Company/Institute/School",
+        "ja": "会社/機関/学校住所"
       },
       "type": "text",
       "rect": {
@@ -2235,7 +2327,8 @@
       "page": 2,
       "label": {
         "ko": "전화번호",
-        "en": "Telephone No."
+        "en": "Telephone No.",
+        "ja": "電話番号"
       },
       "validation": {
         "kind": "phone"
@@ -2260,7 +2353,8 @@
       "page": 2,
       "label": {
         "ko": "입국목적",
-        "en": "Purpose of Visit to Korea"
+        "en": "Purpose of Visit to Korea",
+        "ja": "入国目的"
       },
       "required": true,
       "type": "checkbox",
@@ -2269,7 +2363,8 @@
           "value": "tourism_transit",
           "label": {
             "ko": "관광/통과",
-            "en": "Tourism/Transit"
+            "en": "Tourism/Transit",
+            "ja": "観光/通過"
           },
           "gapRect": {
             "x": 198.6,
@@ -2296,7 +2391,8 @@
           "value": "meeting_conference",
           "label": {
             "ko": "행사참석",
-            "en": "Meeting, Conference"
+            "en": "Meeting, Conference",
+            "ja": "行事参加、学会"
           },
           "gapRect": {
             "x": 362.7,
@@ -2323,7 +2419,8 @@
           "value": "medical_tourism",
           "label": {
             "ko": "의료관광",
-            "en": "Medical Tourism"
+            "en": "Medical Tourism",
+            "ja": "医療観光"
           },
           "gapRect": {
             "x": 521.7,
@@ -2350,7 +2447,8 @@
           "value": "business_trip",
           "label": {
             "ko": "단기상용",
-            "en": "Business Trip"
+            "en": "Business Trip",
+            "ja": "短期商用"
           },
           "gapRect": {
             "x": 197.5,
@@ -2377,7 +2475,8 @@
           "value": "study_training",
           "label": {
             "ko": "유학/연수",
-            "en": "Study/Training"
+            "en": "Study/Training",
+            "ja": "留学"
           },
           "gapRect": {
             "x": 358.7,
@@ -2404,7 +2503,8 @@
           "value": "work",
           "label": {
             "ko": "취업활동",
-            "en": "Work"
+            "en": "Work",
+            "ja": "就業活動"
           },
           "gapRect": {
             "x": 520.6,
@@ -2431,7 +2531,8 @@
           "value": "trade_investment",
           "label": {
             "ko": "무역/투자/주재",
-            "en": "Trade/Investment/Intra-Corporate Transferee"
+            "en": "Trade/Investment/Intra-Corporate Transferee",
+            "ja": "貿易/投資/駐在"
           },
           "gapRect": {
             "x": 197.5,
@@ -2458,7 +2559,8 @@
           "value": "family_visit",
           "label": {
             "ko": "가족 또는 친지방문",
-            "en": "Visiting Family/Relatives/Friends"
+            "en": "Visiting Family/Relatives/Friends",
+            "ja": "家族親戚訪問"
           },
           "gapRect": {
             "x": 358.7,
@@ -2485,7 +2587,8 @@
           "value": "marriage_migrant",
           "label": {
             "ko": "결혼이민",
-            "en": "Marriage Migrant"
+            "en": "Marriage Migrant",
+            "ja": "結婚移民"
           },
           "gapRect": {
             "x": 520.6,
@@ -2512,7 +2615,8 @@
           "value": "diplomatic_official",
           "label": {
             "ko": "외교/공무",
-            "en": "Diplomatic/Official"
+            "en": "Diplomatic/Official",
+            "ja": "外交・公務"
           },
           "gapRect": {
             "x": 197.5,
@@ -2539,7 +2643,8 @@
           "value": "other",
           "label": {
             "ko": "기타",
-            "en": "Other"
+            "en": "Other",
+            "ja": "その他"
           },
           "gapRect": {
             "x": 358.7,
@@ -2596,7 +2701,8 @@
       "page": 2,
       "label": {
         "ko": "체류예정기간",
-        "en": "Intended Period of Stay"
+        "en": "Intended Period of Stay",
+        "ja": "滞在予定期間"
       },
       "required": true,
       "type": "text",
@@ -2619,7 +2725,8 @@
       "page": 2,
       "label": {
         "ko": "입국예정일",
-        "en": "Intended Date of Entry"
+        "en": "Intended Date of Entry",
+        "ja": "入国予定日"
       },
       "required": true,
       "type": "date",
@@ -2645,7 +2752,8 @@
       "page": 2,
       "label": {
         "ko": "체류예정지 (호텔 포함)",
-        "en": "Address in Korea (including hotels)"
+        "en": "Address in Korea (including hotels)",
+        "ja": "滞在予定地（ホテル含み)"
       },
       "type": "multiline",
       "rect": {
@@ -2667,7 +2775,8 @@
       "page": 2,
       "label": {
         "ko": "한국 내 연락처",
-        "en": "Contact No. in Korea"
+        "en": "Contact No. in Korea",
+        "ja": "韓国内連絡先／宿泊先連絡先（ホテルなど)"
       },
       "validation": {
         "kind": "phone"
@@ -2692,7 +2801,8 @@
       "page": 2,
       "label": {
         "ko": "과거 5년간 한국 방문 경력",
-        "en": "Has the applicant travelled to Korea in the last 5 years?"
+        "en": "Has the applicant travelled to Korea in the last 5 years?",
+        "ja": "過去5年間の韓国訪問歴"
       },
       "type": "radio",
       "options": [
@@ -2700,7 +2810,8 @@
           "value": "no",
           "label": {
             "ko": "아니요",
-            "en": "No"
+            "en": "No",
+            "ja": "いいえ"
           },
           "gapRect": {
             "x": 159.3,
@@ -2727,7 +2838,8 @@
           "value": "yes",
           "label": {
             "ko": "예",
-            "en": "Yes"
+            "en": "Yes",
+            "ja": "はい"
           },
           "gapRect": {
             "x": 242,
@@ -2758,7 +2870,8 @@
       "page": 2,
       "label": {
         "ko": "방문 횟수",
-        "en": "Number of visits"
+        "en": "Number of visits",
+        "ja": "回"
       },
       "visibleWhen": {
         "fieldId": "s8_past_visits",
@@ -2799,14 +2912,16 @@
           "key": "purpose",
           "label": {
             "ko": "방문목적",
-            "en": "Purpose of Visit"
+            "en": "Purpose of Visit",
+            "ja": "訪問目的"
           }
         },
         {
           "key": "period",
           "label": {
             "ko": "방문기간 (yyyy/mm/dd)~(yyyy/mm/dd)",
-            "en": "Period of Stay (yyyy/mm/dd)~(yyyy/mm/dd)"
+            "en": "Period of Stay (yyyy/mm/dd)~(yyyy/mm/dd)",
+            "ja": "訪問期間 (yyyy/mm/dd)~(yyyy/mm/dd)"
           }
         }
       ],
@@ -2903,7 +3018,8 @@
       "page": 2,
       "label": {
         "ko": "과거 5년간 한국 외 여행한 국가",
-        "en": "Has the applicant travelled outside his/her country of residence, excluding to Korea, in the last 5 years?"
+        "en": "Has the applicant travelled outside his/her country of residence, excluding to Korea, in the last 5 years?",
+        "ja": "韓国以外過去5年間旅行した国"
       },
       "type": "radio",
       "options": [
@@ -2911,7 +3027,8 @@
           "value": "no",
           "label": {
             "ko": "아니요",
-            "en": "No"
+            "en": "No",
+            "ja": "いいえ"
           },
           "gapRect": {
             "x": 321.8,
@@ -2938,7 +3055,8 @@
           "value": "yes",
           "label": {
             "ko": "예",
-            "en": "Yes"
+            "en": "Yes",
+            "ja": "はい"
           },
           "gapRect": {
             "x": 406,
@@ -2981,21 +3099,24 @@
           "key": "country",
           "label": {
             "ko": "국가명",
-            "en": "Name of Country (in English)"
+            "en": "Name of Country (in English)",
+            "ja": "国家名"
           }
         },
         {
           "key": "purpose",
           "label": {
             "ko": "방문목적",
-            "en": "Purpose of Visit"
+            "en": "Purpose of Visit",
+            "ja": "訪問目的"
           }
         },
         {
           "key": "period",
           "label": {
             "ko": "방문기간 (yyyy/mm/dd)~(yyyy/mm/dd)",
-            "en": "Period of Stay (yyyy/mm/dd)~(yyyy/mm/dd)"
+            "en": "Period of Stay (yyyy/mm/dd)~(yyyy/mm/dd)",
+            "ja": "訪問期間 (yyyy/mm/dd)~(yyyy/mm/dd)"
           }
         }
       ],
@@ -3122,7 +3243,8 @@
       "page": 3,
       "label": {
         "ko": "국내 체류 가족 유무",
-        "en": "Does the applicant have any family member(s) staying in Korea?"
+        "en": "Does the applicant have any family member(s) staying in Korea?",
+        "ja": "韓国国内滞在家族の有無を記入"
       },
       "type": "radio",
       "options": [
@@ -3130,7 +3252,8 @@
           "value": "no",
           "label": {
             "ko": "아니요",
-            "en": "No"
+            "en": "No",
+            "ja": "いいえ"
           },
           "gapRect": {
             "x": 273.4,
@@ -3157,7 +3280,8 @@
           "value": "yes",
           "label": {
             "ko": "예",
-            "en": "Yes"
+            "en": "Yes",
+            "ja": "はい"
           },
           "gapRect": {
             "x": 352.8,
@@ -3200,28 +3324,32 @@
           "key": "name",
           "label": {
             "ko": "성명",
-            "en": "Full name in English"
+            "en": "Full name in English",
+            "ja": "姓名"
           }
         },
         {
           "key": "birth",
           "label": {
             "ko": "생년월일",
-            "en": "Date of Birth (yyyy/mm/dd)"
+            "en": "Date of Birth (yyyy/mm/dd)",
+            "ja": "生年月日"
           }
         },
         {
           "key": "nationality",
           "label": {
             "ko": "국적",
-            "en": "Nationality"
+            "en": "Nationality",
+            "ja": "国籍"
           }
         },
         {
           "key": "relation",
           "label": {
             "ko": "관계",
-            "en": "Relationship to the applicant"
+            "en": "Relationship to the applicant",
+            "ja": "関係"
           }
         }
       ],
@@ -3350,7 +3478,8 @@
       "page": 3,
       "label": {
         "ko": "동반입국 가족 유무",
-        "en": "Is the applicant travelling to Korea with any family member(s)?"
+        "en": "Is the applicant travelling to Korea with any family member(s)?",
+        "ja": "同伴入国家族有無"
       },
       "type": "radio",
       "options": [
@@ -3358,7 +3487,8 @@
           "value": "no",
           "label": {
             "ko": "아니요",
-            "en": "No"
+            "en": "No",
+            "ja": "いいえ"
           },
           "gapRect": {
             "x": 170.8,
@@ -3385,7 +3515,8 @@
           "value": "yes",
           "label": {
             "ko": "예",
-            "en": "Yes"
+            "en": "Yes",
+            "ja": "はい"
           },
           "gapRect": {
             "x": 271.2,
@@ -3428,28 +3559,32 @@
           "key": "name",
           "label": {
             "ko": "성명",
-            "en": "Full name in English"
+            "en": "Full name in English",
+            "ja": "姓名"
           }
         },
         {
           "key": "birth",
           "label": {
             "ko": "생년월일",
-            "en": "Date of Birth (yyyy/mm/dd)"
+            "en": "Date of Birth (yyyy/mm/dd)",
+            "ja": "生年月日"
           }
         },
         {
           "key": "nationality",
           "label": {
             "ko": "국적",
-            "en": "Nationality"
+            "en": "Nationality",
+            "ja": "国籍"
           }
         },
         {
           "key": "relation",
           "label": {
             "ko": "관계",
-            "en": "Relationship to the applicant"
+            "en": "Relationship to the applicant",
+            "ja": "関係"
           }
         }
       ],
@@ -3578,7 +3713,8 @@
       "page": 3,
       "label": {
         "ko": "초청인/초청회사",
-        "en": "Is there anyone inviting the applicant for the visa?"
+        "en": "Is there anyone inviting the applicant for the visa?",
+        "ja": "招請人/招請会社"
       },
       "type": "radio",
       "options": [
@@ -3586,7 +3722,8 @@
           "value": "no",
           "label": {
             "ko": "아니요",
-            "en": "No"
+            "en": "No",
+            "ja": "いいえ"
           },
           "gapRect": {
             "x": 130.5,
@@ -3613,7 +3750,8 @@
           "value": "yes",
           "label": {
             "ko": "예",
-            "en": "Yes"
+            "en": "Yes",
+            "ja": "はい"
           },
           "gapRect": {
             "x": 194.3,
@@ -3644,7 +3782,8 @@
       "page": 3,
       "label": {
         "ko": "초청인/초청회사명",
-        "en": "Name of inviting person/organization"
+        "en": "Name of inviting person/organization",
+        "ja": "招請人/招請会社名"
       },
       "visibleWhen": {
         "fieldId": "s9_invited",
@@ -3670,7 +3809,8 @@
       "page": 3,
       "label": {
         "ko": "생년월일/사업자등록번호",
-        "en": "Date of Birth / Business Registration No."
+        "en": "Date of Birth / Business Registration No.",
+        "ja": "生年月日/事業者登録番号"
       },
       "visibleWhen": {
         "fieldId": "s9_invited",
@@ -3696,7 +3836,8 @@
       "page": 3,
       "label": {
         "ko": "관계",
-        "en": "Relationship to the applicant"
+        "en": "Relationship to the applicant",
+        "ja": "関係"
       },
       "visibleWhen": {
         "fieldId": "s9_invited",
@@ -3722,7 +3863,8 @@
       "page": 3,
       "label": {
         "ko": "주소",
-        "en": "Address"
+        "en": "Address",
+        "ja": "住所"
       },
       "visibleWhen": {
         "fieldId": "s9_invited",
@@ -3748,7 +3890,8 @@
       "page": 3,
       "label": {
         "ko": "전화번호",
-        "en": "Phone No."
+        "en": "Phone No.",
+        "ja": "電話番号"
       },
       "visibleWhen": {
         "fieldId": "s9_invited",
@@ -3777,7 +3920,8 @@
       "page": 3,
       "label": {
         "ko": "방문경비 (미국 달러 기준)",
-        "en": "Estimated travel costs (in US dollars)"
+        "en": "Estimated travel costs (in US dollars)",
+        "ja": "訪問経費"
       },
       "validation": {
         "kind": "digits"
@@ -3802,7 +3946,8 @@
       "page": 3,
       "label": {
         "ko": "경비지급자",
-        "en": "Who will pay for the applicant's travel-related expenses?"
+        "en": "Who will pay for the applicant's travel-related expenses?",
+        "ja": "経費の支払い者"
       },
       "type": "text",
       "rect": {
@@ -3824,7 +3969,8 @@
       "page": 3,
       "label": {
         "ko": "경비지급자: 성명/회사(단체)명",
-        "en": "Payer: Name of Person/Organization (Company)"
+        "en": "Payer: Name of Person/Organization (Company)",
+        "ja": "経費の支払い者: 姓名/会社（団体)名"
       },
       "type": "text",
       "rect": {
@@ -3846,7 +3992,8 @@
       "page": 3,
       "label": {
         "ko": "경비지급자: 관계",
-        "en": "Payer: Relationship to the applicant"
+        "en": "Payer: Relationship to the applicant",
+        "ja": "経費の支払い者: 関係"
       },
       "type": "text",
       "rect": {
@@ -3868,7 +4015,8 @@
       "page": 3,
       "label": {
         "ko": "지원내용",
-        "en": "Type of Support"
+        "en": "Type of Support",
+        "ja": "支援内容"
       },
       "type": "text",
       "rect": {
@@ -3890,7 +4038,8 @@
       "page": 3,
       "label": {
         "ko": "경비지급자: 연락처",
-        "en": "Payer: Contact No."
+        "en": "Payer: Contact No.",
+        "ja": "経費の支払い者: 連絡先"
       },
       "validation": {
         "kind": "phone"
@@ -3915,7 +4064,8 @@
       "page": 3,
       "label": {
         "ko": "이 신청서를 작성하는데 다른 사람의 도움을 받았습니까?",
-        "en": "Did the applicant receive assistance in completing this form?"
+        "en": "Did the applicant receive assistance in completing this form?",
+        "ja": "この申請書を作成する際、他人からの手伝いはありますか？"
       },
       "type": "radio",
       "options": [
@@ -3923,7 +4073,8 @@
           "value": "no",
           "label": {
             "ko": "아니요",
-            "en": "No"
+            "en": "No",
+            "ja": "いいえ"
           },
           "gapRect": {
             "x": 397.2,
@@ -3950,7 +4101,8 @@
           "value": "yes",
           "label": {
             "ko": "예",
-            "en": "Yes"
+            "en": "Yes",
+            "ja": "はい"
           },
           "gapRect": {
             "x": 481.6,
@@ -3993,28 +4145,32 @@
           "key": "name",
           "label": {
             "ko": "성명",
-            "en": "Full Name"
+            "en": "Full Name",
+            "ja": "姓名"
           }
         },
         {
           "key": "birth",
           "label": {
             "ko": "생년월일",
-            "en": "Date of Birth (yyyy/mm/dd)"
+            "en": "Date of Birth (yyyy/mm/dd)",
+            "ja": "生年月日"
           }
         },
         {
           "key": "phone",
           "label": {
             "ko": "연락처",
-            "en": "Telephone No."
+            "en": "Telephone No.",
+            "ja": "連絡先"
           }
         },
         {
           "key": "relation",
           "label": {
             "ko": "관계",
-            "en": "Relationship to the applicant"
+            "en": "Relationship to the applicant",
+            "ja": "関係"
           }
         }
       ],
@@ -4059,7 +4215,8 @@
       "page": 4,
       "label": {
         "ko": "신청일자",
-        "en": "Date of Application"
+        "en": "Date of Application",
+        "ja": "申請日（年/月/日)"
       },
       "required": true,
       "type": "date",
@@ -4103,7 +4260,8 @@
       "page": 4,
       "label": {
         "ko": "신청인 성명",
-        "en": "Applicant Name"
+        "en": "Applicant Name",
+        "ja": "申請者姓名"
       },
       "required": true,
       "type": "text",

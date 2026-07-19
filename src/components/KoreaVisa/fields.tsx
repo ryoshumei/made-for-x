@@ -18,6 +18,7 @@ export function FieldLabel({ field, warned }: { field: Field; warned: boolean })
     <label className="mb-1 flex items-baseline gap-2 text-sm">
       <span className="font-medium text-neutral-800">{field.label.ko}</span>
       <span className="text-xs text-neutral-500">{field.label.en}</span>
+      {field.label.ja && <span className="text-xs text-neutral-500">{field.label.ja}</span>}
       {field.required && <span className="text-red-500">*</span>}
       {warned && (
         <span
@@ -145,7 +146,10 @@ export function OptionPills({
             }`}
           >
             {o.label.ko}{' '}
-            <span className={on ? 'text-blue-100' : 'text-neutral-400'}>{o.label.en}</span>
+            <span className={on ? 'text-blue-100' : 'text-neutral-400'}>{o.label.en}</span>{' '}
+            {o.label.ja && (
+              <span className={on ? 'text-blue-100' : 'text-neutral-400'}>{o.label.ja}</span>
+            )}
           </button>
         );
       })}
@@ -175,7 +179,8 @@ export function TableRows({
           <tr>
             {field.columns.map((col) => (
               <th key={col.key} className="text-left text-xs font-medium text-neutral-500">
-                {col.label.ko} <span className="font-normal">{col.label.en}</span>
+                {col.label.ko} <span className="font-normal">{col.label.en}</span>{' '}
+                {col.label.ja && <span className="font-normal">{col.label.ja}</span>}
               </th>
             ))}
           </tr>
