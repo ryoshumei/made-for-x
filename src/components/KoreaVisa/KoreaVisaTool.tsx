@@ -78,7 +78,7 @@ export function KoreaVisaTool() {
   };
 
   return (
-    <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6">
+    <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 text-neutral-900">
       <header className="mb-4">
         <h1 className="text-xl font-bold text-neutral-900">
           韓国ビザ申請書 入力ツール{' '}

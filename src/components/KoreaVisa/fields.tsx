@@ -11,7 +11,7 @@ import type {
 import { useRef } from 'react';
 
 const inputCls =
-  'w-full rounded-md border border-neutral-300 bg-white px-2.5 py-1.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100';
+  'w-full rounded-md border border-neutral-300 bg-white px-2.5 py-1.5 text-sm text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100';
 
 export function FieldLabel({ field, warned }: { field: Field; warned: boolean }) {
   return (
