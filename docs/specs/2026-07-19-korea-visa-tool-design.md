@@ -17,18 +17,18 @@ where templates are calibrated; improved templates are re-copied as one JSON fil
 
 ## Route & file placement
 
-| What | Where |
-| --- | --- |
-| Route (server, metadata + SEO) | `src/app/korea-visa/page.tsx` |
-| Client tool component | `src/components/KoreaVisa/KoreaVisaTool.tsx` |
-| Form renderer / preview / field widgets | `src/components/KoreaVisa/{FormView,PdfPreview,fields}.tsx` |
-| Fill engine (pdf-lib + fontkit shim, layout) | `src/lib/korea-visa/fill/` |
-| Form state (zustand store), drafts, visibility | `src/lib/korea-visa/form/` |
-| pdf.js wrapper, sha256 (with pure-JS fallback), coords | `src/lib/korea-visa/pdf/` |
-| Template schema (zod) + bundled-template lookup | `src/lib/korea-visa/template/` |
-| Golden template (84 fields, keyed by PDF SHA-256) | `src/lib/korea-visa/templates/ksa-visa-v1.json` |
-| Official blank PDF (296 KB, committed) | `public/samples/visa-application.pdf` |
-| Asset copy script (postinstall) | `scripts/copy-assets.mts` |
+| What                                                   | Where                                                       |
+| ------------------------------------------------------ | ----------------------------------------------------------- |
+| Route (server, metadata + SEO)                         | `src/app/korea-visa/page.tsx`                               |
+| Client tool component                                  | `src/components/KoreaVisa/KoreaVisaTool.tsx`                |
+| Form renderer / preview / field widgets                | `src/components/KoreaVisa/{FormView,PdfPreview,fields}.tsx` |
+| Fill engine (pdf-lib + fontkit shim, layout)           | `src/lib/korea-visa/fill/`                                  |
+| Form state (zustand store), drafts, visibility         | `src/lib/korea-visa/form/`                                  |
+| pdf.js wrapper, sha256 (with pure-JS fallback), coords | `src/lib/korea-visa/pdf/`                                   |
+| Template schema (zod) + bundled-template lookup        | `src/lib/korea-visa/template/`                              |
+| Golden template (84 fields, keyed by PDF SHA-256)      | `src/lib/korea-visa/templates/ksa-visa-v1.json`             |
+| Official blank PDF (296 KB, committed)                 | `public/samples/visa-application.pdf`                       |
+| Asset copy script (postinstall)                        | `scripts/copy-assets.mts`                                   |
 
 Modules are copied near-verbatim from the source project, with import paths
 rewritten to `@/lib/korea-visa/...` and source formatting adapted to made-for-x
