@@ -7,7 +7,8 @@ import { FormView } from './FormView';
 import { PdfPreview } from './PdfPreview';
 
 const PDF_URL = '/samples/visa-application.pdf';
-const OFFICIAL_PORTAL_URL = 'https://www.visa.go.kr';
+const OFFICIAL_PORTAL_URL = 'https://overseas.mofa.go.kr/';
+const FORM_REFERENCE_URL = 'https://overseas.mofa.go.kr/jp-ja/brd/m_1106/view.do?seq=758554&page=1';
 const FORM_VERSION_JA =
   '収録様式: 사증발급신청서 — 出入国管理法施行規則 別紙第17号書式（2022年2月7日改正）・2026-07-19収録';
 const FORM_VERSION_EN =
@@ -98,7 +99,15 @@ export function KoreaVisaTool() {
           Unofficial helper tool — not affiliated with the Korean government or any consulate.
         </p>
         <p>
-          {FORM_VERSION_JA} / {FORM_VERSION_EN}
+          {FORM_VERSION_JA} / {FORM_VERSION_EN}{' '}
+          <a
+            href={FORM_REFERENCE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            参照元 / Reference
+          </a>
         </p>
         <p>
           <a
@@ -107,7 +116,8 @@ export function KoreaVisaTool() {
             rel="noopener noreferrer"
             className="underline"
           >
-            最新の公式様式はこちらで確認 / Verify the current official form here (visa.go.kr)
+            最新の公式様式はこちらで確認 / Verify the current official form here
+            (overseas.mofa.go.kr)
           </a>
         </p>
       </div>

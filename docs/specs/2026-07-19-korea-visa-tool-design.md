@@ -62,9 +62,12 @@ Three lines of page chrome, always visible (in or directly under the header):
   「収録様式: 사증발급신청서 — 2026-07-19時点 / Bundled form version, as of
   2026-07-19」, so users can compare against the official source before
   submitting.
-- **Official source link** — link to the Korea Visa Portal
-  (https://www.visa.go.kr), labeled 「最新の公式様式はこちらで確認 / Verify the
-  current official form here」. Doubles as attribution for the form itself.
+- **Official source link** — link to the Korean MOFA overseas-missions site
+  (https://overseas.mofa.go.kr/), labeled 「最新の公式様式はこちらで確認 / Verify
+  the current official form here」. Doubles as attribution for the form itself.
+  The version line additionally links 「参照元 / Reference」 to the embassy page
+  the bundled form was published on
+  (https://overseas.mofa.go.kr/jp-ja/brd/m_1106/view.do?seq=758554&page=1).
 
 ### Draft auto-save
 
