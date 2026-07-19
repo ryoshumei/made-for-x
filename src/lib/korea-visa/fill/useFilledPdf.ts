@@ -19,9 +19,20 @@ export function useFilledPdf(
   values: FormValues,
   onWarnings?: (w: string[]) => void,
   debounceMs = 400
-): { filledBytes: Uint8Array | null; filling: boolean } {
+): {
+  filledBytes: Uint8Array | null;
+  filling: boolean;
+  stale: boolean;
+  fillError: string | null;
+} {
   const [filledBytes, setFilledBytes] = useState<Uint8Array | null>(null);
   const [filling, setFilling] = useState(false);
+  const [fillError, setFillError] = useState<string | null>(null);
+  // The store hands out a fresh `values` object on every change, so a plain
+  // reference check tells us whether filledBytes still reflects the latest
+  // input — that's what the download button gates on to avoid shipping
+  // stale bytes.
+  const lastFilledValues = useRef<FormValues | null>(null);
   const token = useRef(0);
   const warnRef = useRef(onWarnings);
 
@@ -45,10 +56,19 @@ export function useFilledPdf(
           const { bytes, warnings } = await fillPdf(pdfBytes, template, values, font);
           if (token.current === my) {
             setFilledBytes(bytes);
+            lastFilledValues.current = values;
+            setFillError(null);
             warnRef.current?.(warnings);
           }
         } catch (err) {
+          // A failed font fetch would otherwise cache a rejected promise
+          // forever, permanently bricking every future fill — clear it so
+          // the next attempt retries instead of failing silently forever.
+          fontCache = null;
           console.error('[fill]', err);
+          if (token.current === my) {
+            setFillError(err instanceof Error ? err.message : String(err));
+          }
         } finally {
           if (token.current === my) setFilling(false);
         }
@@ -58,5 +78,7 @@ export function useFilledPdf(
     return () => clearTimeout(timer);
   }, [pdfBytes, template, values, debounceMs]);
 
-  return { filledBytes, filling };
+  const stale = values !== lastFilledValues.current || filling;
+
+  return { filledBytes, filling, stale, fillError };
 }

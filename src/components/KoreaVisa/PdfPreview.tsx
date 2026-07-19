@@ -104,7 +104,7 @@ export function PdfPreview({
         <span
           className={`ml-2 text-xs text-neutral-400 transition-opacity ${filling ? 'opacity-100' : 'opacity-0'}`}
         >
-          렌더링 중…
+          描画中… / Rendering…
         </span>
       </div>
       <div
@@ -115,7 +115,7 @@ export function PdfPreview({
           <canvas ref={canvasRef} data-testid="preview-canvas" className="block w-full" />
         ) : (
           <div className="flex aspect-[595/841] items-center justify-center text-sm text-neutral-400">
-            미리보기 준비 중…
+            プレビュー準備中… / Preparing preview…
           </div>
         )}
       </div>

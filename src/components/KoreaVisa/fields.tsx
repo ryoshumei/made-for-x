@@ -22,9 +22,9 @@ export function FieldLabel({ field, warned }: { field: Field; warned: boolean })
       {warned && (
         <span
           className="text-xs text-amber-600"
-          title="입력이 칸보다 깁니다 / too long for the printed box"
+          title="枠に収まらない可能性があります / May not fit the printed box"
         >
-          ⚠ 칸 초과
+          ⚠ 枠超過 / Overflow
         </span>
       )}
     </label>

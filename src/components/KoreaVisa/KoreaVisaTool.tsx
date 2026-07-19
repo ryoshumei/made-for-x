@@ -9,13 +9,13 @@ import { PdfPreview } from './PdfPreview';
 const PDF_URL = '/samples/visa-application.pdf';
 const OFFICIAL_PORTAL_URL = 'https://www.visa.go.kr';
 const FORM_VERSION_JA =
-  '収録様式: 사증발급신청서 — 出入国管理法施行規則 別紙第17号書式（2022年2月7日改正）';
+  '収録様式: 사증발급신청서 — 出入国管理法施行規則 別紙第17号書式（2022年2月7日改正）・2026-07-19収録';
 const FORM_VERSION_EN =
-  'Bundled form: Visa Application Form, MOJ Enforcement Rule attachment No. 17 (rev. 2022-02-07)';
+  'Bundled form: Visa Application Form, MOJ Enforcement Rule attachment No. 17 (rev. 2022-02-07, bundled 2026-07-19)';
 
 export function KoreaVisaTool() {
   const s = useKoreaVisaStore();
-  const { filledBytes, filling } = useFilledPdf(
+  const { filledBytes, filling, stale, fillError } = useFilledPdf(
     s.pdfBytes,
     s.template,
     s.values,
@@ -54,7 +54,7 @@ export function KoreaVisaTool() {
   }, [clearArmed]);
 
   const download = () => {
-    if (!filledBytes) return;
+    if (!filledBytes || stale) return;
     const blob = new Blob([filledBytes.slice() as unknown as BlobPart], {
       type: 'application/pdf',
     });
@@ -135,6 +135,15 @@ export function KoreaVisaTool() {
 
       {s.stage === 'form' && s.template && (
         <>
+          {fillError && (
+            <div
+              data-testid="fill-error"
+              className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+            >
+              PDFの生成に失敗しました。接続を確認してもう一度入力してください / Failed to generate
+              the PDF — check your connection and edit a field to retry: {fillError}
+            </div>
+          )}
           <div className="mb-4 flex flex-wrap items-center gap-2 text-sm" data-testid="toolbar">
             {s.downloadNoticeVisible && (
               <span
@@ -182,7 +191,7 @@ export function KoreaVisaTool() {
               type="button"
               data-testid="download"
               onClick={download}
-              disabled={!filledBytes}
+              disabled={!filledBytes || stale}
               className="rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-40"
             >
               記入済みPDFをダウンロード / Download filled PDF
