@@ -1,0 +1,4141 @@
+{
+  "schemaVersion": 1,
+  "id": "kor-visa-application-v1",
+  "title": {
+    "ko": "사증발급신청서",
+    "en": "Visa Application Form (Republic of Korea)"
+  },
+  "pdf": {
+    "sha256": "1ba3935fdaab49ef5459a500a8f85a4bccd378edc4483b1342587fd595e8dffa",
+    "pageCount": 5,
+    "pageSizes": [
+      {
+        "w": 595,
+        "h": 841
+      },
+      {
+        "w": 595,
+        "h": 841
+      },
+      {
+        "w": 595,
+        "h": 841
+      },
+      {
+        "w": 595,
+        "h": 841
+      },
+      {
+        "w": 595,
+        "h": 841
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "s1",
+      "index": 0,
+      "label": {
+        "ko": "인적사항",
+        "en": "PERSONAL DETAILS"
+      },
+      "page": 0
+    },
+    {
+      "id": "s2",
+      "index": 1,
+      "label": {
+        "ko": "신청 사증 정보",
+        "en": "DETAILS OF VISA APPLICATION"
+      },
+      "page": 0
+    },
+    {
+      "id": "s3",
+      "index": 2,
+      "label": {
+        "ko": "여권정보",
+        "en": "PASSPORT INFORMATION"
+      },
+      "page": 1
+    },
+    {
+      "id": "s4",
+      "index": 3,
+      "label": {
+        "ko": "연락처",
+        "en": "CONTACT INFORMATION"
+      },
+      "page": 1
+    },
+    {
+      "id": "s5",
+      "index": 4,
+      "label": {
+        "ko": "혼인사항 및 가족사항",
+        "en": "MARITAL STATUS AND FAMILY DETAILS"
+      },
+      "page": 1
+    },
+    {
+      "id": "s6",
+      "index": 5,
+      "label": {
+        "ko": "학력",
+        "en": "EDUCATION"
+      },
+      "page": 1
+    },
+    {
+      "id": "s7",
+      "index": 6,
+      "label": {
+        "ko": "직업",
+        "en": "EMPLOYMENT"
+      },
+      "page": 2
+    },
+    {
+      "id": "s8",
+      "index": 7,
+      "label": {
+        "ko": "방문정보",
+        "en": "DETAILS OF VISIT"
+      },
+      "page": 2
+    },
+    {
+      "id": "s9",
+      "index": 8,
+      "label": {
+        "ko": "초청 정보",
+        "en": "DETAILS OF INVITATION"
+      },
+      "page": 3
+    },
+    {
+      "id": "s10",
+      "index": 9,
+      "label": {
+        "ko": "방문경비",
+        "en": "FUNDING DETAILS"
+      },
+      "page": 3
+    },
+    {
+      "id": "s11",
+      "index": 10,
+      "label": {
+        "ko": "서류 작성 시 도움 여부",
+        "en": "ASSISTANCE WITH THIS FORM"
+      },
+      "page": 3
+    },
+    {
+      "id": "s12",
+      "index": 11,
+      "label": {
+        "ko": "서약",
+        "en": "DECLARATION"
+      },
+      "page": 4
+    }
+  ],
+  "fields": [
+    {
+      "id": "s1_family_name",
+      "sectionId": "s1",
+      "page": 0,
+      "label": {
+        "ko": "성",
+        "en": "Family Name (as in passport)"
+      },
+      "required": true,
+      "type": "text",
+      "rect": {
+        "x": 162.8,
+        "y": 539.1,
+        "w": 186.3,
+        "h": 10.8
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s1_given_name",
+      "sectionId": "s1",
+      "page": 0,
+      "label": {
+        "ko": "명",
+        "en": "Given Names (as in passport)"
+      },
+      "required": true,
+      "type": "text",
+      "rect": {
+        "x": 361,
+        "y": 539.1,
+        "w": 180.7,
+        "h": 10.8
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s1_hanja_name",
+      "sectionId": "s1",
+      "page": 0,
+      "label": {
+        "ko": "한자성명",
+        "en": "Name in Chinese Characters"
+      },
+      "type": "text",
+      "rect": {
+        "x": 153.8,
+        "y": 510.5,
+        "w": 195.3,
+        "h": 10.8
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s1_sex",
+      "sectionId": "s1",
+      "page": 0,
+      "label": {
+        "ko": "성별",
+        "en": "Sex"
+      },
+      "required": true,
+      "type": "radio",
+      "options": [
+        {
+          "value": "male",
+          "label": {
+            "ko": "남성",
+            "en": "Male"
+          },
+          "gapRect": {
+            "x": 424.9,
+            "y": 511.5,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 420.6,
+              "y": 511.5,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 438,
+              "y": 511.5,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "female",
+          "label": {
+            "ko": "여성",
+            "en": "Female"
+          },
+          "gapRect": {
+            "x": 520.7,
+            "y": 511.5,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 516.4,
+              "y": 511.5,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 533.8,
+              "y": 511.5,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s1_dob",
+      "sectionId": "s1",
+      "page": 0,
+      "label": {
+        "ko": "생년월일",
+        "en": "Date of Birth"
+      },
+      "required": true,
+      "type": "date",
+      "slots": [
+        {
+          "key": "full",
+          "rect": {
+            "x": 153.8,
+            "y": 481.8,
+            "w": 195.3,
+            "h": 12.1
+          }
+        }
+      ],
+      "font": {
+        "size": 8,
+        "align": "center"
+      }
+    },
+    {
+      "id": "s1_nationality",
+      "sectionId": "s1",
+      "page": 0,
+      "label": {
+        "ko": "국적",
+        "en": "Nationality"
+      },
+      "required": true,
+      "type": "text",
+      "rect": {
+        "x": 351.9,
+        "y": 481.8,
+        "w": 189.8,
+        "h": 12.1
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s1_birth_country",
+      "sectionId": "s1",
+      "page": 0,
+      "label": {
+        "ko": "출생국가",
+        "en": "Country of Birth"
+      },
+      "type": "text",
+      "rect": {
+        "x": 153.8,
+        "y": 453.2,
+        "w": 195.3,
+        "h": 9.6
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s1_other_names",
+      "sectionId": "s1",
+      "page": 0,
+      "label": {
+        "ko": "이전에 한국에 출입국하였을 때 다른 성명을 사용했는지 여부",
+        "en": "Has the applicant ever used any other names to enter or depart Korea?"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "no",
+          "label": {
+            "ko": "아니요",
+            "en": "No"
+          },
+          "gapRect": {
+            "x": 143.7,
+            "y": 401.6,
+            "w": 12.3,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 139.4,
+              "y": 401.6,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 156,
+              "y": 401.6,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "yes",
+          "label": {
+            "ko": "예",
+            "en": "Yes"
+          },
+          "gapRect": {
+            "x": 230.9,
+            "y": 401.6,
+            "w": 12.3,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 226.6,
+              "y": 401.6,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 243.2,
+              "y": 401.6,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s1_other_family",
+      "sectionId": "s1",
+      "page": 0,
+      "label": {
+        "ko": "성 (다른 성명)",
+        "en": "Other Family Name"
+      },
+      "visibleWhen": {
+        "fieldId": "s1_other_names",
+        "equals": "yes"
+      },
+      "type": "text",
+      "rect": {
+        "x": 149,
+        "y": 388.2,
+        "w": 117.7,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s1_other_given",
+      "sectionId": "s1",
+      "page": 0,
+      "label": {
+        "ko": "명 (다른 성명)",
+        "en": "Other Given Name"
+      },
+      "visibleWhen": {
+        "fieldId": "s1_other_names",
+        "equals": "yes"
+      },
+      "type": "text",
+      "rect": {
+        "x": 342.8,
+        "y": 388.2,
+        "w": 142,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s1_multi_citizen",
+      "sectionId": "s1",
+      "page": 0,
+      "label": {
+        "ko": "복수국적여부",
+        "en": "Is the applicant a citizen of more than one country?"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "no",
+          "label": {
+            "ko": "아니요",
+            "en": "No"
+          },
+          "gapRect": {
+            "x": 455.7,
+            "y": 374,
+            "w": 11,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 451.4,
+              "y": 374,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 466.7,
+              "y": 374,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "yes",
+          "label": {
+            "ko": "예",
+            "en": "Yes"
+          },
+          "gapRect": {
+            "x": 516.5,
+            "y": 374,
+            "w": 11,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 512.2,
+              "y": 374,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 527.5,
+              "y": 374,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s1_multi_citizen_country",
+      "sectionId": "s1",
+      "page": 0,
+      "label": {
+        "ko": "복수국적 국가명",
+        "en": "Countries of citizenship"
+      },
+      "visibleWhen": {
+        "fieldId": "s1_multi_citizen",
+        "equals": "yes"
+      },
+      "type": "text",
+      "rect": {
+        "x": 474,
+        "y": 359.9,
+        "w": 53.3,
+        "h": 12.4
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s2_stay_period",
+      "sectionId": "s2",
+      "page": 0,
+      "label": {
+        "ko": "체류기간 (장ᆞ단기)",
+        "en": "Period of Stay (Long/Short-term)"
+      },
+      "required": true,
+      "type": "radio",
+      "options": [
+        {
+          "value": "long_term",
+          "label": {
+            "ko": "90일 이상 장기체류",
+            "en": "Long-term Stay over 90 days"
+          },
+          "gapRect": {
+            "x": 280.8,
+            "y": 305.9,
+            "w": 13.2,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 276.5,
+              "y": 305.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 294,
+              "y": 305.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "short_term",
+          "label": {
+            "ko": "90일 이하 단기체류",
+            "en": "Short-term Stay less than 90 days"
+          },
+          "gapRect": {
+            "x": 280.9,
+            "y": 293,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 276.6,
+              "y": 293,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 294,
+              "y": 293,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_status_of_stay",
+      "sectionId": "s2",
+      "page": 0,
+      "label": {
+        "ko": "체류자격",
+        "en": "Status of Stay"
+      },
+      "type": "text",
+      "rect": {
+        "x": 333.3,
+        "y": 292.2,
+        "w": 208.4,
+        "h": 23.8
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s3_passport_type",
+      "sectionId": "s3",
+      "page": 1,
+      "label": {
+        "ko": "여권종류",
+        "en": "Passport Type"
+      },
+      "required": true,
+      "type": "radio",
+      "options": [
+        {
+          "value": "diplomatic",
+          "label": {
+            "ko": "외교관",
+            "en": "Diplomatic"
+          },
+          "gapRect": {
+            "x": 220.1,
+            "y": 748,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 215.8,
+              "y": 748,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 233.2,
+              "y": 748,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "official",
+          "label": {
+            "ko": "관용",
+            "en": "Official"
+          },
+          "gapRect": {
+            "x": 451.2,
+            "y": 748,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 446.9,
+              "y": 748,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 464.3,
+              "y": 748,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "regular",
+          "label": {
+            "ko": "일반",
+            "en": "Regular"
+          },
+          "gapRect": {
+            "x": 206.9,
+            "y": 733.7,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 202.6,
+              "y": 733.7,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 220,
+              "y": 733.7,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "other",
+          "label": {
+            "ko": "기타",
+            "en": "Other"
+          },
+          "gapRect": {
+            "x": 449,
+            "y": 733.7,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 444.7,
+              "y": 733.7,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 462.1,
+              "y": 733.7,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_type_other_detail",
+      "sectionId": "s3",
+      "page": 1,
+      "label": {
+        "ko": "기타 상세내용",
+        "en": "Other passport type details"
+      },
+      "visibleWhen": {
+        "fieldId": "s3_passport_type",
+        "equals": "other"
+      },
+      "type": "text",
+      "rect": {
+        "x": 412.6,
+        "y": 718.3,
+        "w": 105.9,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s3_passport_no",
+      "sectionId": "s3",
+      "page": 1,
+      "label": {
+        "ko": "여권번호",
+        "en": "Passport No."
+      },
+      "required": true,
+      "type": "text",
+      "rect": {
+        "x": 58.2,
+        "y": 694.2,
+        "w": 156.9,
+        "h": 8.6
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s3_issue_country",
+      "sectionId": "s3",
+      "page": 1,
+      "label": {
+        "ko": "발급국가",
+        "en": "Country of Passport"
+      },
+      "type": "text",
+      "rect": {
+        "x": 219.4,
+        "y": 694.2,
+        "w": 156.9,
+        "h": 8.6
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s3_issue_place",
+      "sectionId": "s3",
+      "page": 1,
+      "label": {
+        "ko": "발급지",
+        "en": "Place of Issue"
+      },
+      "type": "text",
+      "rect": {
+        "x": 380.6,
+        "y": 694.2,
+        "w": 158.3,
+        "h": 8.1
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s3_issue_date",
+      "sectionId": "s3",
+      "page": 1,
+      "label": {
+        "ko": "발급일자",
+        "en": "Date of Issue"
+      },
+      "required": true,
+      "type": "date",
+      "slots": [
+        {
+          "key": "full",
+          "rect": {
+            "x": 58.2,
+            "y": 669.4,
+            "w": 156.9,
+            "h": 7.2
+          }
+        }
+      ],
+      "font": {
+        "size": 8,
+        "align": "center"
+      }
+    },
+    {
+      "id": "s3_expiry_date",
+      "sectionId": "s3",
+      "page": 1,
+      "label": {
+        "ko": "기간만료일",
+        "en": "Date of Expiry"
+      },
+      "required": true,
+      "type": "date",
+      "slots": [
+        {
+          "key": "full",
+          "rect": {
+            "x": 219.4,
+            "y": 669.4,
+            "w": 156.9,
+            "h": 7.2
+          }
+        }
+      ],
+      "font": {
+        "size": 8,
+        "align": "center"
+      }
+    },
+    {
+      "id": "s3_other_passports",
+      "sectionId": "s3",
+      "page": 1,
+      "label": {
+        "ko": "다른 여권 소지 여부",
+        "en": "Does the applicant have any other valid passports?"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "no",
+          "label": {
+            "ko": "아니요",
+            "en": "No"
+          },
+          "gapRect": {
+            "x": 464.1,
+            "y": 655.7,
+            "w": 8.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 459.8,
+              "y": 655.7,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 472.2,
+              "y": 655.7,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "yes",
+          "label": {
+            "ko": "예",
+            "en": "Yes"
+          },
+          "gapRect": {
+            "x": 522.8,
+            "y": 655.7,
+            "w": 7.9,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 518.5,
+              "y": 655.7,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 530.7,
+              "y": 655.7,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_other_pp_type",
+      "sectionId": "s3",
+      "page": 1,
+      "label": {
+        "ko": "여권종류 (기타 여권)",
+        "en": "Passport Type (other passport)"
+      },
+      "visibleWhen": {
+        "fieldId": "s3_other_passports",
+        "equals": "yes"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "diplomatic",
+          "label": {
+            "ko": "외교관",
+            "en": "Diplomatic"
+          },
+          "gapRect": {
+            "x": 218.5,
+            "y": 610,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 214.2,
+              "y": 610,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 231.6,
+              "y": 610,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "official",
+          "label": {
+            "ko": "관용",
+            "en": "Official"
+          },
+          "gapRect": {
+            "x": 451.2,
+            "y": 610,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 446.9,
+              "y": 610,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 464.3,
+              "y": 610,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "regular",
+          "label": {
+            "ko": "일반",
+            "en": "Regular"
+          },
+          "gapRect": {
+            "x": 206.9,
+            "y": 595.9,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 202.6,
+              "y": 595.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 220,
+              "y": 595.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "other",
+          "label": {
+            "ko": "기타",
+            "en": "Other"
+          },
+          "gapRect": {
+            "x": 449,
+            "y": 595.9,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 444.7,
+              "y": 595.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 462.1,
+              "y": 595.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_other_pp_no",
+      "sectionId": "s3",
+      "page": 1,
+      "label": {
+        "ko": "여권번호 (기타 여권)",
+        "en": "Passport No. (other passport)"
+      },
+      "visibleWhen": {
+        "fieldId": "s3_other_passports",
+        "equals": "yes"
+      },
+      "type": "text",
+      "rect": {
+        "x": 67.2,
+        "y": 567.6,
+        "w": 154.2,
+        "h": 11.3
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s3_other_pp_country",
+      "sectionId": "s3",
+      "page": 1,
+      "label": {
+        "ko": "발급국가 (기타 여권)",
+        "en": "Country of Passport (other passport)"
+      },
+      "visibleWhen": {
+        "fieldId": "s3_other_passports",
+        "equals": "yes"
+      },
+      "type": "text",
+      "rect": {
+        "x": 223.4,
+        "y": 567.6,
+        "w": 159.7,
+        "h": 11.3
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s3_other_pp_expiry",
+      "sectionId": "s3",
+      "page": 1,
+      "label": {
+        "ko": "기간만료일 (기타 여권)",
+        "en": "Date of Expiry (other passport)"
+      },
+      "visibleWhen": {
+        "fieldId": "s3_other_passports",
+        "equals": "yes"
+      },
+      "type": "date",
+      "slots": [
+        {
+          "key": "full",
+          "rect": {
+            "x": 385.1,
+            "y": 567.6,
+            "w": 153.8,
+            "h": 11.3
+          }
+        }
+      ],
+      "font": {
+        "size": 8,
+        "align": "center"
+      }
+    },
+    {
+      "id": "s4_home_address",
+      "sectionId": "s4",
+      "page": 1,
+      "label": {
+        "ko": "본국 주소",
+        "en": "Home Country Address"
+      },
+      "type": "multiline",
+      "rect": {
+        "x": 58.2,
+        "y": 518.6,
+        "w": 480.7,
+        "h": 5.9
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "lineHeight": 1.25
+      },
+      "maxLines": 1
+    },
+    {
+      "id": "s4_current_address",
+      "sectionId": "s4",
+      "page": 1,
+      "label": {
+        "ko": "현 거주지",
+        "en": "Current Residential Address"
+      },
+      "type": "multiline",
+      "rect": {
+        "x": 58.2,
+        "y": 486,
+        "w": 480.7,
+        "h": 7.2
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "lineHeight": 1.25
+      },
+      "maxLines": 1
+    },
+    {
+      "id": "s4_phone",
+      "sectionId": "s4",
+      "page": 1,
+      "label": {
+        "ko": "휴대전화 / 일반전화",
+        "en": "Cell Phone / Telephone No."
+      },
+      "validation": {
+        "kind": "phone"
+      },
+      "type": "text",
+      "rect": {
+        "x": 58.2,
+        "y": 461.3,
+        "w": 320.4,
+        "h": 6.9
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s4_email",
+      "sectionId": "s4",
+      "page": 1,
+      "label": {
+        "ko": "전자우편",
+        "en": "E-mail"
+      },
+      "validation": {
+        "kind": "email"
+      },
+      "type": "text",
+      "rect": {
+        "x": 380.6,
+        "y": 461.3,
+        "w": 158.3,
+        "h": 6.9
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s4_emg_name",
+      "sectionId": "s4",
+      "page": 1,
+      "label": {
+        "ko": "비상연락처: 성명",
+        "en": "Emergency contact: Full Name"
+      },
+      "type": "text",
+      "rect": {
+        "x": 205.8,
+        "y": 430.6,
+        "w": 89.9,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s4_emg_country",
+      "sectionId": "s4",
+      "page": 1,
+      "label": {
+        "ko": "비상연락처: 거주 국가",
+        "en": "Emergency contact: Country of Residence"
+      },
+      "type": "text",
+      "rect": {
+        "x": 474.6,
+        "y": 430.6,
+        "w": 64.3,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s4_emg_phone",
+      "sectionId": "s4",
+      "page": 1,
+      "label": {
+        "ko": "비상연락처: 전화번호",
+        "en": "Emergency contact: Telephone No."
+      },
+      "validation": {
+        "kind": "phone"
+      },
+      "type": "text",
+      "rect": {
+        "x": 209.7,
+        "y": 416,
+        "w": 86,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s4_emg_relation",
+      "sectionId": "s4",
+      "page": 1,
+      "label": {
+        "ko": "비상연락처: 관계",
+        "en": "Emergency contact: Relationship"
+      },
+      "type": "text",
+      "rect": {
+        "x": 474.2,
+        "y": 416,
+        "w": 64.7,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s5_marital",
+      "sectionId": "s5",
+      "page": 1,
+      "label": {
+        "ko": "현재 혼인사항",
+        "en": "Current Marital Status"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "married",
+          "label": {
+            "ko": "기혼",
+            "en": "Married"
+          },
+          "gapRect": {
+            "x": 144.7,
+            "y": 361.9,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 140.4,
+              "y": 361.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 157.8,
+              "y": 361.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "divorced",
+          "label": {
+            "ko": "이혼",
+            "en": "Divorced"
+          },
+          "gapRect": {
+            "x": 313,
+            "y": 361.9,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 308.7,
+              "y": 361.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 326.1,
+              "y": 361.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "single",
+          "label": {
+            "ko": "미혼",
+            "en": "Single"
+          },
+          "gapRect": {
+            "x": 470.2,
+            "y": 361.9,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 465.9,
+              "y": 361.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 483.3,
+              "y": 361.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_spouse_family",
+      "sectionId": "s5",
+      "page": 1,
+      "label": {
+        "ko": "배우자: 성",
+        "en": "Spouse: Family Name (in English)"
+      },
+      "visibleWhen": {
+        "fieldId": "s5_marital",
+        "equals": "married"
+      },
+      "type": "text",
+      "rect": {
+        "x": 66.2,
+        "y": 296.1,
+        "w": 229.5,
+        "h": 9.9
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s5_spouse_given",
+      "sectionId": "s5",
+      "page": 1,
+      "label": {
+        "ko": "배우자: 명",
+        "en": "Spouse: Given Names (in English)"
+      },
+      "visibleWhen": {
+        "fieldId": "s5_marital",
+        "equals": "married"
+      },
+      "type": "text",
+      "rect": {
+        "x": 308.1,
+        "y": 296.1,
+        "w": 230.8,
+        "h": 9.9
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s5_spouse_dob",
+      "sectionId": "s5",
+      "page": 1,
+      "label": {
+        "ko": "배우자: 생년월일",
+        "en": "Spouse: Date of Birth"
+      },
+      "visibleWhen": {
+        "fieldId": "s5_marital",
+        "equals": "married"
+      },
+      "type": "date",
+      "slots": [
+        {
+          "key": "full",
+          "rect": {
+            "x": 66.2,
+            "y": 269.8,
+            "w": 229.5,
+            "h": 9.9
+          }
+        }
+      ],
+      "font": {
+        "size": 8,
+        "align": "center"
+      }
+    },
+    {
+      "id": "s5_spouse_nationality",
+      "sectionId": "s5",
+      "page": 1,
+      "label": {
+        "ko": "배우자: 국적",
+        "en": "Spouse: Nationality"
+      },
+      "visibleWhen": {
+        "fieldId": "s5_marital",
+        "equals": "married"
+      },
+      "type": "text",
+      "rect": {
+        "x": 308.1,
+        "y": 269.8,
+        "w": 230.8,
+        "h": 5.0
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s5_spouse_address",
+      "sectionId": "s5",
+      "page": 1,
+      "label": {
+        "ko": "배우자: 거주지",
+        "en": "Spouse: Residential Address"
+      },
+      "visibleWhen": {
+        "fieldId": "s5_marital",
+        "equals": "married"
+      },
+      "type": "text",
+      "rect": {
+        "x": 66.2,
+        "y": 246.2,
+        "w": 229.5,
+        "h": 7.1
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s5_spouse_phone",
+      "sectionId": "s5",
+      "page": 1,
+      "label": {
+        "ko": "배우자: 연락처",
+        "en": "Spouse: Contact No."
+      },
+      "visibleWhen": {
+        "fieldId": "s5_marital",
+        "equals": "married"
+      },
+      "validation": {
+        "kind": "phone"
+      },
+      "type": "text",
+      "rect": {
+        "x": 308.1,
+        "y": 246.2,
+        "w": 230.8,
+        "h": 7.1
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s5_children",
+      "sectionId": "s5",
+      "page": 1,
+      "label": {
+        "ko": "자녀 유무",
+        "en": "Does the applicant have children?"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "no",
+          "label": {
+            "ko": "없음",
+            "en": "No"
+          },
+          "gapRect": {
+            "x": 157.7,
+            "y": 215.9,
+            "w": 13.2,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 153.4,
+              "y": 215.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 170.9,
+              "y": 215.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "yes",
+          "label": {
+            "ko": "있음",
+            "en": "Yes"
+          },
+          "gapRect": {
+            "x": 321,
+            "y": 215.9,
+            "w": 13.3,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 316.7,
+              "y": 215.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 334.3,
+              "y": 215.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_children_count",
+      "sectionId": "s5",
+      "page": 1,
+      "label": {
+        "ko": "자녀수",
+        "en": "Number of children"
+      },
+      "visibleWhen": {
+        "fieldId": "s5_children",
+        "equals": "yes"
+      },
+      "validation": {
+        "kind": "digits"
+      },
+      "type": "text",
+      "rect": {
+        "x": 523.7,
+        "y": 214.6,
+        "w": 4.9,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s6_education",
+      "sectionId": "s6",
+      "page": 1,
+      "label": {
+        "ko": "최종학력",
+        "en": "Highest level of education completed"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "master_doctoral",
+          "label": {
+            "ko": "석사/박사",
+            "en": "Master's/Doctoral Degree"
+          },
+          "gapRect": {
+            "x": 257.4,
+            "y": 161.1,
+            "w": 11.4,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 253.1,
+              "y": 161.1,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 268.8,
+              "y": 161.1,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "bachelor",
+          "label": {
+            "ko": "대졸",
+            "en": "Bachelor's Degree"
+          },
+          "gapRect": {
+            "x": 478.9,
+            "y": 161.1,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 474.6,
+              "y": 161.1,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 492,
+              "y": 161.1,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "high_school",
+          "label": {
+            "ko": "고졸",
+            "en": "High School Diploma"
+          },
+          "gapRect": {
+            "x": 233.3,
+            "y": 146.5,
+            "w": 13,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 229,
+              "y": 146.5,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 246.3,
+              "y": 146.5,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "other",
+          "label": {
+            "ko": "기타",
+            "en": "Other"
+          },
+          "gapRect": {
+            "x": 451.2,
+            "y": 146.5,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 446.9,
+              "y": 146.5,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 464.3,
+              "y": 146.5,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_other_detail",
+      "sectionId": "s6",
+      "page": 1,
+      "label": {
+        "ko": "기타 상세내용",
+        "en": "Other education details"
+      },
+      "visibleWhen": {
+        "fieldId": "s6_education",
+        "equals": "other"
+      },
+      "type": "text",
+      "rect": {
+        "x": 96.6,
+        "y": 120.6,
+        "w": 151.7,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s6_school",
+      "sectionId": "s6",
+      "page": 1,
+      "label": {
+        "ko": "학교명",
+        "en": "Name of School"
+      },
+      "type": "text",
+      "rect": {
+        "x": 58.2,
+        "y": 96.4,
+        "w": 217,
+        "h": 7.2
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s6_school_location",
+      "sectionId": "s6",
+      "page": 1,
+      "label": {
+        "ko": "학교 소재지",
+        "en": "Location of School (city/province/country)"
+      },
+      "type": "text",
+      "rect": {
+        "x": 279.6,
+        "y": 97.0,
+        "w": 259.3,
+        "h": 9.0
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s7_employment",
+      "sectionId": "s7",
+      "page": 2,
+      "label": {
+        "ko": "직업",
+        "en": "Current personal circumstances"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "entrepreneur",
+          "label": {
+            "ko": "사업가",
+            "en": "Entrepreneur"
+          },
+          "gapRect": {
+            "x": 196.2,
+            "y": 749.8,
+            "w": 13.2,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 191.9,
+              "y": 749.8,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 209.4,
+              "y": 749.8,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "self_employed",
+          "label": {
+            "ko": "자영업자",
+            "en": "Self-Employed"
+          },
+          "gapRect": {
+            "x": 361.8,
+            "y": 749.4,
+            "w": 8.8,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 357.5,
+              "y": 749.4,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 370.6,
+              "y": 749.4,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "employed",
+          "label": {
+            "ko": "직장인",
+            "en": "Employed"
+          },
+          "gapRect": {
+            "x": 519.3,
+            "y": 749.8,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 515,
+              "y": 749.8,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 532.4,
+              "y": 749.8,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "civil_servant",
+          "label": {
+            "ko": "공무원",
+            "en": "Civil Servant"
+          },
+          "gapRect": {
+            "x": 196.2,
+            "y": 734.6,
+            "w": 13.2,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 191.9,
+              "y": 734.6,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 209.4,
+              "y": 734.6,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "student",
+          "label": {
+            "ko": "학생",
+            "en": "Student"
+          },
+          "gapRect": {
+            "x": 357.5,
+            "y": 734.6,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 353.2,
+              "y": 734.6,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 370.6,
+              "y": 734.6,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "retired",
+          "label": {
+            "ko": "퇴직자",
+            "en": "Retired"
+          },
+          "gapRect": {
+            "x": 519.3,
+            "y": 734.6,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 515,
+              "y": 734.6,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 532.4,
+              "y": 734.6,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "unemployed",
+          "label": {
+            "ko": "무직",
+            "en": "Unemployed"
+          },
+          "gapRect": {
+            "x": 196.2,
+            "y": 719.9,
+            "w": 13.2,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 191.9,
+              "y": 719.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 209.4,
+              "y": 719.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "other",
+          "label": {
+            "ko": "기타",
+            "en": "Other"
+          },
+          "gapRect": {
+            "x": 357.5,
+            "y": 719.9,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 353.2,
+              "y": 719.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 370.6,
+              "y": 719.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_other_detail",
+      "sectionId": "s7",
+      "page": 2,
+      "label": {
+        "ko": "기타 상세내용",
+        "en": "Other employment details"
+      },
+      "visibleWhen": {
+        "fieldId": "s7_employment",
+        "equals": "other"
+      },
+      "type": "text",
+      "rect": {
+        "x": 478,
+        "y": 704,
+        "w": 49.3,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s7_company",
+      "sectionId": "s7",
+      "page": 2,
+      "label": {
+        "ko": "회사/기관/학교명",
+        "en": "Name of Company/Institute/School"
+      },
+      "type": "text",
+      "rect": {
+        "x": 66.2,
+        "y": 665.1,
+        "w": 310.1,
+        "h": 7.2
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s7_position",
+      "sectionId": "s7",
+      "page": 2,
+      "label": {
+        "ko": "직위/과정",
+        "en": "Position/Course"
+      },
+      "type": "text",
+      "rect": {
+        "x": 388.5,
+        "y": 665.1,
+        "w": 150.4,
+        "h": 7.2
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s7_company_address",
+      "sectionId": "s7",
+      "page": 2,
+      "label": {
+        "ko": "회사/기관/학교 주소",
+        "en": "Address of Company/Institute/School"
+      },
+      "type": "text",
+      "rect": {
+        "x": 66.2,
+        "y": 641.5,
+        "w": 310.1,
+        "h": 7.2
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s7_company_phone",
+      "sectionId": "s7",
+      "page": 2,
+      "label": {
+        "ko": "전화번호",
+        "en": "Telephone No."
+      },
+      "validation": {
+        "kind": "phone"
+      },
+      "type": "text",
+      "rect": {
+        "x": 388.7,
+        "y": 641.5,
+        "w": 150.2,
+        "h": 7.2
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s8_purpose",
+      "sectionId": "s8",
+      "page": 2,
+      "label": {
+        "ko": "입국목적",
+        "en": "Purpose of Visit to Korea"
+      },
+      "required": true,
+      "type": "checkbox",
+      "options": [
+        {
+          "value": "tourism_transit",
+          "label": {
+            "ko": "관광/통과",
+            "en": "Tourism/Transit"
+          },
+          "gapRect": {
+            "x": 198.6,
+            "y": 586.4,
+            "w": 10.7,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 194.3,
+              "y": 586.4,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 209.3,
+              "y": 586.4,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "meeting_conference",
+          "label": {
+            "ko": "행사참석",
+            "en": "Meeting, Conference"
+          },
+          "gapRect": {
+            "x": 362.7,
+            "y": 586.4,
+            "w": 7.8,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 358.4,
+              "y": 586.4,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 370.5,
+              "y": 586.4,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "medical_tourism",
+          "label": {
+            "ko": "의료관광",
+            "en": "Medical Tourism"
+          },
+          "gapRect": {
+            "x": 521.7,
+            "y": 586.4,
+            "w": 10.7,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 517.4,
+              "y": 586.4,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 532.4,
+              "y": 586.4,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "business_trip",
+          "label": {
+            "ko": "단기상용",
+            "en": "Business Trip"
+          },
+          "gapRect": {
+            "x": 197.5,
+            "y": 568.9,
+            "w": 11.8,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 193.2,
+              "y": 568.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 209.3,
+              "y": 568.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "study_training",
+          "label": {
+            "ko": "유학/연수",
+            "en": "Study/Training"
+          },
+          "gapRect": {
+            "x": 358.7,
+            "y": 568.9,
+            "w": 11.8,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 354.4,
+              "y": 568.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 370.5,
+              "y": 568.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "work",
+          "label": {
+            "ko": "취업활동",
+            "en": "Work"
+          },
+          "gapRect": {
+            "x": 520.6,
+            "y": 568.9,
+            "w": 11.8,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 516.3,
+              "y": 568.9,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 532.4,
+              "y": 568.9,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "trade_investment",
+          "label": {
+            "ko": "무역/투자/주재",
+            "en": "Trade/Investment/Intra-Corporate Transferee"
+          },
+          "gapRect": {
+            "x": 197.5,
+            "y": 531.3,
+            "w": 11.8,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 193.2,
+              "y": 531.3,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 209.3,
+              "y": 531.3,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "family_visit",
+          "label": {
+            "ko": "가족 또는 친지방문",
+            "en": "Visiting Family/Relatives/Friends"
+          },
+          "gapRect": {
+            "x": 358.7,
+            "y": 531.3,
+            "w": 11.8,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 354.4,
+              "y": 531.3,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 370.5,
+              "y": 531.3,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "marriage_migrant",
+          "label": {
+            "ko": "결혼이민",
+            "en": "Marriage Migrant"
+          },
+          "gapRect": {
+            "x": 520.6,
+            "y": 536.7,
+            "w": 11.8,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 516.3,
+              "y": 536.7,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 532.4,
+              "y": 536.7,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "diplomatic_official",
+          "label": {
+            "ko": "외교/공무",
+            "en": "Diplomatic/Official"
+          },
+          "gapRect": {
+            "x": 197.5,
+            "y": 505.8,
+            "w": 11.8,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 193.2,
+              "y": 505.8,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 209.3,
+              "y": 505.8,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "other",
+          "label": {
+            "ko": "기타",
+            "en": "Other"
+          },
+          "gapRect": {
+            "x": 358.7,
+            "y": 511.2,
+            "w": 11.8,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 354.4,
+              "y": 511.2,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 370.5,
+              "y": 511.2,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_purpose_other_detail",
+      "sectionId": "s8",
+      "page": 2,
+      "label": {
+        "ko": "기타 상세내용",
+        "en": "Other purpose details"
+      },
+      "visibleWhen": {
+        "fieldId": "s8_purpose",
+        "equals": "other"
+      },
+      "type": "text",
+      "rect": {
+        "x": 438,
+        "y": 489.9,
+        "w": 92.9,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s8_intended_period",
+      "sectionId": "s8",
+      "page": 2,
+      "label": {
+        "ko": "체류예정기간",
+        "en": "Intended Period of Stay"
+      },
+      "required": true,
+      "type": "text",
+      "rect": {
+        "x": 58.2,
+        "y": 456.8,
+        "w": 237.5,
+        "h": 15.9
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s8_entry_date",
+      "sectionId": "s8",
+      "page": 2,
+      "label": {
+        "ko": "입국예정일",
+        "en": "Intended Date of Entry"
+      },
+      "required": true,
+      "type": "date",
+      "slots": [
+        {
+          "key": "full",
+          "rect": {
+            "x": 300,
+            "y": 456.8,
+            "w": 238.9,
+            "h": 11.8
+          }
+        }
+      ],
+      "font": {
+        "size": 8,
+        "align": "center"
+      }
+    },
+    {
+      "id": "s8_address_korea",
+      "sectionId": "s8",
+      "page": 2,
+      "label": {
+        "ko": "체류예정지 (호텔 포함)",
+        "en": "Address in Korea (including hotels)"
+      },
+      "type": "multiline",
+      "rect": {
+        "x": 58.2,
+        "y": 414.1,
+        "w": 318.1,
+        "h": 16.3
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "lineHeight": 1.25
+      },
+      "maxLines": 1
+    },
+    {
+      "id": "s8_contact_korea",
+      "sectionId": "s8",
+      "page": 2,
+      "label": {
+        "ko": "한국 내 연락처",
+        "en": "Contact No. in Korea"
+      },
+      "validation": {
+        "kind": "phone"
+      },
+      "type": "text",
+      "rect": {
+        "x": 388,
+        "y": 414.1,
+        "w": 101.5,
+        "h": 16.8
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s8_past_visits",
+      "sectionId": "s8",
+      "page": 2,
+      "label": {
+        "ko": "과거 5년간 한국 방문 경력",
+        "en": "Has the applicant travelled to Korea in the last 5 years?"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "no",
+          "label": {
+            "ko": "아니요",
+            "en": "No"
+          },
+          "gapRect": {
+            "x": 159.3,
+            "y": 387.4,
+            "w": 12.8,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 155,
+              "y": 387.4,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 172.1,
+              "y": 387.4,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "yes",
+          "label": {
+            "ko": "예",
+            "en": "Yes"
+          },
+          "gapRect": {
+            "x": 242,
+            "y": 387.4,
+            "w": 12.9,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 237.7,
+              "y": 387.4,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 254.9,
+              "y": 387.4,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_past_visits_count",
+      "sectionId": "s8",
+      "page": 2,
+      "label": {
+        "ko": "방문 횟수",
+        "en": "Number of visits"
+      },
+      "visibleWhen": {
+        "fieldId": "s8_past_visits",
+        "equals": "yes"
+      },
+      "validation": {
+        "kind": "digits"
+      },
+      "type": "text",
+      "rect": {
+        "x": 80.3,
+        "y": 359.6,
+        "w": 18.8,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s8_past_visits_table",
+      "sectionId": "s8",
+      "page": 2,
+      "label": {
+        "ko": "한국 방문 내역",
+        "en": "Details of visits to Korea"
+      },
+      "visibleWhen": {
+        "fieldId": "s8_past_visits",
+        "equals": "yes"
+      },
+      "type": "table",
+      "columns": [
+        {
+          "key": "purpose",
+          "label": {
+            "ko": "방문목적",
+            "en": "Purpose of Visit"
+          }
+        },
+        {
+          "key": "period",
+          "label": {
+            "ko": "방문기간 (yyyy/mm/dd)~(yyyy/mm/dd)",
+            "en": "Period of Stay (yyyy/mm/dd)~(yyyy/mm/dd)"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 317.2,
+              "w": 240.4,
+              "h": 16.5
+            },
+            {
+              "x": 299.6,
+              "y": 317.2,
+              "w": 239.3,
+              "h": 16.5
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 298.8,
+              "w": 240.4,
+              "h": 16.4
+            },
+            {
+              "x": 299.6,
+              "y": 298.8,
+              "w": 239.3,
+              "h": 16.4
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 280.2,
+              "w": 240.4,
+              "h": 16.6
+            },
+            {
+              "x": 299.6,
+              "y": 280.2,
+              "w": 239.3,
+              "h": 16.6
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 261.7,
+              "w": 240.4,
+              "h": 16.5
+            },
+            {
+              "x": 299.6,
+              "y": 261.7,
+              "w": 239.3,
+              "h": 16.5
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 243.3,
+              "w": 240.4,
+              "h": 16.4
+            },
+            {
+              "x": 299.6,
+              "y": 243.3,
+              "w": 239.3,
+              "h": 16.4
+            }
+          ]
+        }
+      ],
+      "font": {
+        "size": 7,
+        "minSize": 4.5
+      }
+    },
+    {
+      "id": "s8_other_countries",
+      "sectionId": "s8",
+      "page": 2,
+      "label": {
+        "ko": "과거 5년간 한국 외 여행한 국가",
+        "en": "Has the applicant travelled outside his/her country of residence, excluding to Korea, in the last 5 years?"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "no",
+          "label": {
+            "ko": "아니요",
+            "en": "No"
+          },
+          "gapRect": {
+            "x": 321.8,
+            "y": 212.8,
+            "w": 13.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 317.5,
+              "y": 212.8,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 334.9,
+              "y": 212.8,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "yes",
+          "label": {
+            "ko": "예",
+            "en": "Yes"
+          },
+          "gapRect": {
+            "x": 406,
+            "y": 212.8,
+            "w": 13.2,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 401.7,
+              "y": 212.8,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 419.2,
+              "y": 212.8,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_other_countries_table",
+      "sectionId": "s8",
+      "page": 2,
+      "label": {
+        "ko": "해외 여행 내역",
+        "en": "Details of trips outside Korea"
+      },
+      "visibleWhen": {
+        "fieldId": "s8_other_countries",
+        "equals": "yes"
+      },
+      "type": "table",
+      "columns": [
+        {
+          "key": "country",
+          "label": {
+            "ko": "국가명",
+            "en": "Name of Country (in English)"
+          }
+        },
+        {
+          "key": "purpose",
+          "label": {
+            "ko": "방문목적",
+            "en": "Purpose of Visit"
+          }
+        },
+        {
+          "key": "period",
+          "label": {
+            "ko": "방문기간 (yyyy/mm/dd)~(yyyy/mm/dd)",
+            "en": "Period of Stay (yyyy/mm/dd)~(yyyy/mm/dd)"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 149.8,
+              "w": 174.3,
+              "h": 13.5
+            },
+            {
+              "x": 233.5,
+              "y": 149.8,
+              "w": 150.5,
+              "h": 13.5
+            },
+            {
+              "x": 387,
+              "y": 149.8,
+              "w": 151.9,
+              "h": 13.5
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 134.1,
+              "w": 174.3,
+              "h": 13.7
+            },
+            {
+              "x": 233.5,
+              "y": 134.1,
+              "w": 150.5,
+              "h": 13.7
+            },
+            {
+              "x": 387,
+              "y": 134.1,
+              "w": 151.9,
+              "h": 13.7
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 118.5,
+              "w": 174.3,
+              "h": 13.6
+            },
+            {
+              "x": 233.5,
+              "y": 118.5,
+              "w": 150.5,
+              "h": 13.6
+            },
+            {
+              "x": 387,
+              "y": 118.5,
+              "w": 151.9,
+              "h": 13.6
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 102.8,
+              "w": 174.3,
+              "h": 13.7
+            },
+            {
+              "x": 233.5,
+              "y": 102.8,
+              "w": 150.5,
+              "h": 13.7
+            },
+            {
+              "x": 387,
+              "y": 102.8,
+              "w": 151.9,
+              "h": 13.7
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 87.2,
+              "w": 174.3,
+              "h": 13.6
+            },
+            {
+              "x": 233.5,
+              "y": 87.2,
+              "w": 150.5,
+              "h": 13.6
+            },
+            {
+              "x": 387,
+              "y": 87.2,
+              "w": 151.9,
+              "h": 13.6
+            }
+          ]
+        }
+      ],
+      "font": {
+        "size": 7,
+        "minSize": 4.5
+      }
+    },
+    {
+      "id": "s8_family_korea",
+      "sectionId": "s8",
+      "page": 3,
+      "label": {
+        "ko": "국내 체류 가족 유무",
+        "en": "Does the applicant have any family member(s) staying in Korea?"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "no",
+          "label": {
+            "ko": "아니요",
+            "en": "No"
+          },
+          "gapRect": {
+            "x": 273.4,
+            "y": 770.5,
+            "w": 11.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 268.9,
+              "y": 770.5,
+              "w": 4.5,
+              "h": 9
+            },
+            "close": {
+              "x": 284.5,
+              "y": 770.5,
+              "w": 4.5,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "yes",
+          "label": {
+            "ko": "예",
+            "en": "Yes"
+          },
+          "gapRect": {
+            "x": 352.8,
+            "y": 770.5,
+            "w": 11,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 348.3,
+              "y": 770.5,
+              "w": 4.5,
+              "h": 9
+            },
+            "close": {
+              "x": 363.8,
+              "y": 770.5,
+              "w": 4.5,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_family_korea_table",
+      "sectionId": "s8",
+      "page": 3,
+      "label": {
+        "ko": "국내 체류 가족",
+        "en": "Family members in Korea"
+      },
+      "visibleWhen": {
+        "fieldId": "s8_family_korea",
+        "equals": "yes"
+      },
+      "type": "table",
+      "columns": [
+        {
+          "key": "name",
+          "label": {
+            "ko": "성명",
+            "en": "Full name in English"
+          }
+        },
+        {
+          "key": "birth",
+          "label": {
+            "ko": "생년월일",
+            "en": "Date of Birth (yyyy/mm/dd)"
+          }
+        },
+        {
+          "key": "nationality",
+          "label": {
+            "ko": "국적",
+            "en": "Nationality"
+          }
+        },
+        {
+          "key": "relation",
+          "label": {
+            "ko": "관계",
+            "en": "Relationship to the applicant"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 720.8,
+              "w": 174.3,
+              "h": 13.6
+            },
+            {
+              "x": 233.5,
+              "y": 720.8,
+              "w": 100.2,
+              "h": 13.6
+            },
+            {
+              "x": 336.7,
+              "y": 720.8,
+              "w": 89.9,
+              "h": 13.6
+            },
+            {
+              "x": 429.6,
+              "y": 720.8,
+              "w": 113,
+              "h": 13.6
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 705.1,
+              "w": 174.3,
+              "h": 13.7
+            },
+            {
+              "x": 233.5,
+              "y": 705.1,
+              "w": 100.2,
+              "h": 13.7
+            },
+            {
+              "x": 336.7,
+              "y": 705.1,
+              "w": 89.9,
+              "h": 13.7
+            },
+            {
+              "x": 429.6,
+              "y": 705.1,
+              "w": 113,
+              "h": 13.7
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 689.5,
+              "w": 174.3,
+              "h": 13.6
+            },
+            {
+              "x": 233.5,
+              "y": 689.5,
+              "w": 100.2,
+              "h": 13.6
+            },
+            {
+              "x": 336.7,
+              "y": 689.5,
+              "w": 89.9,
+              "h": 13.6
+            },
+            {
+              "x": 429.6,
+              "y": 689.5,
+              "w": 113,
+              "h": 13.6
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 673.8,
+              "w": 174.3,
+              "h": 13.7
+            },
+            {
+              "x": 233.5,
+              "y": 673.8,
+              "w": 100.2,
+              "h": 13.7
+            },
+            {
+              "x": 336.7,
+              "y": 673.8,
+              "w": 89.9,
+              "h": 13.7
+            },
+            {
+              "x": 429.6,
+              "y": 673.8,
+              "w": 113,
+              "h": 13.7
+            }
+          ]
+        }
+      ],
+      "font": {
+        "size": 7,
+        "minSize": 4.5
+      }
+    },
+    {
+      "id": "s8_companions",
+      "sectionId": "s8",
+      "page": 3,
+      "label": {
+        "ko": "동반입국 가족 유무",
+        "en": "Is the applicant travelling to Korea with any family member(s)?"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "no",
+          "label": {
+            "ko": "아니요",
+            "en": "No"
+          },
+          "gapRect": {
+            "x": 170.8,
+            "y": 626.4,
+            "w": 15,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 166.3,
+              "y": 626.4,
+              "w": 4.5,
+              "h": 9
+            },
+            "close": {
+              "x": 185.8,
+              "y": 626.4,
+              "w": 4.5,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "yes",
+          "label": {
+            "ko": "예",
+            "en": "Yes"
+          },
+          "gapRect": {
+            "x": 271.2,
+            "y": 626.4,
+            "w": 15,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 266.7,
+              "y": 626.4,
+              "w": 4.5,
+              "h": 9
+            },
+            "close": {
+              "x": 286.2,
+              "y": 626.4,
+              "w": 4.5,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_companions_table",
+      "sectionId": "s8",
+      "page": 3,
+      "label": {
+        "ko": "동반입국 가족",
+        "en": "Family members travelling with the applicant"
+      },
+      "visibleWhen": {
+        "fieldId": "s8_companions",
+        "equals": "yes"
+      },
+      "type": "table",
+      "columns": [
+        {
+          "key": "name",
+          "label": {
+            "ko": "성명",
+            "en": "Full name in English"
+          }
+        },
+        {
+          "key": "birth",
+          "label": {
+            "ko": "생년월일",
+            "en": "Date of Birth (yyyy/mm/dd)"
+          }
+        },
+        {
+          "key": "nationality",
+          "label": {
+            "ko": "국적",
+            "en": "Nationality"
+          }
+        },
+        {
+          "key": "relation",
+          "label": {
+            "ko": "관계",
+            "en": "Relationship to the applicant"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 577.2,
+              "w": 174.3,
+              "h": 13.6
+            },
+            {
+              "x": 233.5,
+              "y": 577.2,
+              "w": 100.2,
+              "h": 13.6
+            },
+            {
+              "x": 336.7,
+              "y": 577.2,
+              "w": 89.9,
+              "h": 13.6
+            },
+            {
+              "x": 429.6,
+              "y": 577.2,
+              "w": 113,
+              "h": 13.6
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 561.5,
+              "w": 174.3,
+              "h": 13.7
+            },
+            {
+              "x": 233.5,
+              "y": 561.5,
+              "w": 100.2,
+              "h": 13.7
+            },
+            {
+              "x": 336.7,
+              "y": 561.5,
+              "w": 89.9,
+              "h": 13.7
+            },
+            {
+              "x": 429.6,
+              "y": 561.5,
+              "w": 113,
+              "h": 13.7
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 545.9,
+              "w": 174.3,
+              "h": 13.6
+            },
+            {
+              "x": 233.5,
+              "y": 545.9,
+              "w": 100.2,
+              "h": 13.6
+            },
+            {
+              "x": 336.7,
+              "y": 545.9,
+              "w": 89.9,
+              "h": 13.6
+            },
+            {
+              "x": 429.6,
+              "y": 545.9,
+              "w": 113,
+              "h": 13.6
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 530.2,
+              "w": 174.3,
+              "h": 13.7
+            },
+            {
+              "x": 233.5,
+              "y": 530.2,
+              "w": 100.2,
+              "h": 13.7
+            },
+            {
+              "x": 336.7,
+              "y": 530.2,
+              "w": 89.9,
+              "h": 13.7
+            },
+            {
+              "x": 429.6,
+              "y": 530.2,
+              "w": 113,
+              "h": 13.7
+            }
+          ]
+        }
+      ],
+      "font": {
+        "size": 7,
+        "minSize": 4.5
+      }
+    },
+    {
+      "id": "s9_invited",
+      "sectionId": "s9",
+      "page": 3,
+      "label": {
+        "ko": "초청인/초청회사",
+        "en": "Is there anyone inviting the applicant for the visa?"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "no",
+          "label": {
+            "ko": "아니요",
+            "en": "No"
+          },
+          "gapRect": {
+            "x": 130.5,
+            "y": 454.5,
+            "w": 8.9,
+            "h": 8
+          },
+          "bracket": {
+            "open": {
+              "x": 126.7,
+              "y": 454.5,
+              "w": 3.8,
+              "h": 8
+            },
+            "close": {
+              "x": 139.4,
+              "y": 454.5,
+              "w": 3.8,
+              "h": 8
+            }
+          }
+        },
+        {
+          "value": "yes",
+          "label": {
+            "ko": "예",
+            "en": "Yes"
+          },
+          "gapRect": {
+            "x": 194.3,
+            "y": 454.5,
+            "w": 9,
+            "h": 8
+          },
+          "bracket": {
+            "open": {
+              "x": 190.5,
+              "y": 454.5,
+              "w": 3.8,
+              "h": 8
+            },
+            "close": {
+              "x": 203.3,
+              "y": 454.5,
+              "w": 3.8,
+              "h": 8
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s9_inviter_name",
+      "sectionId": "s9",
+      "page": 3,
+      "label": {
+        "ko": "초청인/초청회사명",
+        "en": "Name of inviting person/organization"
+      },
+      "visibleWhen": {
+        "fieldId": "s9_invited",
+        "equals": "yes"
+      },
+      "type": "text",
+      "rect": {
+        "x": 74.4,
+        "y": 413.7,
+        "w": 468.2,
+        "h": 10.2
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s9_inviter_birth",
+      "sectionId": "s9",
+      "page": 3,
+      "label": {
+        "ko": "생년월일/사업자등록번호",
+        "en": "Date of Birth / Business Registration No."
+      },
+      "visibleWhen": {
+        "fieldId": "s9_invited",
+        "equals": "yes"
+      },
+      "type": "text",
+      "rect": {
+        "x": 75.6,
+        "y": 378.7,
+        "w": 306.3,
+        "h": 8.4
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s9_inviter_relation",
+      "sectionId": "s9",
+      "page": 3,
+      "label": {
+        "ko": "관계",
+        "en": "Relationship to the applicant"
+      },
+      "visibleWhen": {
+        "fieldId": "s9_invited",
+        "equals": "yes"
+      },
+      "type": "text",
+      "rect": {
+        "x": 425.1,
+        "y": 383.4,
+        "w": 117.5,
+        "h": 14
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s9_inviter_address",
+      "sectionId": "s9",
+      "page": 3,
+      "label": {
+        "ko": "주소",
+        "en": "Address"
+      },
+      "visibleWhen": {
+        "fieldId": "s9_invited",
+        "equals": "yes"
+      },
+      "type": "text",
+      "rect": {
+        "x": 66.2,
+        "y": 353.9,
+        "w": 315.7,
+        "h": 8.4
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s9_inviter_phone",
+      "sectionId": "s9",
+      "page": 3,
+      "label": {
+        "ko": "전화번호",
+        "en": "Phone No."
+      },
+      "visibleWhen": {
+        "fieldId": "s9_invited",
+        "equals": "yes"
+      },
+      "validation": {
+        "kind": "phone"
+      },
+      "type": "text",
+      "rect": {
+        "x": 394.3,
+        "y": 353.9,
+        "w": 148.3,
+        "h": 8.4
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s10_funds_amount",
+      "sectionId": "s10",
+      "page": 3,
+      "label": {
+        "ko": "방문경비 (미국 달러 기준)",
+        "en": "Estimated travel costs (in US dollars)"
+      },
+      "validation": {
+        "kind": "digits"
+      },
+      "type": "text",
+      "rect": {
+        "x": 58.2,
+        "y": 303,
+        "w": 484.4,
+        "h": 8.9
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s10_payer",
+      "sectionId": "s10",
+      "page": 3,
+      "label": {
+        "ko": "경비지급자",
+        "en": "Who will pay for the applicant's travel-related expenses?"
+      },
+      "type": "text",
+      "rect": {
+        "x": 58.2,
+        "y": 269.5,
+        "w": 484.4,
+        "h": 7.4
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s10_payer_name",
+      "sectionId": "s10",
+      "page": 3,
+      "label": {
+        "ko": "경비지급자: 성명/회사(단체)명",
+        "en": "Payer: Name of Person/Organization (Company)"
+      },
+      "type": "text",
+      "rect": {
+        "x": 66.2,
+        "y": 235.1,
+        "w": 315.7,
+        "h": 13.1
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s10_payer_relation",
+      "sectionId": "s10",
+      "page": 3,
+      "label": {
+        "ko": "경비지급자: 관계",
+        "en": "Payer: Relationship to the applicant"
+      },
+      "type": "text",
+      "rect": {
+        "x": 401.7,
+        "y": 235.1,
+        "w": 140.9,
+        "h": 8
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s10_support_type",
+      "sectionId": "s10",
+      "page": 3,
+      "label": {
+        "ko": "지원내용",
+        "en": "Type of Support"
+      },
+      "type": "text",
+      "rect": {
+        "x": 56.7,
+        "y": 192.2,
+        "w": 325.0,
+        "h": 8.0
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s10_contact",
+      "sectionId": "s10",
+      "page": 3,
+      "label": {
+        "ko": "경비지급자: 연락처",
+        "en": "Payer: Contact No."
+      },
+      "validation": {
+        "kind": "phone"
+      },
+      "type": "text",
+      "rect": {
+        "x": 390.3,
+        "y": 192.2,
+        "w": 152.3,
+        "h": 17
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    },
+    {
+      "id": "s11_assist",
+      "sectionId": "s11",
+      "page": 3,
+      "label": {
+        "ko": "이 신청서를 작성하는데 다른 사람의 도움을 받았습니까?",
+        "en": "Did the applicant receive assistance in completing this form?"
+      },
+      "type": "radio",
+      "options": [
+        {
+          "value": "no",
+          "label": {
+            "ko": "아니요",
+            "en": "No"
+          },
+          "gapRect": {
+            "x": 397.2,
+            "y": 139.3,
+            "w": 11.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 392.9,
+              "y": 139.3,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 408.3,
+              "y": 139.3,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        },
+        {
+          "value": "yes",
+          "label": {
+            "ko": "예",
+            "en": "Yes"
+          },
+          "gapRect": {
+            "x": 481.6,
+            "y": 139.3,
+            "w": 11.1,
+            "h": 9
+          },
+          "bracket": {
+            "open": {
+              "x": 477.3,
+              "y": 139.3,
+              "w": 4.3,
+              "h": 9
+            },
+            "close": {
+              "x": 492.7,
+              "y": 139.3,
+              "w": 4.3,
+              "h": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s11_assist_details",
+      "sectionId": "s11",
+      "page": 3,
+      "label": {
+        "ko": "도움을 준 사람",
+        "en": "Person who assisted with this form"
+      },
+      "visibleWhen": {
+        "fieldId": "s11_assist",
+        "equals": "yes"
+      },
+      "type": "table",
+      "columns": [
+        {
+          "key": "name",
+          "label": {
+            "ko": "성명",
+            "en": "Full Name"
+          }
+        },
+        {
+          "key": "birth",
+          "label": {
+            "ko": "생년월일",
+            "en": "Date of Birth (yyyy/mm/dd)"
+          }
+        },
+        {
+          "key": "phone",
+          "label": {
+            "ko": "연락처",
+            "en": "Telephone No."
+          }
+        },
+        {
+          "key": "relation",
+          "label": {
+            "ko": "관계",
+            "en": "Relationship to the applicant"
+          }
+        }
+      ],
+      "rows": [
+        {
+          "cells": [
+            {
+              "x": 56.2,
+              "y": 72.1,
+              "w": 171,
+              "h": 27.4
+            },
+            {
+              "x": 230.2,
+              "y": 72.1,
+              "w": 101,
+              "h": 27.4
+            },
+            {
+              "x": 334.2,
+              "y": 72.1,
+              "w": 98.2,
+              "h": 27.4
+            },
+            {
+              "x": 435.4,
+              "y": 72.1,
+              "w": 107.2,
+              "h": 27.4
+            }
+          ]
+        }
+      ],
+      "font": {
+        "size": 7,
+        "minSize": 4.5
+      }
+    },
+    {
+      "id": "s12_date",
+      "sectionId": "s12",
+      "page": 4,
+      "label": {
+        "ko": "신청일자",
+        "en": "Date of Application"
+      },
+      "required": true,
+      "type": "date",
+      "slots": [
+        {
+          "key": "yyyy",
+          "rect": {
+            "x": 56.2,
+            "y": 223.9,
+            "w": 95.6,
+            "h": 14
+          }
+        },
+        {
+          "key": "mm",
+          "rect": {
+            "x": 159.6,
+            "y": 223.9,
+            "w": 33.1,
+            "h": 14
+          }
+        },
+        {
+          "key": "dd",
+          "rect": {
+            "x": 200,
+            "y": 223.9,
+            "w": 33,
+            "h": 14
+          }
+        }
+      ],
+      "font": {
+        "size": 8,
+        "align": "center"
+      }
+    },
+    {
+      "id": "s12_applicant_name",
+      "sectionId": "s12",
+      "page": 4,
+      "label": {
+        "ko": "신청인 성명",
+        "en": "Applicant Name"
+      },
+      "required": true,
+      "type": "text",
+      "rect": {
+        "x": 247.0,
+        "y": 186.0,
+        "w": 120.0,
+        "h": 18.0
+      },
+      "font": {
+        "size": 8,
+        "minSize": 5,
+        "align": "left"
+      },
+      "padX": 2
+    }
+  ],
+  "excludedZones": [
+    {
+      "page": 0,
+      "rect": {
+        "x": 52.7,
+        "y": 28,
+        "w": 492.5,
+        "h": 257.4
+      },
+      "reason": "공용란 FOR OFFICIAL USE ONLY"
+    }
+  ],
+  "provenance": {
+    "source": "golden",
+    "visionModel": "recorded-fixture",
+    "calibratedAt": "2026-07-12T08:00:00Z"
+  }
+}
