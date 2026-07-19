@@ -6,6 +6,7 @@ import {
   FaCalculator,
   FaClock,
   FaCalendarAlt,
+  FaPassport,
 } from 'react-icons/fa';
 
 interface NavItem {
@@ -92,6 +93,18 @@ const NAV_ITEMS: NavItem[] = [
       iconColor: 'text-emerald-600',
       iconBg: 'bg-emerald-50 group-hover:bg-emerald-100',
       border: 'hover:border-emerald-200',
+    },
+  },
+  {
+    title: '韓国ビザ申請書 入力ツール',
+    subtitle: 'Korea Visa Application Filler',
+    description: '公式PDFにブラウザだけで記入・ダウンロード',
+    icon: <FaPassport size={28} />,
+    href: '/korea-visa',
+    accent: {
+      iconColor: 'text-sky-600',
+      iconBg: 'bg-sky-50 group-hover:bg-sky-100',
+      border: 'hover:border-sky-200',
     },
   },
 ];

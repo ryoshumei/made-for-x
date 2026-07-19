@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && tsx scripts/copy-assets.mts",
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch",
     "test:coverage": "NODE_ENV=test jest --coverage",
@@ -23,7 +23,13 @@
     "db:seed:prod": "NODE_ENV=production tsx scripts/seed-database.ts && NODE_ENV=production tsx scripts/seed-mercari-shipping.ts",
     "db:reset": "prisma migrate reset --force",
     "db:studio": "prisma studio",
+    "verify:korea-visa": "tsx scripts/verify-korea-visa-fill.mts",
     "prepare": "husky"
+  },
+  "overrides": {
+    "openai": {
+      "zod": "$zod"
+    }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,md}": [
@@ -34,26 +40,33 @@
     ]
   },
   "dependencies": {
+    "@expo-google-fonts/noto-sans-kr": "^0.4.3",
     "@holiday-jp/holiday_jp": "^2.5.1",
     "@prisma/client": "^6.8.2",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "cheerio": "^1.0.0",
     "dotenv": "^17.2.0",
+    "fontkit": "^2.0.4",
     "lodash": "^4.17.21",
     "lucide-react": "^1.7.0",
     "next": "16.0.7",
     "openai": "^4.67.3",
     "papaparse": "^5.5.1",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^4.10.38",
     "prisma": "^6.8.2",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.6.0",
-    "tsx": "^4.19.4"
+    "tsx": "^4.19.4",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.2.0",
+    "@types/fontkit": "^2.0.9",
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.14",
     "@types/node": "^25",

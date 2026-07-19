@@ -74,3 +74,7 @@ CLAUDE.md
 /docs/superpowers/
 /.gstack
 /articles
+
+# Korea visa tool: assets copied from node_modules by scripts/copy-assets.mts
+/public/pdf.worker.min.mjs
+/public/fonts/

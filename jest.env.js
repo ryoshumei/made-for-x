@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- CommonJS Jest setupFiles script */
 // Smart environment loading for Jest tests
 const path = require('path');
 const fs = require('fs');
@@ -39,4 +40,13 @@ const missing = requiredVars.filter((varName) => !process.env[varName]);
 if (missing.length > 0) {
   console.error(`❌ Missing required environment variables for tests: ${missing.join(', ')}`);
   process.exit(1);
+}
+
+// The 'node' Jest environment has no `window` global (unlike a real browser,
+// where `window === globalThis`). Code that branches on `typeof window` for
+// SSR-safety (e.g. localStorage-backed persistence) needs that identity so
+// tests can stub `globalThis.localStorage` the same way a browser exposes it
+// via `window.localStorage`.
+if (typeof window === 'undefined') {
+  global.window = globalThis;
 }
