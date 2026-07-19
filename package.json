@@ -23,6 +23,7 @@
     "db:seed:prod": "NODE_ENV=production tsx scripts/seed-database.ts && NODE_ENV=production tsx scripts/seed-mercari-shipping.ts",
     "db:reset": "prisma migrate reset --force",
     "db:studio": "prisma studio",
+    "verify:korea-visa": "tsx scripts/verify-korea-visa-fill.mts",
     "prepare": "husky"
   },
   "overrides": {
