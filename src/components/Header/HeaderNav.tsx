@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { href: '/japanpost', label: '日本郵便', labelEn: 'Japan Post' },
   { href: '/holidays', label: '次の祝日', labelEn: 'Holidays' },
   { href: '/break', label: '休憩タイマー', labelEn: 'Break' },
+  { href: '/korea-visa', label: '韓国ビザ', labelEn: 'Korea Visa' },
 ];
 
 export default function HeaderNav() {
