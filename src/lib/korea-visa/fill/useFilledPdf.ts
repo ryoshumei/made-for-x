@@ -10,7 +10,9 @@ import type { FormTemplate, FormValues } from '../template/schema';
 import { fillPdf } from './fillPdf';
 import { loadFontBytes } from './fonts';
 
-let fontCache: Promise<Uint8Array> | null = null;
+import type { FillFontBytes } from './fonts';
+
+let fontCache: Promise<FillFontBytes> | null = null;
 const getFont = () => (fontCache ??= loadFontBytes());
 
 export function useFilledPdf(

@@ -11,6 +11,8 @@ import type { Rect } from '../pdf/coords';
 import type { DateValue, Field, FormTemplate, FormValues } from '../template/schema';
 import { formatDateValue } from '../template/schema';
 import { isFieldVisible } from '../form/visibility';
+import type { FillFontBytes } from './fonts';
+import { FontSet, coverageFor } from './fontSet';
 import { centeredBaseline, fitSize, layoutMultiline } from './layout';
 
 export interface FillResult {
@@ -25,14 +27,18 @@ export async function fillPdf(
   originalBytes: Uint8Array,
   template: FormTemplate,
   values: FormValues,
-  fontBytes: Uint8Array
+  fontBytes: FillFontBytes
 ): Promise<FillResult> {
   const warnings: string[] = [];
   const doc = await PDFDocument.load(originalBytes, { updateMetadata: false });
   // fontkit 2 via shim: the @pdf-lib/fontkit fork corrupts Noto Sans KR
   // subset outlines (text extracts but doesn't render) — see fontkit2Shim.
   doc.registerFontkit(fontkitForPdfLib as never);
-  const font = await doc.embedFont(fontBytes, { subset: true });
+  const allFontBytes = [fontBytes.primary, ...fontBytes.fallbacks];
+  const embedded = await Promise.all(allFontBytes.map((b) => doc.embedFont(b, { subset: true })));
+  const font = new FontSet(
+    embedded.map((f, i) => ({ font: f, coverage: coverageFor(allFontBytes[i]) }))
+  );
 
   const pages = doc.getPages();
   if (pages.length !== template.pdf.pageCount) {
@@ -45,14 +51,14 @@ export async function fillPdf(
     }
   });
 
-  const canDrawCheckGlyph = (() => {
-    try {
-      font.encodeText(CHECK_MARK);
-      return true;
-    } catch {
-      return false;
+  const canDrawCheckGlyph = font.hasGlyph(CHECK_MARK.codePointAt(0)!);
+
+  const warnUnsupported = (fieldId: string, text: string) => {
+    const missing = font.unsupportedChars(text);
+    if (missing.length) {
+      warnings.push(`${fieldId}: character(s) not in the embedded fonts: ${missing.join(' ')}`);
     }
-  })();
+  };
 
   const drawTextInRect = (
     page: PDFPage,
@@ -62,6 +68,7 @@ export async function fillPdf(
     opts: { size: number; minSize: number; align: 'left' | 'center'; padX: number; nudge: number }
   ) => {
     if (text === '') return;
+    warnUnsupported(fieldId, text);
     const padX = Math.min(opts.padX, rect.w * 0.15); // tiny boxes keep usable width
     const maxWidth = rect.w - 2 * padX;
     const { size, fits } = fitSize(font, text, maxWidth, opts.size, opts.minSize);
@@ -69,7 +76,7 @@ export async function fillPdf(
     const width = font.widthOfTextAtSize(text, size);
     const x = opts.align === 'center' ? rect.x + (rect.w - width) / 2 : rect.x + padX;
     const y = centeredBaseline(font, rect, size, opts.nudge);
-    page.drawText(text, { x, y, size, font });
+    font.drawText(page, text, { x, y, size });
   };
 
   const drawCheck = (page: PDFPage, gap: Rect) => {
@@ -78,7 +85,7 @@ export async function fillPdf(
       const width = font.widthOfTextAtSize(CHECK_MARK, size);
       const x = gap.x + (gap.w - width) / 2;
       const y = centeredBaseline(font, gap, size);
-      page.drawText(CHECK_MARK, { x, y, size, font });
+      font.drawText(page, CHECK_MARK, { x, y, size });
     } else {
       // vector fallback: ✓ strokes inside the gap
       const x0 = gap.x + gap.w * 0.15;
@@ -112,6 +119,7 @@ export async function fillPdf(
       }
       case 'multiline': {
         if (typeof value !== 'string' || value.trim() === '') return;
+        warnUnsupported(field.id, value);
         const layout = layoutMultiline(font, value.trim(), field.rect, {
           size: field.font.size,
           minSize: field.font.minSize,
@@ -124,11 +132,10 @@ export async function fillPdf(
         }
         layout.lines.forEach((line, i) => {
           if (line === '') return;
-          page.drawText(line, {
+          font.drawText(page, line, {
             x: field.rect.x + 2,
             y: layout.baselines[i],
             size: layout.size,
-            font,
           });
         });
         break;

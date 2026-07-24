@@ -10,7 +10,9 @@ jest.mock('@/lib/korea-visa/fill/fillPdf', () => ({
   fillPdf: jest.fn().mockImplementation(async () => ({ bytes: new Uint8Array([1]), warnings: [] })),
 }));
 jest.mock('@/lib/korea-visa/fill/fonts', () => ({
-  loadFontBytes: jest.fn().mockImplementation(async () => new Uint8Array([9])),
+  loadFontBytes: jest
+    .fn()
+    .mockImplementation(async () => ({ primary: new Uint8Array([9]), fallbacks: [] })),
 }));
 
 const pdfBytes = new Uint8Array([0]);
