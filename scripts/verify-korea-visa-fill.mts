@@ -3,7 +3,9 @@
  * golden sample data, then re-extract text with pdf.js and assert
  * (1) the document keeps its shape, (2) no overflow warnings,
  * (3) every text value actually landed in the PDF, (4) checkbox marks are
- * real check marks (U+2713), which the blank form contains zero of.
+ * real check marks (U+2713), which the blank form contains zero of,
+ * (5) Japanese shinjitai (戸込渋 — absent from Noto Sans KR) land via the
+ * Noto Sans JP fallback instead of drawing as tofu.
  * Also writes out/korea-visa-golden.pdf for a human visual pass.
  * Source of truth for stricter placement assertions:
  * /Users/ryan/WebstormProjects/PdfToFormToPdf/tests/unit/fill.roundtrip.test.ts
@@ -23,9 +25,19 @@ const check = (ok: boolean, label: string) => {
 };
 
 const original = new Uint8Array(readFileSync(join(root, 'public/samples/visa-application.pdf')));
-const fontBytes = new Uint8Array(readFileSync(join(root, 'public/fonts/NotoSansKR-Regular.ttf')));
+const fontBytes = {
+  primary: new Uint8Array(readFileSync(join(root, 'public/fonts/NotoSansKR-Regular.ttf'))),
+  fallbacks: [new Uint8Array(readFileSync(join(root, 'public/fonts/NotoSansJP-Regular.ttf')))],
+};
 
 const values = goldenValues(SAMPLE_TEMPLATE);
+// Shinjitai probe: 江 exists in Noto Sans KR, 戸込渋 only in Noto Sans JP —
+// a mixed KR/JP run through the first free-text field.
+const JP_PROBE = '江戸込渋';
+const probeField = SAMPLE_TEMPLATE.fields.find((f) => f.type === 'text' && !f.validation);
+if (!probeField) throw new Error('no free-text field for the shinjitai probe');
+values[probeField.id] = JP_PROBE;
+
 const { bytes: filled, warnings } = await fillPdf(original, SAMPLE_TEMPLATE, values, fontBytes);
 check(
   warnings.length === 0,
@@ -62,6 +74,9 @@ check(missing.length === 0, `every text value landed (missing: ${missing.join(',
 const countChecks = (t: string) => (t.match(/✓/g) ?? []).length;
 check(countChecks(before.text) === 0, 'blank form has no U+2713');
 check(countChecks(after.text) > 0, `filled form has real check marks (${countChecks(after.text)})`);
+
+check(!before.text.includes('戸'), 'blank form has no shinjitai');
+check(after.text.includes(JP_PROBE), `shinjitai landed via JP fallback (${JP_PROBE})`);
 
 mkdirSync(join(root, 'out'), { recursive: true });
 writeFileSync(join(root, 'out/korea-visa-golden.pdf'), filled);
