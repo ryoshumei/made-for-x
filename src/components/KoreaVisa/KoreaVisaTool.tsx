@@ -154,7 +154,11 @@ export function KoreaVisaTool() {
               the PDF — check your connection and edit a field to retry: {fillError}
             </div>
           )}
-          <div className="mb-4 flex flex-wrap items-center gap-2 text-sm" data-testid="toolbar">
+          {/* Sticky below the site header (h-16) so download/clear stay reachable while scrolling the long form. */}
+          <div
+            className="sticky top-16 z-30 -mx-4 mb-4 flex flex-wrap items-center gap-2 border-b border-neutral-200 bg-gray-50/95 px-4 py-2.5 text-sm backdrop-blur"
+            data-testid="toolbar"
+          >
             {s.downloadNoticeVisible && (
               <span
                 data-testid="download-notice"
@@ -217,7 +221,8 @@ export function KoreaVisaTool() {
                 onChange={s.setValue}
               />
             </div>
-            <div className="lg:sticky lg:top-6 lg:self-start">
+            {/* top clears the sticky header (64px) + toolbar (~45px) so the page tabs stay visible too. */}
+            <div className="lg:sticky lg:top-32 lg:self-start">
               <PdfPreview
                 bytes={filledBytes}
                 pageCount={s.template.pdf.pageCount}
