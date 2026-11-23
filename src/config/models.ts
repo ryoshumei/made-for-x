@@ -2,7 +2,7 @@
 // Supports environment variable overrides for flexibility
 
 // Default model fallback
-export const DEFAULT_MODEL = 'gpt-5-mini';
+export const DEFAULT_MODEL = 'gpt-6.1-terra';
 
 export const AI_MODELS = {
   // OpenAI Models - Core functionality
@@ -32,8 +32,8 @@ export function getModelForFeature(feature: keyof typeof AI_MODELS): string {
 
 // UI display constants
 export const UI_CONSTANTS = {
-  MODEL_DISPLAY_NAME: 'OpenAI GPT-5 Mini',
-  POWERED_BY_TEXT: 'powered by OpenAI GPT-5 Mini',
+  MODEL_DISPLAY_NAME: 'OpenAI GPT-6.1 Terra',
+  POWERED_BY_TEXT: 'powered by OpenAI GPT-6.1 Terra',
 } as const;
 
 // Mail Generator domain constants
